@@ -1,21 +1,39 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Auth } from './auth';
-export { OAuthCallbackCreateResponse, OAuthCallbackCreateParams, OAuthCallback } from './oauth-callback';
+export { AuthListResponse, Auth } from './auth';
+export {
+  EmailPasswordSigninResponse,
+  EmailPasswordSignupResponse,
+  EmailPasswordSigninParams,
+  EmailPasswordSignupParams,
+  EmailPassword,
+} from './email-password';
+export {
+  EmailSigninResponse,
+  EmailSignupResponse,
+  EmailVerifyResponse,
+  EmailSigninParams,
+  EmailSignupParams,
+  EmailVerifyParams,
+  Email,
+} from './email';
+export { OAuthCallbackResponse, OAuthCallbackParams, OAuth } from './oauth';
 export {
   PasswordCreateResponse,
   PasswordUpdateResponse,
   PasswordSigninResponse,
+  PasswordSignupResponse,
   PasswordCreateParams,
   PasswordUpdateParams,
   PasswordSigninParams,
+  PasswordSignupParams,
   Password,
 } from './password';
 export {
-  PhoneCreateResponse,
-  PhoneUpdateResponse,
-  PhoneCreateParams,
-  PhoneUpdateParams,
+  PhoneCompleteResponse,
+  PhoneStartResponse,
+  PhoneCompleteParams,
+  PhoneStartParams,
   Phone,
 } from './phone';
-export { Webauthn } from './webauthn/index';
+export { WebauthnMakeResponse, WebauthnMakeParams, Webauthn } from './webauthn/index';

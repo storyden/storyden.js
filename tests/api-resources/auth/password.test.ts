@@ -3,11 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const client = new Storyden({
-  storydenSession: 'My Storyden Session',
-  storydenWebauthnSession: 'My Storyden Webauthn Session',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource password', () => {
   test('create: only required params', async () => {
@@ -53,5 +49,20 @@ describe('resource password', () => {
 
   test('signin: required and optional params', async () => {
     const response = await client.auth.password.signin({ token: 'password', identifier: 'odin' });
+  });
+
+  test('signup: only required params', async () => {
+    const responsePromise = client.auth.password.signup({ token: 'password', identifier: 'odin' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('signup: required and optional params', async () => {
+    const response = await client.auth.password.signup({ token: 'password', identifier: 'odin' });
   });
 });

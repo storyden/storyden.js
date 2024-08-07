@@ -10,4 +10,5 @@ export {
   CollectionListParams,
   Collections,
 } from './collections';
-export { Items } from './items';
+export { NodeAddResponse, NodeRemoveResponse, Nodes } from './nodes';
+export { PostAddResponse, PostRemoveResponse, Posts } from './posts';

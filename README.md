@@ -25,12 +25,12 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Storyden from 'Storyden';
 
-const client = new Storyden({
-  storydenSession: process.env['STORYDEN_STORYDEN_SESSION'], // This is the default and can be omitted
-});
+const client = new Storyden();
 
 async function main() {
-  const versionRetrieveResponse = await client.version.retrieve();
+  const adminUpdateResponse = await client.admin.update();
+
+  console.log(adminUpdateResponse.accent_colour);
 }
 
 main();
@@ -44,12 +44,10 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Storyden from 'Storyden';
 
-const client = new Storyden({
-  storydenSession: process.env['STORYDEN_STORYDEN_SESSION'], // This is the default and can be omitted
-});
+const client = new Storyden();
 
 async function main() {
-  const versionRetrieveResponse: string = await client.version.retrieve();
+  const adminUpdateResponse: Storyden.AdminUpdateResponse = await client.admin.update();
 }
 
 main();
@@ -66,7 +64,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const versionRetrieveResponse = await client.version.retrieve().catch(async (err) => {
+  const adminUpdateResponse = await client.admin.update().catch(async (err) => {
     if (err instanceof Storyden.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -109,7 +107,7 @@ const client = new Storyden({
 });
 
 // Or, configure per-request:
-await client.version.retrieve({
+await client.admin.update({
   maxRetries: 5,
 });
 ```
@@ -126,7 +124,7 @@ const client = new Storyden({
 });
 
 // Override per-request:
-await client.version.retrieve({
+await client.admin.update({
   timeout: 5 * 1000,
 });
 ```
@@ -147,13 +145,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Storyden();
 
-const response = await client.version.retrieve().asResponse();
+const response = await client.admin.update().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: versionRetrieveResponse, response: raw } = await client.version.retrieve().withResponse();
+const { data: adminUpdateResponse, response: raw } = await client.admin.update().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(versionRetrieveResponse);
+console.log(adminUpdateResponse.accent_colour);
 ```
 
 ### Making custom/undocumented requests
@@ -257,7 +255,7 @@ const client = new Storyden({
 });
 
 // Override per-request:
-await client.version.retrieve({
+await client.admin.update({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```

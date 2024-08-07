@@ -9,6 +9,13 @@ export class Categories extends APIResource {
   /**
    * Create a category for organising posts.
    */
+  create(body: CategoryCreateParams, options?: Core.RequestOptions): Core.APIPromise<CategoryCreateResponse> {
+    return this._client.post('/v1/categories', { body, ...options });
+  }
+
+  /**
+   * Create a category for organising posts.
+   */
   update(
     categoryId: string,
     body?: CategoryUpdateParams,
@@ -32,16 +39,58 @@ export class Categories extends APIResource {
   list(options?: Core.RequestOptions): Core.APIPromise<CategoryListResponse> {
     return this._client.get('/v1/categories', options);
   }
+}
+
+export interface CategoryCreateResponse {
+  /**
+   * A unique identifier for this resource.
+   */
+  id: string;
+
+  admin: boolean;
+
+  colour: string;
 
   /**
-   * Update the sort order of categories.
+   * The time the resource was created.
    */
-  updateOrder(
-    body: CategoryUpdateOrderParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CategoryUpdateOrderResponse> {
-    return this._client.patch('/v1/categories', { body, ...options });
-  }
+  createdAt: string;
+
+  description: string;
+
+  /**
+   * A category's user-facing name.
+   */
+  name: string;
+
+  postCount: number;
+
+  /**
+   * A category's URL-safe slug.
+   */
+  slug: string;
+
+  sort: number;
+
+  /**
+   * The time the resource was updated.
+   */
+  updatedAt: string;
+
+  /**
+   * The time the resource was soft-deleted.
+   */
+  deletedAt?: string;
+
+  /**
+   * Arbitrary metadata for the resource.
+   */
+  meta?: Record<string, unknown>;
+
+  /**
+   * Arbitrary extra data stored with the resource.
+   */
+  misc?: unknown;
 }
 
 export interface CategoryUpdateResponse {
@@ -154,62 +203,27 @@ export namespace CategoryListResponse {
   }
 }
 
-export interface CategoryUpdateOrderResponse {
-  categories: Array<CategoryUpdateOrderResponse.Category>;
-}
+export interface CategoryCreateParams {
+  admin: boolean;
 
-export namespace CategoryUpdateOrderResponse {
-  export interface Category {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
+  colour: string;
 
-    admin: boolean;
+  description: string;
 
-    colour: string;
+  /**
+   * A category's user-facing name.
+   */
+  name: string;
 
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
+  /**
+   * Arbitrary metadata for the resource.
+   */
+  meta?: Record<string, unknown>;
 
-    description: string;
-
-    /**
-     * A category's user-facing name.
-     */
-    name: string;
-
-    postCount: number;
-
-    /**
-     * A category's URL-safe slug.
-     */
-    slug: string;
-
-    sort: number;
-
-    /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
-     * Arbitrary metadata for the resource.
-     */
-    meta?: Record<string, unknown>;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
-  }
+  /**
+   * A category's URL-safe slug.
+   */
+  slug?: string;
 }
 
 export interface CategoryUpdateParams {
@@ -235,12 +249,10 @@ export interface CategoryUpdateParams {
   slug?: string;
 }
 
-export type CategoryUpdateOrderParams = Array<string>;
-
 export namespace Categories {
+  export import CategoryCreateResponse = CategoriesAPI.CategoryCreateResponse;
   export import CategoryUpdateResponse = CategoriesAPI.CategoryUpdateResponse;
   export import CategoryListResponse = CategoriesAPI.CategoryListResponse;
-  export import CategoryUpdateOrderResponse = CategoriesAPI.CategoryUpdateOrderResponse;
+  export import CategoryCreateParams = CategoriesAPI.CategoryCreateParams;
   export import CategoryUpdateParams = CategoriesAPI.CategoryUpdateParams;
-  export import CategoryUpdateOrderParams = CategoriesAPI.CategoryUpdateOrderParams;
 }

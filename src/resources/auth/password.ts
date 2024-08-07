@@ -27,6 +27,13 @@ export class Password extends APIResource {
   signin(body: PasswordSigninParams, options?: Core.RequestOptions): Core.APIPromise<PasswordSigninResponse> {
     return this._client.post('/v1/auth/password/signin', { body, ...options });
   }
+
+  /**
+   * Register a new account with a username and password.
+   */
+  signup(body: PasswordSignupParams, options?: Core.RequestOptions): Core.APIPromise<PasswordSignupResponse> {
+    return this._client.post('/v1/auth/password/signup', { body, ...options });
+  }
 }
 
 export interface PasswordCreateResponse {
@@ -38,6 +45,10 @@ export interface PasswordUpdateResponse {
 }
 
 export interface PasswordSigninResponse {
+  id: string;
+}
+
+export interface PasswordSignupResponse {
   id: string;
 }
 
@@ -57,11 +68,19 @@ export interface PasswordSigninParams {
   identifier: string;
 }
 
+export interface PasswordSignupParams {
+  token: string;
+
+  identifier: string;
+}
+
 export namespace Password {
   export import PasswordCreateResponse = PasswordAPI.PasswordCreateResponse;
   export import PasswordUpdateResponse = PasswordAPI.PasswordUpdateResponse;
   export import PasswordSigninResponse = PasswordAPI.PasswordSigninResponse;
+  export import PasswordSignupResponse = PasswordAPI.PasswordSignupResponse;
   export import PasswordCreateParams = PasswordAPI.PasswordCreateParams;
   export import PasswordUpdateParams = PasswordAPI.PasswordUpdateParams;
   export import PasswordSigninParams = PasswordAPI.PasswordSigninParams;
+  export import PasswordSignupParams = PasswordAPI.PasswordSignupParams;
 }

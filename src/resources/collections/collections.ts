@@ -4,10 +4,12 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as CollectionsAPI from './collections';
-import * as ItemsAPI from './items';
+import * as NodesAPI from './nodes';
+import * as PostsAPI from './posts';
 
 export class Collections extends APIResource {
-  items: ItemsAPI.Items = new ItemsAPI.Items(this._client);
+  posts: PostsAPI.Posts = new PostsAPI.Posts(this._client);
+  nodes: NodesAPI.Nodes = new NodesAPI.Nodes(this._client);
 
   /**
    * Create a collection for curating posts under the authenticated account.
@@ -61,6 +63,16 @@ export class Collections extends APIResource {
       return this.list({}, query);
     }
     return this._client.get('/v1/collections', { query, ...options });
+  }
+
+  /**
+   * Delete a collection owned by the authenticated account.
+   */
+  delete(collectionId: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.delete(`/v1/collections/${collectionId}`, {
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+    });
   }
 }
 
@@ -356,5 +368,10 @@ export namespace Collections {
   export import CollectionCreateParams = CollectionsAPI.CollectionCreateParams;
   export import CollectionUpdateParams = CollectionsAPI.CollectionUpdateParams;
   export import CollectionListParams = CollectionsAPI.CollectionListParams;
-  export import Items = ItemsAPI.Items;
+  export import Posts = PostsAPI.Posts;
+  export import PostAddResponse = PostsAPI.PostAddResponse;
+  export import PostRemoveResponse = PostsAPI.PostRemoveResponse;
+  export import Nodes = NodesAPI.Nodes;
+  export import NodeAddResponse = NodesAPI.NodeAddResponse;
+  export import NodeRemoveResponse = NodesAPI.NodeRemoveResponse;
 }
