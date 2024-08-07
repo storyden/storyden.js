@@ -9,16 +9,6 @@ import * as API from './resources/index';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['STORYDEN_STORYDEN_SESSION'].
-   */
-  storydenSession?: string | undefined;
-
-  /**
-   * Defaults to process.env['STORYDEN_STORYDEN_WEBAUTHN_SESSION'].
-   */
-  storydenWebauthnSession?: string | undefined;
-
-  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['STORYDEN_BASE_URL'].
@@ -79,16 +69,11 @@ export interface ClientOptions {
  * API Client for interfacing with the Storyden API.
  */
 export class Storyden extends Core.APIClient {
-  storydenSession: string;
-  storydenWebauthnSession: string;
-
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Storyden API.
    *
-   * @param {string | undefined} [opts.storydenSession=process.env['STORYDEN_STORYDEN_SESSION'] ?? undefined]
-   * @param {string | undefined} [opts.storydenWebauthnSession=process.env['STORYDEN_STORYDEN_WEBAUTHN_SESSION'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['STORYDEN_BASE_URL'] ?? /api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -97,26 +82,8 @@ export class Storyden extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({
-    baseURL = Core.readEnv('STORYDEN_BASE_URL'),
-    storydenSession = Core.readEnv('STORYDEN_STORYDEN_SESSION'),
-    storydenWebauthnSession = Core.readEnv('STORYDEN_STORYDEN_WEBAUTHN_SESSION'),
-    ...opts
-  }: ClientOptions = {}) {
-    if (storydenSession === undefined) {
-      throw new Errors.StorydenError(
-        "The STORYDEN_STORYDEN_SESSION environment variable is missing or empty; either provide it, or instantiate the Storyden client with an storydenSession option, like new Storyden({ storydenSession: 'My Storyden Session' }).",
-      );
-    }
-    if (storydenWebauthnSession === undefined) {
-      throw new Errors.StorydenError(
-        "The STORYDEN_STORYDEN_WEBAUTHN_SESSION environment variable is missing or empty; either provide it, or instantiate the Storyden client with an storydenWebauthnSession option, like new Storyden({ storydenWebauthnSession: 'My Storyden Webauthn Session' }).",
-      );
-    }
-
+  constructor({ baseURL = Core.readEnv('STORYDEN_BASE_URL'), ...opts }: ClientOptions = {}) {
     const options: ClientOptions = {
-      storydenSession,
-      storydenWebauthnSession,
       ...opts,
       baseURL: baseURL || `/api`,
     };
@@ -130,22 +97,19 @@ export class Storyden extends Core.APIClient {
     });
 
     this._options = options;
-
-    this.storydenSession = storydenSession;
-    this.storydenWebauthnSession = storydenWebauthnSession;
   }
 
-  version: API.Version = new API.Version(this);
-  openAPIJson: API.OpenAPIJson = new API.OpenAPIJson(this);
-  v1: API.V1 = new API.V1(this);
+  misc: API.Misc = new API.Misc(this);
+  admin: API.Admin = new API.Admin(this);
   auth: API.Auth = new API.Auth(this);
+  accounts: API.Accounts = new API.Accounts(this);
+  profiles: API.Profiles = new API.Profiles(this);
   categories: API.Categories = new API.Categories(this);
   threads: API.Threads = new API.Threads(this);
   posts: API.Posts = new API.Posts(this);
   assets: API.Assets = new API.Assets(this);
   collections: API.Collections = new API.Collections(this);
-  clusters: API.Clusters = new API.Clusters(this);
-  items: API.Items = new API.Items(this);
+  nodes: API.Nodes = new API.Nodes(this);
   links: API.Links = new API.Links(this);
   datagraph: API.Datagraph = new API.Datagraph(this);
 
@@ -158,24 +122,6 @@ export class Storyden extends Core.APIClient {
       ...super.defaultHeaders(opts),
       ...this._options.defaultHeaders,
     };
-  }
-
-  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    const browserAuth = this.browserAuth(opts);
-    const webauthnAuth = this.webauthnAuth(opts);
-
-    if (browserAuth != null && !Core.isEmptyObj(browserAuth)) {
-      return browserAuth;
-    }
-    return {};
-  }
-
-  protected browserAuth(opts: Core.FinalRequestOptions): Core.Headers {
-    return { 'storyden-session': this.storydenSession };
-  }
-
-  protected webauthnAuth(opts: Core.FinalRequestOptions): Core.Headers {
-    return { 'storyden-webauthn-session': this.storydenWebauthnSession };
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {
@@ -225,38 +171,45 @@ export import fileFromPath = Uploads.fileFromPath;
 export namespace Storyden {
   export import RequestOptions = Core.RequestOptions;
 
-  export import Version = API.Version;
-  export import VersionRetrieveResponse = API.VersionRetrieveResponse;
+  export import Misc = API.Misc;
 
-  export import OpenAPIJson = API.OpenAPIJson;
-  export import OpenAPIJsonRetrieveResponse = API.OpenAPIJsonRetrieveResponse;
-
-  export import V1 = API.V1;
+  export import Admin = API.Admin;
+  export import AdminUpdateResponse = API.AdminUpdateResponse;
+  export import AdminUpdateParams = API.AdminUpdateParams;
 
   export import Auth = API.Auth;
+  export import AuthListResponse = API.AuthListResponse;
+
+  export import Accounts = API.Accounts;
+  export import AccountUpdateResponse = API.AccountUpdateResponse;
+  export import AccountListResponse = API.AccountListResponse;
+  export import AccountUpdateParams = API.AccountUpdateParams;
+
+  export import Profiles = API.Profiles;
+  export import ProfileRetrieveResponse = API.ProfileRetrieveResponse;
+  export import ProfileListResponse = API.ProfileListResponse;
+  export import ProfileListParams = API.ProfileListParams;
 
   export import Categories = API.Categories;
+  export import CategoryCreateResponse = API.CategoryCreateResponse;
   export import CategoryUpdateResponse = API.CategoryUpdateResponse;
   export import CategoryListResponse = API.CategoryListResponse;
-  export import CategoryUpdateOrderResponse = API.CategoryUpdateOrderResponse;
+  export import CategoryCreateParams = API.CategoryCreateParams;
   export import CategoryUpdateParams = API.CategoryUpdateParams;
-  export import CategoryUpdateOrderParams = API.CategoryUpdateOrderParams;
 
   export import Threads = API.Threads;
   export import ThreadCreateResponse = API.ThreadCreateResponse;
+  export import ThreadRetrieveResponse = API.ThreadRetrieveResponse;
+  export import ThreadUpdateResponse = API.ThreadUpdateResponse;
   export import ThreadListResponse = API.ThreadListResponse;
-  export import ThreadPublishChangesResponse = API.ThreadPublishChangesResponse;
-  export import ThreadRetrieveInformationResponse = API.ThreadRetrieveInformationResponse;
   export import ThreadCreateParams = API.ThreadCreateParams;
+  export import ThreadUpdateParams = API.ThreadUpdateParams;
   export import ThreadListParams = API.ThreadListParams;
-  export import ThreadPublishChangesParams = API.ThreadPublishChangesParams;
 
   export import Posts = API.Posts;
   export import PostUpdateResponse = API.PostUpdateResponse;
-  export import PostReactsResponse = API.PostReactsResponse;
   export import PostSearchResponse = API.PostSearchResponse;
   export import PostUpdateParams = API.PostUpdateParams;
-  export import PostReactsParams = API.PostReactsParams;
   export import PostSearchParams = API.PostSearchParams;
 
   export import Assets = API.Assets;
@@ -272,9 +225,16 @@ export namespace Storyden {
   export import CollectionUpdateParams = API.CollectionUpdateParams;
   export import CollectionListParams = API.CollectionListParams;
 
-  export import Clusters = API.Clusters;
-
-  export import Items = API.Items;
+  export import Nodes = API.Nodes;
+  export import NodeCreateResponse = API.NodeCreateResponse;
+  export import NodeRetrieveResponse = API.NodeRetrieveResponse;
+  export import NodeUpdateResponse = API.NodeUpdateResponse;
+  export import NodeListResponse = API.NodeListResponse;
+  export import NodeDeleteResponse = API.NodeDeleteResponse;
+  export import NodeCreateParams = API.NodeCreateParams;
+  export import NodeUpdateParams = API.NodeUpdateParams;
+  export import NodeListParams = API.NodeListParams;
+  export import NodeDeleteParams = API.NodeDeleteParams;
 
   export import Links = API.Links;
   export import LinkCreateResponse = API.LinkCreateResponse;

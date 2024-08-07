@@ -23,8 +23,6 @@ describe('instantiate client', () => {
     const client = new Storyden({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
     });
 
     test('they are used in the request', () => {
@@ -53,12 +51,7 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new Storyden({
-        baseURL: 'http://localhost:5000/',
-        defaultQuery: { apiVersion: 'foo' },
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({ baseURL: 'http://localhost:5000/', defaultQuery: { apiVersion: 'foo' } });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
 
@@ -66,19 +59,12 @@ describe('instantiate client', () => {
       const client = new Storyden({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
 
     test('overriding with `undefined`', () => {
-      const client = new Storyden({
-        baseURL: 'http://localhost:5000/',
-        defaultQuery: { hello: 'world' },
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({ baseURL: 'http://localhost:5000/', defaultQuery: { hello: 'world' } });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
   });
@@ -86,8 +72,6 @@ describe('instantiate client', () => {
   test('custom fetch', async () => {
     const client = new Storyden({
       baseURL: 'http://localhost:5000/',
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -104,8 +88,6 @@ describe('instantiate client', () => {
   test('custom signal', async () => {
     const client = new Storyden({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -130,20 +112,12 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new Storyden({
-        baseURL: 'http://localhost:5000/custom/path/',
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({ baseURL: 'http://localhost:5000/custom/path/' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     test('no trailing slash', () => {
-      const client = new Storyden({
-        baseURL: 'http://localhost:5000/custom/path',
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({ baseURL: 'http://localhost:5000/custom/path' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
@@ -152,85 +126,41 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new Storyden({
-        baseURL: 'https://example.com',
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({ baseURL: 'https://example.com' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['STORYDEN_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Storyden({
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({});
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['STORYDEN_BASE_URL'] = ''; // empty
-      const client = new Storyden({
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({});
       expect(client.baseURL).toEqual('/api');
     });
 
     test('blank env variable', () => {
       process.env['STORYDEN_BASE_URL'] = '  '; // blank
-      const client = new Storyden({
-        storydenSession: 'My Storyden Session',
-        storydenWebauthnSession: 'My Storyden Webauthn Session',
-      });
+      const client = new Storyden({});
       expect(client.baseURL).toEqual('/api');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Storyden({
-      maxRetries: 4,
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
-    });
+    const client = new Storyden({ maxRetries: 4 });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Storyden({
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
-    });
+    const client2 = new Storyden({});
     expect(client2.maxRetries).toEqual(2);
-  });
-
-  test('with environment variable arguments', () => {
-    // set options via env var
-    process.env['STORYDEN_STORYDEN_SESSION'] = 'My Storyden Session';
-    process.env['STORYDEN_STORYDEN_WEBAUTHN_SESSION'] = 'My Storyden Webauthn Session';
-    const client = new Storyden();
-    expect(client.storydenSession).toBe('My Storyden Session');
-    expect(client.storydenWebauthnSession).toBe('My Storyden Webauthn Session');
-  });
-
-  test('with overriden environment variable arguments', () => {
-    // set options via env var
-    process.env['STORYDEN_STORYDEN_SESSION'] = 'another My Storyden Session';
-    process.env['STORYDEN_STORYDEN_WEBAUTHN_SESSION'] = 'another My Storyden Webauthn Session';
-    const client = new Storyden({
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
-    });
-    expect(client.storydenSession).toBe('My Storyden Session');
-    expect(client.storydenWebauthnSession).toBe('My Storyden Webauthn Session');
   });
 });
 
 describe('request building', () => {
-  const client = new Storyden({
-    storydenSession: 'My Storyden Session',
-    storydenWebauthnSession: 'My Storyden Webauthn Session',
-  });
+  const client = new Storyden({});
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -272,12 +202,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Storyden({
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
-      timeout: 10,
-      fetch: testFetch,
-    });
+    const client = new Storyden({ timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -304,11 +229,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Storyden({
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
-      fetch: testFetch,
-    });
+    const client = new Storyden({ fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -335,11 +256,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Storyden({
-      storydenSession: 'My Storyden Session',
-      storydenWebauthnSession: 'My Storyden Webauthn Session',
-      fetch: testFetch,
-    });
+    const client = new Storyden({ fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);

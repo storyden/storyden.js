@@ -3,11 +3,11 @@
 export { PostCreateResponse, PostCreateParams, Posts } from './posts';
 export {
   ThreadCreateResponse,
+  ThreadRetrieveResponse,
+  ThreadUpdateResponse,
   ThreadListResponse,
-  ThreadPublishChangesResponse,
-  ThreadRetrieveInformationResponse,
   ThreadCreateParams,
+  ThreadUpdateParams,
   ThreadListParams,
-  ThreadPublishChangesParams,
   Threads,
 } from './threads';
