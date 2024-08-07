@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as PhoneAPI from 'Storyden/resources/auth/phone';
+import { APIResource } from '../../resource';
+import * as Core from '../../core';
+import * as PhoneAPI from './phone';
 
 export class Phone extends APIResource {
   /**

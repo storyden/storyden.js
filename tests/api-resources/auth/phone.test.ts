@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,10 @@ const storyden = new Storyden({
 
 describe('resource phone', () => {
   test('create: only required params', async () => {
-    const responsePromise = storyden.auth.phone.create({ identifier: 'southclaws', phone_number: 'string' });
+    const responsePromise = client.auth.phone.create({
+      identifier: 'southclaws',
+      phone_number: 'phone_number',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,11 +25,14 @@ describe('resource phone', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await storyden.auth.phone.create({ identifier: 'southclaws', phone_number: 'string' });
+    const response = await client.auth.phone.create({
+      identifier: 'southclaws',
+      phone_number: 'phone_number',
+    });
   });
 
   test('update: only required params', async () => {
-    const responsePromise = storyden.auth.phone.update('southclaws', { code: 'string' });
+    const responsePromise = client.auth.phone.update('southclaws', { code: 'code' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -37,6 +43,6 @@ describe('resource phone', () => {
   });
 
   test('update: required and optional params', async () => {
-    const response = await storyden.auth.phone.update('southclaws', { code: 'string' });
+    const response = await client.auth.phone.update('southclaws', { code: 'code' });
   });
 });

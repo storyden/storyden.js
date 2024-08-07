@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,8 +11,8 @@ const storyden = new Storyden({
 
 describe('resource threads', () => {
   test('create: only required params', async () => {
-    const responsePromise = storyden.threads.create({
-      body: 'string',
+    const responsePromise = client.threads.create({
+      body: 'body',
       category: 'cc5lnd2s1s4652adtu50',
       title: 'Hello world!',
       visibility: 'draft',
@@ -27,19 +27,19 @@ describe('resource threads', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await storyden.threads.create({
-      body: 'string',
+    const response = await client.threads.create({
+      body: 'body',
       category: 'cc5lnd2s1s4652adtu50',
       title: 'Hello world!',
       visibility: 'draft',
       meta: { foo: 'bar' },
       tags: ['cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50'],
-      url: 'string',
+      url: 'url',
     });
   });
 
   test('list', async () => {
-    const responsePromise = storyden.threads.list();
+    const responsePromise = client.threads.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -51,7 +51,7 @@ describe('resource threads', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.threads.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.threads.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
@@ -59,12 +59,12 @@ describe('resource threads', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.threads.list(
+      client.threads.list(
         {
           author: 'Southclaws',
           categories: ['string', 'string', 'string'],
-          page: 'string',
-          q: 'string',
+          page: 'page',
+          q: 'q',
           tags: ['cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50'],
         },
         { path: '/_stainless_unknown_path' },
@@ -73,7 +73,7 @@ describe('resource threads', () => {
   });
 
   test('archive', async () => {
-    const responsePromise = storyden.threads.archive('cc5lnd2s1s4652adtu50-top-10-movies-thread');
+    const responsePromise = client.threads.archive('cc5lnd2s1s4652adtu50-top-10-movies-thread');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -86,14 +86,14 @@ describe('resource threads', () => {
   test('archive: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.threads.archive('cc5lnd2s1s4652adtu50-top-10-movies-thread', {
+      client.threads.archive('cc5lnd2s1s4652adtu50-top-10-movies-thread', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   test('publishChanges', async () => {
-    const responsePromise = storyden.threads.publishChanges('cc5lnd2s1s4652adtu50-top-10-movies-thread');
+    const responsePromise = client.threads.publishChanges('cc5lnd2s1s4652adtu50-top-10-movies-thread');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -106,7 +106,7 @@ describe('resource threads', () => {
   test('publishChanges: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.threads.publishChanges('cc5lnd2s1s4652adtu50-top-10-movies-thread', {
+      client.threads.publishChanges('cc5lnd2s1s4652adtu50-top-10-movies-thread', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Storyden.NotFoundError);
@@ -115,15 +115,15 @@ describe('resource threads', () => {
   test('publishChanges: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.threads.publishChanges(
+      client.threads.publishChanges(
         'cc5lnd2s1s4652adtu50-top-10-movies-thread',
         {
-          body: 'string',
+          body: 'body',
           category: 'cc5lnd2s1s4652adtu50',
           meta: { foo: 'bar' },
           tags: ['cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50'],
           title: 'Hello world!',
-          url: 'string',
+          url: 'url',
           visibility: 'draft',
         },
         { path: '/_stainless_unknown_path' },
@@ -132,7 +132,7 @@ describe('resource threads', () => {
   });
 
   test('retrieveInformation', async () => {
-    const responsePromise = storyden.threads.retrieveInformation('cc5lnd2s1s4652adtu50-top-10-movies-thread');
+    const responsePromise = client.threads.retrieveInformation('cc5lnd2s1s4652adtu50-top-10-movies-thread');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -145,7 +145,7 @@ describe('resource threads', () => {
   test('retrieveInformation: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.threads.retrieveInformation('cc5lnd2s1s4652adtu50-top-10-movies-thread', {
+      client.threads.retrieveInformation('cc5lnd2s1s4652adtu50-top-10-movies-thread', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Storyden.NotFoundError);

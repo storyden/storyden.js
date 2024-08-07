@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as OpenapiJsonAPI from 'Storyden/resources/openapi-json';
+import { APIResource } from '../resource';
+import * as Core from '../core';
+import * as OpenAPIJsonAPI from './openapi-json';
 
-export class OpenapiJson extends APIResource {
+export class OpenAPIJson extends APIResource {
   /**
    * Note: the generator creates a `map[string]interface{}` if this is set to
    * `application/json`... so I'm just using plain text for now.
@@ -17,8 +17,8 @@ export class OpenapiJson extends APIResource {
   }
 }
 
-export type OpenapiJsonRetrieveResponse = string;
+export type OpenAPIJsonRetrieveResponse = string;
 
-export namespace OpenapiJson {
-  export import OpenapiJsonRetrieveResponse = OpenapiJsonAPI.OpenapiJsonRetrieveResponse;
+export namespace OpenAPIJson {
+  export import OpenAPIJsonRetrieveResponse = OpenAPIJsonAPI.OpenAPIJsonRetrieveResponse;
 }

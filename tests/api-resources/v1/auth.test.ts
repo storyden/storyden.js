@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const storyden = new Storyden({
 
 describe('resource auth', () => {
   test('list', async () => {
-    const responsePromise = storyden.v1.auth.list();
+    const responsePromise = client.v1.auth.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,13 +23,13 @@ describe('resource auth', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.v1.auth.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.v1.auth.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
 
   test('logout', async () => {
-    const responsePromise = storyden.v1.auth.logout();
+    const responsePromise = client.v1.auth.logout();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,13 +41,13 @@ describe('resource auth', () => {
 
   test('logout: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.v1.auth.logout({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.v1.auth.logout({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
 
   test('passwordSignup: only required params', async () => {
-    const responsePromise = storyden.v1.auth.passwordSignup({ token: 'password', identifier: 'odin' });
+    const responsePromise = client.v1.auth.passwordSignup({ token: 'password', identifier: 'odin' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -58,6 +58,6 @@ describe('resource auth', () => {
   });
 
   test('passwordSignup: required and optional params', async () => {
-    const response = await storyden.v1.auth.passwordSignup({ token: 'password', identifier: 'odin' });
+    const response = await client.v1.auth.passwordSignup({ token: 'password', identifier: 'odin' });
   });
 });

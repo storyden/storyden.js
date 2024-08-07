@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as InfoAPI from 'Storyden/resources/v1/info/info';
-import * as IconAPI from 'Storyden/resources/v1/info/icon';
+import { APIResource } from '../../../resource';
+import * as Core from '../../../core';
+import * as InfoAPI from './info';
+import * as IconAPI from './icon';
 
 export class Info extends APIResource {
   icon: IconAPI.Icon = new IconAPI.Icon(this._client);

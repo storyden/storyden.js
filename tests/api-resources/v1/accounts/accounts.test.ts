@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const storyden = new Storyden({
 
 describe('resource accounts', () => {
   test('retrieve', async () => {
-    const responsePromise = storyden.v1.accounts.retrieve();
+    const responsePromise = client.v1.accounts.retrieve();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,13 +23,13 @@ describe('resource accounts', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.v1.accounts.retrieve({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.v1.accounts.retrieve({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
 
   test('update', async () => {
-    const responsePromise = storyden.v1.accounts.update();
+    const responsePromise = client.v1.accounts.update();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,7 +41,7 @@ describe('resource accounts', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.v1.accounts.update({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.v1.accounts.update({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
@@ -49,11 +49,17 @@ describe('resource accounts', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.v1.accounts.update(
+      client.v1.accounts.update(
         {
-          bio: 'string',
+          bio: '<body><p>hi, my name is</p><p>southclaws</p></body>',
           handle: 'Southclaws',
           interests: ['cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50'],
+          links: [
+            { text: 'text', url: 'url' },
+            { text: 'text', url: 'url' },
+            { text: 'text', url: 'url' },
+          ],
+          meta: { foo: 'bar' },
           name: 'Barnaby Keene',
         },
         { path: '/_stainless_unknown_path' },

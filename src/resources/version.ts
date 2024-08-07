@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as VersionAPI from 'Storyden/resources/version';
+import { APIResource } from '../resource';
+import * as Core from '../core';
+import * as VersionAPI from './version';
 
 export class Version extends APIResource {
   /**

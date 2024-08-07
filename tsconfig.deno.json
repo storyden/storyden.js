@@ -9,7 +9,6 @@
       "Storyden/_shims/auto/*": ["deno/_shims/auto/*-deno"],
       "Storyden/*": ["deno/*"],
       "Storyden": ["deno/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
     "declaration": true,

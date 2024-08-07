@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,10 +11,7 @@ const storyden = new Storyden({
 
 describe('resource oauthCallback', () => {
   test('create: only required params', async () => {
-    const responsePromise = storyden.auth.oauthCallback.create('twitter', {
-      code: 'string',
-      state: 'string',
-    });
+    const responsePromise = client.auth.oauthCallback.create('twitter', { code: 'code', state: 'state' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,6 +22,6 @@ describe('resource oauthCallback', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await storyden.auth.oauthCallback.create('twitter', { code: 'string', state: 'string' });
+    const response = await client.auth.oauthCallback.create('twitter', { code: 'code', state: 'state' });
   });
 });

@@ -8,15 +8,15 @@ Methods:
 
 - <code title="get /version">client.version.<a href="./src/resources/version.ts">retrieve</a>() -> string</code>
 
-# OpenapiJson
+# OpenAPIJson
 
 Types:
 
-- <code><a href="./src/resources/openapi-json.ts">OpenapiJsonRetrieveResponse</a></code>
+- <code><a href="./src/resources/openapi-json.ts">OpenAPIJsonRetrieveResponse</a></code>
 
 Methods:
 
-- <code title="get /openapi.json">client.openapiJson.<a href="./src/resources/openapi-json.ts">retrieve</a>() -> string</code>
+- <code title="get /openapi.json">client.openAPIJson.<a href="./src/resources/openapi-json.ts">retrieve</a>() -> string</code>
 
 # V1
 
@@ -270,104 +270,21 @@ Methods:
 - <code title="post /v1/collections">client.collections.<a href="./src/resources/collections/collections.ts">create</a>({ ...params }) -> CollectionCreateResponse</code>
 - <code title="get /v1/collections/{collection_id}">client.collections.<a href="./src/resources/collections/collections.ts">retrieve</a>(collectionId) -> CollectionRetrieveResponse</code>
 - <code title="patch /v1/collections/{collection_id}">client.collections.<a href="./src/resources/collections/collections.ts">update</a>(collectionId, { ...params }) -> CollectionUpdateResponse</code>
-- <code title="get /v1/collections">client.collections.<a href="./src/resources/collections/collections.ts">list</a>() -> CollectionListResponse</code>
+- <code title="get /v1/collections">client.collections.<a href="./src/resources/collections/collections.ts">list</a>({ ...params }) -> CollectionListResponse</code>
 
 ## Items
-
-Types:
-
-- <code><a href="./src/resources/collections/items.ts">ItemRemoveResponse</a></code>
-
-Methods:
-
-- <code title="delete /v1/collections/{collection_id}/items/{post_id}">client.collections.items.<a href="./src/resources/collections/items.ts">remove</a>(collectionId, postId) -> ItemRemoveResponse</code>
 
 # Clusters
 
-Types:
-
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterCreateResponse</a></code>
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterRetrieveResponse</a></code>
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterUpdateResponse</a></code>
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterListResponse</a></code>
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterRemoveResponse</a></code>
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterVisibilityUpdateResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/clusters">client.clusters.<a href="./src/resources/clusters/clusters.ts">create</a>({ ...params }) -> ClusterCreateResponse</code>
-- <code title="get /v1/clusters/{cluster_slug}">client.clusters.<a href="./src/resources/clusters/clusters.ts">retrieve</a>(clusterSlug) -> ClusterRetrieveResponse</code>
-- <code title="patch /v1/clusters/{cluster_slug}">client.clusters.<a href="./src/resources/clusters/clusters.ts">update</a>(clusterSlug, { ...params }) -> ClusterUpdateResponse</code>
-- <code title="get /v1/clusters">client.clusters.<a href="./src/resources/clusters/clusters.ts">list</a>({ ...params }) -> ClusterListResponse</code>
-- <code title="delete /v1/clusters/{cluster_slug}">client.clusters.<a href="./src/resources/clusters/clusters.ts">remove</a>(clusterSlug, { ...params }) -> ClusterRemoveResponse</code>
-- <code title="patch /v1/clusters/{cluster_slug}/visibility">client.clusters.<a href="./src/resources/clusters/clusters.ts">visibilityUpdate</a>(clusterSlug, { ...params }) -> ClusterVisibilityUpdateResponse</code>
-
 ## Assets
-
-Types:
-
-- <code><a href="./src/resources/clusters/assets.ts">AssetAddResponse</a></code>
-- <code><a href="./src/resources/clusters/assets.ts">AssetRemoveResponse</a></code>
-
-Methods:
-
-- <code title="put /v1/clusters/{cluster_slug}/assets/{asset_id}">client.clusters.assets.<a href="./src/resources/clusters/assets.ts">add</a>(clusterSlug, assetId) -> AssetAddResponse</code>
-- <code title="delete /v1/clusters/{cluster_slug}/assets/{asset_id}">client.clusters.assets.<a href="./src/resources/clusters/assets.ts">remove</a>(clusterSlug, assetId) -> AssetRemoveResponse</code>
 
 ## Clusters
 
-Types:
-
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterRemoveResponse</a></code>
-- <code><a href="./src/resources/clusters/clusters.ts">ClusterSetParentResponse</a></code>
-
-Methods:
-
-- <code title="delete /v1/clusters/{cluster_slug}/clusters/{cluster_slug_child}">client.clusters.clusters.<a href="./src/resources/clusters/clusters.ts">remove</a>(clusterSlug, clusterSlugChild) -> ClusterRemoveResponse</code>
-- <code title="put /v1/clusters/{cluster_slug}/clusters/{cluster_slug_child}">client.clusters.clusters.<a href="./src/resources/clusters/clusters.ts">setParent</a>(clusterSlug, clusterSlugChild) -> ClusterSetParentResponse</code>
-
 ## Items
-
-Types:
-
-- <code><a href="./src/resources/clusters/items.ts">ItemAddResponse</a></code>
-- <code><a href="./src/resources/clusters/items.ts">ItemRemoveResponse</a></code>
-
-Methods:
-
-- <code title="put /v1/clusters/{cluster_slug}/items/{item_slug}">client.clusters.items.<a href="./src/resources/clusters/items.ts">add</a>(clusterSlug, itemSlug) -> ItemAddResponse</code>
-- <code title="delete /v1/clusters/{cluster_slug}/items/{item_slug}">client.clusters.items.<a href="./src/resources/clusters/items.ts">remove</a>(clusterSlug, itemSlug) -> ItemRemoveResponse</code>
 
 # Items
 
-Types:
-
-- <code><a href="./src/resources/items/items.ts">ItemCreateResponse</a></code>
-- <code><a href="./src/resources/items/items.ts">ItemRetrieveResponse</a></code>
-- <code><a href="./src/resources/items/items.ts">ItemUpdateResponse</a></code>
-- <code><a href="./src/resources/items/items.ts">ItemListResponse</a></code>
-- <code><a href="./src/resources/items/items.ts">ItemVisibilityResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/items">client.items.<a href="./src/resources/items/items.ts">create</a>({ ...params }) -> ItemCreateResponse</code>
-- <code title="get /v1/items/{item_slug}">client.items.<a href="./src/resources/items/items.ts">retrieve</a>(itemSlug) -> ItemRetrieveResponse</code>
-- <code title="patch /v1/items/{item_slug}">client.items.<a href="./src/resources/items/items.ts">update</a>(itemSlug, { ...params }) -> ItemUpdateResponse</code>
-- <code title="get /v1/items">client.items.<a href="./src/resources/items/items.ts">list</a>({ ...params }) -> ItemListResponse</code>
-- <code title="delete /v1/items/{item_slug}">client.items.<a href="./src/resources/items/items.ts">delete</a>(itemSlug) -> void</code>
-- <code title="patch /v1/items/{item_slug}/visibility">client.items.<a href="./src/resources/items/items.ts">visibility</a>(itemSlug, { ...params }) -> ItemVisibilityResponse</code>
-
 ## Assets
-
-Types:
-
-- <code><a href="./src/resources/items/assets.ts">AssetAddResponse</a></code>
-- <code><a href="./src/resources/items/assets.ts">AssetRemoveResponse</a></code>
-
-Methods:
-
-- <code title="put /v1/items/{item_slug}/assets/{asset_id}">client.items.assets.<a href="./src/resources/items/assets.ts">add</a>(itemSlug, assetId) -> AssetAddResponse</code>
-- <code title="delete /v1/items/{item_slug}/assets/{asset_id}">client.items.assets.<a href="./src/resources/items/assets.ts">remove</a>(itemSlug, assetId) -> AssetRemoveResponse</code>
 
 # Links
 

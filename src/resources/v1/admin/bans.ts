@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as BansAPI from 'Storyden/resources/v1/admin/bans';
+import { APIResource } from '../../../resource';
+import * as Core from '../../../core';
+import * as BansAPI from './bans';
 
 export class Bans extends APIResource {
   /**

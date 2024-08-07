@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as AuthMethodsAPI from 'Storyden/resources/v1/accounts/auth-methods';
+import { APIResource } from '../../../resource';
+import * as Core from '../../../core';
+import * as AuthMethodsAPI from './auth-methods';
 
 export class AuthMethods extends APIResource {
   /**

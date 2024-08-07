@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from 'Storyden/resource';
-import * as AuthAPI from 'Storyden/resources/v1/auth';
-import * as CategoriesAPI from 'Storyden/resources/v1/categories';
-import * as ProfilesAPI from 'Storyden/resources/v1/profiles';
-import * as AccountsAPI from 'Storyden/resources/v1/accounts/accounts';
-import * as AdminAPI from 'Storyden/resources/v1/admin/admin';
-import * as InfoAPI from 'Storyden/resources/v1/info/info';
+import { APIResource } from '../../resource';
+import * as AuthAPI from './auth';
+import * as CategoriesAPI from './categories';
+import * as ProfilesAPI from './profiles';
+import * as AccountsAPI from './accounts/accounts';
+import * as AdminAPI from './admin/admin';
+import * as InfoAPI from './info/info';
 
 export class V1 extends APIResource {
   info: InfoAPI.Info = new InfoAPI.Info(this._client);

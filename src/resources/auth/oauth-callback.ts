@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as OAuthCallbackAPI from 'Storyden/resources/auth/oauth-callback';
+import { APIResource } from '../../resource';
+import * as Core from '../../core';
+import * as OAuthCallbackAPI from './oauth-callback';
 
 export class OAuthCallback extends APIResource {
   /**
