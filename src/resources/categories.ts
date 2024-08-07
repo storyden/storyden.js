@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import { isRequestOptions } from 'Storyden/core';
-import * as CategoriesAPI from 'Storyden/resources/categories';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as Core from '../core';
+import * as CategoriesAPI from './categories';
 
 export class Categories extends APIResource {
   /**

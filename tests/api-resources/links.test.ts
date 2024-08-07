@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const storyden = new Storyden({
 
 describe('resource links', () => {
   test('create: only required params', async () => {
-    const responsePromise = storyden.links.create({ url: 'string' });
+    const responsePromise = client.links.create({ url: 'url' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,15 +22,15 @@ describe('resource links', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await storyden.links.create({
-      url: 'string',
+    const response = await client.links.create({
+      url: 'url',
       description: 'The Open Graph protocol enables any web page to become a rich object in a social graph.',
       title: 'The Open Graph Protocol',
     });
   });
 
   test('retrieve', async () => {
-    const responsePromise = storyden.links.retrieve('string');
+    const responsePromise = client.links.retrieve('link_slug');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,13 +42,13 @@ describe('resource links', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.links.retrieve('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.links.retrieve('link_slug', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
 
   test('list', async () => {
-    const responsePromise = storyden.links.list();
+    const responsePromise = client.links.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -60,7 +60,7 @@ describe('resource links', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.links.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.links.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
@@ -68,7 +68,7 @@ describe('resource links', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.links.list({ page: 'string', q: 'string' }, { path: '/_stainless_unknown_path' }),
+      client.links.list({ page: 'page', q: 'q' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 });

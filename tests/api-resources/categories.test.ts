@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const storyden = new Storyden({
 
 describe('resource categories', () => {
   test('update', async () => {
-    const responsePromise = storyden.categories.update('cc5lnd2s1s4652adtu50');
+    const responsePromise = client.categories.update('cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,22 +24,22 @@ describe('resource categories', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.categories.update('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
+      client.categories.update('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.categories.update(
+      client.categories.update(
         'cc5lnd2s1s4652adtu50',
         {
           admin: true,
-          colour: 'string',
-          description: 'string',
+          colour: 'colour',
+          description: 'description',
           meta: { foo: 'bar' },
-          name: 'string',
-          slug: 'string',
+          name: 'name',
+          slug: 'slug',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -47,7 +47,7 @@ describe('resource categories', () => {
   });
 
   test('list', async () => {
-    const responsePromise = storyden.categories.list();
+    const responsePromise = client.categories.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -59,13 +59,13 @@ describe('resource categories', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.categories.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.categories.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
 
   test('updateOrder: only required params', async () => {
-    const responsePromise = storyden.categories.updateOrder([
+    const responsePromise = client.categories.updateOrder([
       'cc5lnd2s1s4652adtu50',
       'cc5lnd2s1s4652adtu50',
       'cc5lnd2s1s4652adtu50',
@@ -80,7 +80,7 @@ describe('resource categories', () => {
   });
 
   test('updateOrder: required and optional params', async () => {
-    const response = await storyden.categories.updateOrder([
+    const response = await client.categories.updateOrder([
       'cc5lnd2s1s4652adtu50',
       'cc5lnd2s1s4652adtu50',
       'cc5lnd2s1s4652adtu50',

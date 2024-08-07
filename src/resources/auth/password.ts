@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as PasswordAPI from 'Storyden/resources/auth/password';
+import { APIResource } from '../../resource';
+import * as Core from '../../core';
+import * as PasswordAPI from './password';
 
 export class Password extends APIResource {
   /**

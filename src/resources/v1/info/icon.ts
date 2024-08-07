@@ -1,19 +1,21 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import { type Response } from 'Storyden/_shims/index';
-import * as IconAPI from 'Storyden/resources/v1/info/icon';
+import { APIResource } from '../../../resource';
+import * as Core from '../../../core';
+import * as IconAPI from './icon';
+import { type BlobLike } from '../../../uploads';
+import { type Response } from '../../../_shims/index';
 
 export class Icon extends APIResource {
   /**
    * Upload and process the installation's logo image.
    */
-  create(params: IconCreateParams, options?: Core.RequestOptions): Core.APIPromise<void> {
-    const { 'Content-Length': contentLength } = params;
+  create(body: IconCreateParams, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post('/v1/info/icon', {
+      body,
       ...options,
-      headers: { Accept: '*/*', 'Content-Length': contentLength.toString(), ...options?.headers },
+      headers: { 'Content-Type': 'application/octet-stream', Accept: '*/*', ...options?.headers },
+      __binaryRequest: true,
     });
   }
 
@@ -28,12 +30,7 @@ export class Icon extends APIResource {
   }
 }
 
-export interface IconCreateParams {
-  /**
-   * Body content length in bytes.
-   */
-  'Content-Length': number;
-}
+export type IconCreateParams = string | ArrayBufferView | ArrayBuffer | BlobLike;
 
 export namespace Icon {
   export import IconCreateParams = IconAPI.IconCreateParams;

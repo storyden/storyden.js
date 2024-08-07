@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from './core';
 import * as Errors from './error';
-import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import { type Agent } from './_shims/index';
 import * as qs from 'qs';
-import * as API from 'Storyden/resources/index';
+import * as Core from './core';
+import * as API from './resources/index';
 
 export interface ClientOptions {
   /**
@@ -75,7 +75,9 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Storyden API. */
+/**
+ * API Client for interfacing with the Storyden API.
+ */
 export class Storyden extends Core.APIClient {
   storydenSession: string;
   storydenWebauthnSession: string;
@@ -126,6 +128,7 @@ export class Storyden extends Core.APIClient {
       maxRetries: options.maxRetries,
       fetch: options.fetch,
     });
+
     this._options = options;
 
     this.storydenSession = storydenSession;
@@ -133,7 +136,7 @@ export class Storyden extends Core.APIClient {
   }
 
   version: API.Version = new API.Version(this);
-  openapiJson: API.OpenapiJson = new API.OpenapiJson(this);
+  openAPIJson: API.OpenAPIJson = new API.OpenAPIJson(this);
   v1: API.V1 = new API.V1(this);
   auth: API.Auth = new API.Auth(this);
   categories: API.Categories = new API.Categories(this);
@@ -180,6 +183,7 @@ export class Storyden extends Core.APIClient {
   }
 
   static Storyden = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static StorydenError = Errors.StorydenError;
   static APIError = Errors.APIError;
@@ -194,6 +198,9 @@ export class Storyden extends Core.APIClient {
   static InternalServerError = Errors.InternalServerError;
   static PermissionDeniedError = Errors.PermissionDeniedError;
   static UnprocessableEntityError = Errors.UnprocessableEntityError;
+
+  static toFile = Uploads.toFile;
+  static fileFromPath = Uploads.fileFromPath;
 }
 
 export const {
@@ -216,17 +223,13 @@ export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Storyden {
-  // Helper functions
-  export import toFile = Uploads.toFile;
-  export import fileFromPath = Uploads.fileFromPath;
-
   export import RequestOptions = Core.RequestOptions;
 
   export import Version = API.Version;
   export import VersionRetrieveResponse = API.VersionRetrieveResponse;
 
-  export import OpenapiJson = API.OpenapiJson;
-  export import OpenapiJsonRetrieveResponse = API.OpenapiJsonRetrieveResponse;
+  export import OpenAPIJson = API.OpenAPIJson;
+  export import OpenAPIJsonRetrieveResponse = API.OpenAPIJsonRetrieveResponse;
 
   export import V1 = API.V1;
 
@@ -267,30 +270,11 @@ export namespace Storyden {
   export import CollectionListResponse = API.CollectionListResponse;
   export import CollectionCreateParams = API.CollectionCreateParams;
   export import CollectionUpdateParams = API.CollectionUpdateParams;
+  export import CollectionListParams = API.CollectionListParams;
 
   export import Clusters = API.Clusters;
-  export import ClusterCreateResponse = API.ClusterCreateResponse;
-  export import ClusterRetrieveResponse = API.ClusterRetrieveResponse;
-  export import ClusterUpdateResponse = API.ClusterUpdateResponse;
-  export import ClusterListResponse = API.ClusterListResponse;
-  export import ClusterRemoveResponse = API.ClusterRemoveResponse;
-  export import ClusterVisibilityUpdateResponse = API.ClusterVisibilityUpdateResponse;
-  export import ClusterCreateParams = API.ClusterCreateParams;
-  export import ClusterUpdateParams = API.ClusterUpdateParams;
-  export import ClusterListParams = API.ClusterListParams;
-  export import ClusterRemoveParams = API.ClusterRemoveParams;
-  export import ClusterVisibilityUpdateParams = API.ClusterVisibilityUpdateParams;
 
   export import Items = API.Items;
-  export import ItemCreateResponse = API.ItemCreateResponse;
-  export import ItemRetrieveResponse = API.ItemRetrieveResponse;
-  export import ItemUpdateResponse = API.ItemUpdateResponse;
-  export import ItemListResponse = API.ItemListResponse;
-  export import ItemVisibilityResponse = API.ItemVisibilityResponse;
-  export import ItemCreateParams = API.ItemCreateParams;
-  export import ItemUpdateParams = API.ItemUpdateParams;
-  export import ItemListParams = API.ItemListParams;
-  export import ItemVisibilityParams = API.ItemVisibilityParams;
 
   export import Links = API.Links;
   export import LinkCreateResponse = API.LinkCreateResponse;

@@ -7,6 +7,7 @@ export {
   CollectionListResponse,
   CollectionCreateParams,
   CollectionUpdateParams,
+  CollectionListParams,
   Collections,
 } from './collections';
-export { ItemRemoveResponse, Items } from './items';
+export { Items } from './items';

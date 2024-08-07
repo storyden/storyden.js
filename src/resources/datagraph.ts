@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import { isRequestOptions } from 'Storyden/core';
-import * as DatagraphAPI from 'Storyden/resources/datagraph';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as Core from '../core';
+import * as DatagraphAPI from './datagraph';
 
 export class Datagraph extends APIResource {
   /**
@@ -43,13 +43,18 @@ export namespace DatagraphListResponse {
      */
     id: string;
 
-    kind: 'thread' | 'reply' | 'cluster' | 'item' | 'link';
+    kind: 'post' | 'node' | 'profile';
 
     name: string;
 
     slug: string;
 
     description?: string;
+
+    /**
+     * Arbitrary metadata for the resource.
+     */
+    meta?: Record<string, unknown>;
   }
 }
 

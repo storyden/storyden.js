@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from 'Storyden/resource';
-import * as AssertAPI from 'Storyden/resources/auth/webauthn/assert';
-import * as MakeAPI from 'Storyden/resources/auth/webauthn/make';
+import { APIResource } from '../../../resource';
+import * as AssertAPI from './assert';
+import * as MakeAPI from './make';
 
 export class Webauthn extends APIResource {
   make: MakeAPI.Make = new MakeAPI.Make(this._client);

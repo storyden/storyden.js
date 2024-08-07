@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import { isRequestOptions } from 'Storyden/core';
-import * as CollectionsAPI from 'Storyden/resources/collections/collections';
-import * as ItemsAPI from 'Storyden/resources/collections/items';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
+import * as CollectionsAPI from './collections';
+import * as ItemsAPI from './items';
 
 export class Collections extends APIResource {
   items: ItemsAPI.Items = new ItemsAPI.Items(this._client);
@@ -51,8 +51,16 @@ export class Collections extends APIResource {
   /**
    * List all collections using the filtering options.
    */
-  list(options?: Core.RequestOptions): Core.APIPromise<CollectionListResponse> {
-    return this._client.get('/v1/collections', options);
+  list(query?: CollectionListParams, options?: Core.RequestOptions): Core.APIPromise<CollectionListResponse>;
+  list(options?: Core.RequestOptions): Core.APIPromise<CollectionListResponse>;
+  list(
+    query: CollectionListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CollectionListResponse> {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.get('/v1/collections', { query, ...options });
   }
 }
 
@@ -333,6 +341,13 @@ export interface CollectionUpdateParams {
   name?: string;
 }
 
+export interface CollectionListParams {
+  /**
+   * Account handle.
+   */
+  account_handle?: string;
+}
+
 export namespace Collections {
   export import CollectionCreateResponse = CollectionsAPI.CollectionCreateResponse;
   export import CollectionRetrieveResponse = CollectionsAPI.CollectionRetrieveResponse;
@@ -340,6 +355,6 @@ export namespace Collections {
   export import CollectionListResponse = CollectionsAPI.CollectionListResponse;
   export import CollectionCreateParams = CollectionsAPI.CollectionCreateParams;
   export import CollectionUpdateParams = CollectionsAPI.CollectionUpdateParams;
+  export import CollectionListParams = CollectionsAPI.CollectionListParams;
   export import Items = ItemsAPI.Items;
-  export import ItemRemoveResponse = ItemsAPI.ItemRemoveResponse;
 }

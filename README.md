@@ -1,18 +1,21 @@
 # Storyden Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/Storyden.svg)](https://npmjs.org/package/Storyden)
+[![NPM version](https://img.shields.io/npm/v/Storyden.svg)](https://npmjs.org/package/Storyden) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/Storyden)
 
 This library provides convenient access to the Storyden REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.storyden.com](https://docs.Storyden.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.storyden.com](https://docs.Storyden.com). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Installation
 
 ```sh
-npm install Storyden
+npm install git+ssh://git@github.com:stainless-sdks/Storyden-node.git
 ```
+
+> [!NOTE]
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install Storyden`
 
 ## Usage
 
@@ -22,12 +25,12 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Storyden from 'Storyden';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: process.env['STORYDEN_STORYDEN_SESSION'], // This is the default and can be omitted
 });
 
 async function main() {
-  const versionRetrieveResponse = await storyden.version.retrieve();
+  const versionRetrieveResponse = await client.version.retrieve();
 }
 
 main();
@@ -41,12 +44,12 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Storyden from 'Storyden';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: process.env['STORYDEN_STORYDEN_SESSION'], // This is the default and can be omitted
 });
 
 async function main() {
-  const versionRetrieveResponse: string = await storyden.version.retrieve();
+  const versionRetrieveResponse: string = await client.version.retrieve();
 }
 
 main();
@@ -63,7 +66,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const versionRetrieveResponse = await storyden.version.retrieve().catch(async (err) => {
+  const versionRetrieveResponse = await client.version.retrieve().catch(async (err) => {
     if (err instanceof Storyden.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -101,12 +104,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const storyden = new Storyden({
+const client = new Storyden({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await storyden.version.retrieve({
+await client.version.retrieve({
   maxRetries: 5,
 });
 ```
@@ -118,12 +121,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const storyden = new Storyden({
+const client = new Storyden({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await storyden.version.retrieve({
+await client.version.retrieve({
   timeout: 5 * 1000,
 });
 ```
@@ -142,13 +145,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const storyden = new Storyden();
+const client = new Storyden();
 
-const response = await storyden.version.retrieve().asResponse();
+const response = await client.version.retrieve().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: versionRetrieveResponse, response: raw } = await storyden.version.retrieve().withResponse();
+const { data: versionRetrieveResponse, response: raw } = await client.version.retrieve().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(versionRetrieveResponse);
 ```
@@ -170,7 +173,7 @@ await client.post('/some/path', {
 });
 ```
 
-#### Undocumented params
+#### Undocumented request params
 
 To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
 parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
@@ -191,7 +194,7 @@ extra param in the body.
 If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
 options.
 
-#### Undocumented properties
+#### Undocumented response properties
 
 To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
 the response object, or cast the response object to the requisite type. Like the request params, we do not
@@ -213,7 +216,7 @@ import Storyden from 'Storyden';
 ```
 
 To do the inverse, add `import "Storyden/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/Storyden-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -249,12 +252,12 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const storyden = new Storyden({
+const client = new Storyden({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await storyden.version.retrieve({
+await client.version.retrieve({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```
@@ -276,14 +279,6 @@ We are keen for your feedback; please open an [issue](https://www.github.com/sta
 TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
-
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import Storyden from "npm:Storyden"`.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
 
 Note that React Native is not supported at this time.
 

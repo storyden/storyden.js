@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import { isRequestOptions } from 'Storyden/core';
-import * as AccountsAPI from 'Storyden/resources/v1/accounts/accounts';
-import * as AuthMethodsAPI from 'Storyden/resources/v1/accounts/auth-methods';
-import * as AvatarAPI from 'Storyden/resources/v1/accounts/avatar';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as Core from '../../../core';
+import * as AccountsAPI from './accounts';
+import * as AuthMethodsAPI from './auth-methods';
+import * as AvatarAPI from './avatar';
 
 export class Accounts extends APIResource {
   authMethods: AuthMethodsAPI.AuthMethods = new AuthMethodsAPI.AuthMethods(this._client);
@@ -89,6 +89,9 @@ export interface AccountUpdateResponse {
 }
 
 export interface AccountUpdateParams {
+  /**
+   * The rich-text bio for an account's public profile.
+   */
   bio?: string;
 
   /**
@@ -101,10 +104,25 @@ export interface AccountUpdateParams {
    */
   interests?: Array<string>;
 
+  links?: Array<AccountUpdateParams.Link>;
+
+  /**
+   * Arbitrary metadata for the resource.
+   */
+  meta?: Record<string, unknown>;
+
   /**
    * The account owners display name.
    */
   name?: string;
+}
+
+export namespace AccountUpdateParams {
+  export interface Link {
+    text: string;
+
+    url: string;
+  }
 }
 
 export namespace Accounts {

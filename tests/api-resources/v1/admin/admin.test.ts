@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const storyden = new Storyden({
 
 describe('resource admin', () => {
   test('update', async () => {
-    const responsePromise = storyden.v1.admin.update();
+    const responsePromise = client.v1.admin.update();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource admin', () => {
 
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.v1.admin.update({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.v1.admin.update({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
@@ -31,8 +31,8 @@ describe('resource admin', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.v1.admin.update(
-        { accent_colour: 'string', description: 'string', title: 'string' },
+      client.v1.admin.update(
+        { accent_colour: 'accent_colour', description: 'description', title: 'title' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Storyden.NotFoundError);

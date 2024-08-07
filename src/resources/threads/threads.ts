@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import { isRequestOptions } from 'Storyden/core';
-import * as ThreadsAPI from 'Storyden/resources/threads/threads';
-import * as PostsAPI from 'Storyden/resources/threads/posts';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
+import * as ThreadsAPI from './threads';
+import * as PostsAPI from './posts';
 
 export class Threads extends APIResource {
   posts: PostsAPI.Posts = new PostsAPI.Posts(this._client);
@@ -115,8 +115,6 @@ export interface ThreadCreateResponse {
    */
   reacts: Array<ThreadCreateResponse.React>;
 
-  recomentations: Array<ThreadCreateResponse.Recomentation>;
-
   /**
    * A short version of the thread's body text for use in previews.
    */
@@ -175,6 +173,8 @@ export namespace ThreadCreateResponse {
      * A unique identifier for this resource.
      */
     id: string;
+
+    filename: string;
 
     height: number;
 
@@ -409,6 +409,8 @@ export namespace ThreadCreateResponse {
        */
       id: string;
 
+      filename: string;
+
       height: number;
 
       mime_type: string;
@@ -467,6 +469,8 @@ export namespace ThreadCreateResponse {
          */
         id: string;
 
+        filename: string;
+
         height: number;
 
         mime_type: string;
@@ -496,21 +500,6 @@ export namespace ThreadCreateResponse {
     emoji?: string;
   }
 
-  export interface Recomentation {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    kind: 'thread' | 'reply' | 'cluster' | 'item' | 'link';
-
-    name: string;
-
-    slug: string;
-
-    description?: string;
-  }
-
   /**
    * A web address with content information such as title, description, etc.
    */
@@ -537,6 +526,8 @@ export namespace ThreadCreateResponse {
        * A unique identifier for this resource.
        */
       id: string;
+
+      filename: string;
 
       height: number;
 
@@ -664,6 +655,8 @@ export namespace ThreadListResponse {
        * A unique identifier for this resource.
        */
       id: string;
+
+      filename: string;
 
       height: number;
 
@@ -847,6 +840,8 @@ export namespace ThreadListResponse {
          */
         id: string;
 
+        filename: string;
+
         height: number;
 
         mime_type: string;
@@ -897,8 +892,6 @@ export interface ThreadPublishChangesResponse {
    * A list of reactions this post has had from people.
    */
   reacts: Array<ThreadPublishChangesResponse.React>;
-
-  recomentations: Array<ThreadPublishChangesResponse.Recomentation>;
 
   /**
    * A short version of the thread's body text for use in previews.
@@ -959,6 +952,8 @@ export namespace ThreadPublishChangesResponse {
      */
     id: string;
 
+    filename: string;
+
     height: number;
 
     mime_type: string;
@@ -1192,6 +1187,8 @@ export namespace ThreadPublishChangesResponse {
        */
       id: string;
 
+      filename: string;
+
       height: number;
 
       mime_type: string;
@@ -1250,6 +1247,8 @@ export namespace ThreadPublishChangesResponse {
          */
         id: string;
 
+        filename: string;
+
         height: number;
 
         mime_type: string;
@@ -1279,21 +1278,6 @@ export namespace ThreadPublishChangesResponse {
     emoji?: string;
   }
 
-  export interface Recomentation {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    kind: 'thread' | 'reply' | 'cluster' | 'item' | 'link';
-
-    name: string;
-
-    slug: string;
-
-    description?: string;
-  }
-
   /**
    * A web address with content information such as title, description, etc.
    */
@@ -1320,6 +1304,8 @@ export namespace ThreadPublishChangesResponse {
        * A unique identifier for this resource.
        */
       id: string;
+
+      filename: string;
 
       height: number;
 
@@ -1370,8 +1356,6 @@ export interface ThreadRetrieveInformationResponse {
    * A list of reactions this post has had from people.
    */
   reacts: Array<ThreadRetrieveInformationResponse.React>;
-
-  recomentations: Array<ThreadRetrieveInformationResponse.Recomentation>;
 
   /**
    * A short version of the thread's body text for use in previews.
@@ -1432,6 +1416,8 @@ export namespace ThreadRetrieveInformationResponse {
      */
     id: string;
 
+    filename: string;
+
     height: number;
 
     mime_type: string;
@@ -1665,6 +1651,8 @@ export namespace ThreadRetrieveInformationResponse {
        */
       id: string;
 
+      filename: string;
+
       height: number;
 
       mime_type: string;
@@ -1723,6 +1711,8 @@ export namespace ThreadRetrieveInformationResponse {
          */
         id: string;
 
+        filename: string;
+
         height: number;
 
         mime_type: string;
@@ -1752,21 +1742,6 @@ export namespace ThreadRetrieveInformationResponse {
     emoji?: string;
   }
 
-  export interface Recomentation {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    kind: 'thread' | 'reply' | 'cluster' | 'item' | 'link';
-
-    name: string;
-
-    slug: string;
-
-    description?: string;
-  }
-
   /**
    * A web address with content information such as title, description, etc.
    */
@@ -1793,6 +1768,8 @@ export namespace ThreadRetrieveInformationResponse {
        * A unique identifier for this resource.
        */
       id: string;
+
+      filename: string;
 
       height: number;
 
@@ -1824,7 +1801,7 @@ export interface ThreadCreateParams {
    */
   title: string;
 
-  visibility: 'draft' | 'review' | 'published';
+  visibility: 'draft' | 'unlisted' | 'review' | 'published';
 
   /**
    * Arbitrary metadata for the resource.
@@ -1903,7 +1880,7 @@ export interface ThreadPublishChangesParams {
    */
   url?: string;
 
-  visibility?: 'draft' | 'review' | 'published';
+  visibility?: 'draft' | 'unlisted' | 'review' | 'published';
 }
 
 export namespace Threads {

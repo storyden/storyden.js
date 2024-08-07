@@ -3,7 +3,7 @@
 import Storyden from 'Storyden';
 import { Response } from 'node-fetch';
 
-const storyden = new Storyden({
+const client = new Storyden({
   storydenSession: 'My Storyden Session',
   storydenWebauthnSession: 'My Storyden Webauthn Session',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const storyden = new Storyden({
 
 describe('resource posts', () => {
   test('update', async () => {
-    const responsePromise = storyden.posts.update('cc5lnd2s1s4652adtu50');
+    const responsePromise = client.posts.update('cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,23 +24,23 @@ describe('resource posts', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.posts.update('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
+      client.posts.update('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.posts.update(
+      client.posts.update(
         'cc5lnd2s1s4652adtu50',
-        { body: 'string', meta: { foo: 'bar' }, url: 'string' },
+        { body: 'body', meta: { foo: 'bar' }, url: 'url' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   test('archive', async () => {
-    const responsePromise = storyden.posts.archive('cc5lnd2s1s4652adtu50');
+    const responsePromise = client.posts.archive('cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -53,12 +53,12 @@ describe('resource posts', () => {
   test('archive: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.posts.archive('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
+      client.posts.archive('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   test('reacts', async () => {
-    const responsePromise = storyden.posts.reacts('cc5lnd2s1s4652adtu50');
+    const responsePromise = client.posts.reacts('cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -71,23 +71,19 @@ describe('resource posts', () => {
   test('reacts: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.posts.reacts('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
+      client.posts.reacts('cc5lnd2s1s4652adtu50', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   test('reacts: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.posts.reacts(
-        'cc5lnd2s1s4652adtu50',
-        { emoji: 'string' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.posts.reacts('cc5lnd2s1s4652adtu50', { emoji: 'emoji' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   test('search', async () => {
-    const responsePromise = storyden.posts.search();
+    const responsePromise = client.posts.search();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -99,7 +95,7 @@ describe('resource posts', () => {
 
   test('search: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(storyden.posts.search({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.posts.search({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Storyden.NotFoundError,
     );
   });
@@ -107,8 +103,8 @@ describe('resource posts', () => {
   test('search: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      storyden.posts.search(
-        { author: 'Southclaws', body: 'string', kind: ['post', 'thread'] },
+      client.posts.search(
+        { author: 'Southclaws', body: 'body', kind: ['post', 'thread'] },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Storyden.NotFoundError);

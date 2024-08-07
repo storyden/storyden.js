@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from 'Storyden/resource';
-import * as OAuthCallbackAPI from 'Storyden/resources/auth/oauth-callback';
-import * as PasswordAPI from 'Storyden/resources/auth/password';
-import * as PhoneAPI from 'Storyden/resources/auth/phone';
-import * as WebauthnAPI from 'Storyden/resources/auth/webauthn/webauthn';
+import { APIResource } from '../../resource';
+import * as OAuthCallbackAPI from './oauth-callback';
+import * as PasswordAPI from './password';
+import * as PhoneAPI from './phone';
+import * as WebauthnAPI from './webauthn/webauthn';
 
 export class Auth extends APIResource {
   password: PasswordAPI.Password = new PasswordAPI.Password(this._client);

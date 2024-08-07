@@ -12,7 +12,6 @@
       "Storyden/_shims/auto/*": ["src/_shims/auto/*-node"],
       "Storyden/*": ["src/*"],
       "Storyden": ["src/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
 

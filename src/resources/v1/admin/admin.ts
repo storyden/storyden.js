@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import { isRequestOptions } from 'Storyden/core';
-import * as AdminAPI from 'Storyden/resources/v1/admin/admin';
-import * as BansAPI from 'Storyden/resources/v1/admin/bans';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as Core from '../../../core';
+import * as AdminAPI from './admin';
+import * as BansAPI from './bans';
 
 export class Admin extends APIResource {
   bans: BansAPI.Bans = new BansAPI.Bans(this._client);

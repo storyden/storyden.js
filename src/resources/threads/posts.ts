@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'Storyden/core';
-import { APIResource } from 'Storyden/resource';
-import * as PostsAPI from 'Storyden/resources/threads/posts';
+import { APIResource } from '../../resource';
+import * as Core from '../../core';
+import * as PostsAPI from './posts';
 
 export class Posts extends APIResource {
   /**
@@ -104,6 +104,8 @@ export namespace PostCreateResponse {
      */
     id: string;
 
+    filename: string;
+
     height: number;
 
     mime_type: string;
@@ -161,6 +163,8 @@ export namespace PostCreateResponse {
        * A unique identifier for this resource.
        */
       id: string;
+
+      filename: string;
 
       height: number;
 
