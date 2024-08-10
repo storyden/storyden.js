@@ -43,6 +43,8 @@ export namespace DatagraphListResponse {
      */
     id: string;
 
+    assets: Array<Item.Asset>;
+
     kind: 'post' | 'node' | 'profile';
 
     name: string;
@@ -55,6 +57,25 @@ export namespace DatagraphListResponse {
      * Arbitrary metadata for the resource.
      */
     meta?: Record<string, unknown>;
+  }
+
+  export namespace Item {
+    export interface Asset {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
   }
 }
 

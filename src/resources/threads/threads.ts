@@ -83,6 +83,14 @@ export interface ThreadCreateResponse {
    */
   author: ThreadCreateResponse.Author;
 
+  /**
+   * The body text of a post within a thread. The type is either a string or an
+   * object, depending on what was used during creation. Strings can be used for
+   * basic plain text or markdown content and objects are used for more complex types
+   * such as Slate.js editor documents.
+   */
+  body: string;
+
   category: ThreadCreateResponse.Category;
 
   collections: Array<ThreadCreateResponse.Collection>;
@@ -91,6 +99,8 @@ export interface ThreadCreateResponse {
    * The time the resource was created.
    */
   createdAt: string;
+
+  links: Array<ThreadCreateResponse.Link>;
 
   /**
    * Whether the thread is pinned in this category.
@@ -102,17 +112,14 @@ export interface ThreadCreateResponse {
    */
   post_count: number;
 
-  posts: Array<ThreadCreateResponse.Post>;
-
   /**
    * A list of reactions this post has had from people.
    */
   reacts: Array<ThreadCreateResponse.React>;
 
-  /**
-   * A short version of the thread's body text for use in previews.
-   */
-  short: string;
+  recomentations: Array<ThreadCreateResponse.Recomentation>;
+
+  replies: Array<ThreadCreateResponse.Reply>;
 
   /**
    * A thread's ID and optional slug separated by a dash = it's unique mark. This
@@ -131,7 +138,7 @@ export interface ThreadCreateResponse {
   tags: Array<string>;
 
   /**
-   * The title of the thread.
+   * The title of a thread.
    */
   title: string;
 
@@ -144,6 +151,11 @@ export interface ThreadCreateResponse {
    * The time the resource was soft-deleted.
    */
   deletedAt?: string;
+
+  /**
+   * A short version of the post's body text for use in previews.
+   */
+  description?: string;
 
   /**
    * A web address with content information such as title, description, etc.
@@ -317,22 +329,104 @@ export namespace ThreadCreateResponse {
   }
 
   /**
-   * A new post within a thread of posts. A post may reply to another post in the
-   * thread by specifying the `reply_to` property. The identifier in the `reply_to`
-   * value must be post within the same thread.
+   * A web address with content information such as title, description, etc.
    */
-  export interface Post {
+  export interface Link {
+    assets: Array<Link.Asset>;
+
+    domain: string;
+
+    slug: string;
+
+    /**
+     * A web address
+     */
+    url: string;
+
+    description?: string;
+
+    title?: string;
+  }
+
+  export namespace Link {
+    export interface Asset {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+  }
+
+  export interface React {
+    /**
+     * A unique identifier for this resource.
+     */
+    id?: string;
+
+    emoji?: string;
+  }
+
+  export interface Recomentation {
     /**
      * A unique identifier for this resource.
      */
     id: string;
 
-    assets: Array<Post.Asset>;
+    assets: Array<Recomentation.Asset>;
+
+    kind: 'post' | 'node' | 'profile';
+
+    name: string;
+
+    slug: string;
+
+    description?: string;
 
     /**
-     * A minimal reference to an account.
+     * Arbitrary metadata for the resource.
      */
-    author: Post.Author;
+    meta?: Record<string, unknown>;
+  }
+
+  export namespace Recomentation {
+    export interface Asset {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+  }
+
+  /**
+   * A new post within a thread of posts. A post may reply to another post in the
+   * thread by specifying the `reply_to` property. The identifier in the `reply_to`
+   * value must be post within the same thread.
+   */
+  export interface Reply {
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
 
     /**
      * The body text of a post within a thread. The type is either a string or an
@@ -346,13 +440,6 @@ export namespace ThreadCreateResponse {
      * The time the resource was created.
      */
     createdAt: string;
-
-    links: Array<Post.Link>;
-
-    /**
-     * A list of reactions this post has had from people.
-     */
-    reacts: Array<Post.React>;
 
     /**
      * A unique identifier for this resource.
@@ -381,11 +468,6 @@ export namespace ThreadCreateResponse {
     deletedAt?: string;
 
     /**
-     * Arbitrary metadata for the resource.
-     */
-    meta?: Record<string, unknown>;
-
-    /**
      * Arbitrary extra data stored with the resource.
      */
     misc?: unknown;
@@ -394,104 +476,6 @@ export namespace ThreadCreateResponse {
      * A unique identifier for this resource.
      */
     reply_to?: string;
-  }
-
-  export namespace Post {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-
-    /**
-     * A minimal reference to an account.
-     */
-    export interface Author {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      admin: boolean;
-
-      /**
-       * The unique @ handle of an account.
-       */
-      handle: string;
-
-      /**
-       * The account owners display name.
-       */
-      name: string;
-    }
-
-    /**
-     * A web address with content information such as title, description, etc.
-     */
-    export interface Link {
-      assets: Array<Link.Asset>;
-
-      domain: string;
-
-      slug: string;
-
-      /**
-       * A web address
-       */
-      url: string;
-
-      description?: string;
-
-      title?: string;
-    }
-
-    export namespace Link {
-      export interface Asset {
-        /**
-         * A unique identifier for this resource.
-         */
-        id: string;
-
-        filename: string;
-
-        height: number;
-
-        mime_type: string;
-
-        url: string;
-
-        width: number;
-      }
-    }
-
-    export interface React {
-      /**
-       * A unique identifier for this resource.
-       */
-      id?: string;
-
-      emoji?: string;
-    }
-  }
-
-  export interface React {
-    /**
-     * A unique identifier for this resource.
-     */
-    id?: string;
-
-    emoji?: string;
   }
 
   /**
@@ -547,6 +531,14 @@ export interface ThreadRetrieveResponse {
    */
   author: ThreadRetrieveResponse.Author;
 
+  /**
+   * The body text of a post within a thread. The type is either a string or an
+   * object, depending on what was used during creation. Strings can be used for
+   * basic plain text or markdown content and objects are used for more complex types
+   * such as Slate.js editor documents.
+   */
+  body: string;
+
   category: ThreadRetrieveResponse.Category;
 
   collections: Array<ThreadRetrieveResponse.Collection>;
@@ -555,6 +547,8 @@ export interface ThreadRetrieveResponse {
    * The time the resource was created.
    */
   createdAt: string;
+
+  links: Array<ThreadRetrieveResponse.Link>;
 
   /**
    * Whether the thread is pinned in this category.
@@ -566,17 +560,14 @@ export interface ThreadRetrieveResponse {
    */
   post_count: number;
 
-  posts: Array<ThreadRetrieveResponse.Post>;
-
   /**
    * A list of reactions this post has had from people.
    */
   reacts: Array<ThreadRetrieveResponse.React>;
 
-  /**
-   * A short version of the thread's body text for use in previews.
-   */
-  short: string;
+  recomentations: Array<ThreadRetrieveResponse.Recomentation>;
+
+  replies: Array<ThreadRetrieveResponse.Reply>;
 
   /**
    * A thread's ID and optional slug separated by a dash = it's unique mark. This
@@ -595,7 +586,7 @@ export interface ThreadRetrieveResponse {
   tags: Array<string>;
 
   /**
-   * The title of the thread.
+   * The title of a thread.
    */
   title: string;
 
@@ -608,6 +599,11 @@ export interface ThreadRetrieveResponse {
    * The time the resource was soft-deleted.
    */
   deletedAt?: string;
+
+  /**
+   * A short version of the post's body text for use in previews.
+   */
+  description?: string;
 
   /**
    * A web address with content information such as title, description, etc.
@@ -781,22 +777,104 @@ export namespace ThreadRetrieveResponse {
   }
 
   /**
-   * A new post within a thread of posts. A post may reply to another post in the
-   * thread by specifying the `reply_to` property. The identifier in the `reply_to`
-   * value must be post within the same thread.
+   * A web address with content information such as title, description, etc.
    */
-  export interface Post {
+  export interface Link {
+    assets: Array<Link.Asset>;
+
+    domain: string;
+
+    slug: string;
+
+    /**
+     * A web address
+     */
+    url: string;
+
+    description?: string;
+
+    title?: string;
+  }
+
+  export namespace Link {
+    export interface Asset {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+  }
+
+  export interface React {
+    /**
+     * A unique identifier for this resource.
+     */
+    id?: string;
+
+    emoji?: string;
+  }
+
+  export interface Recomentation {
     /**
      * A unique identifier for this resource.
      */
     id: string;
 
-    assets: Array<Post.Asset>;
+    assets: Array<Recomentation.Asset>;
+
+    kind: 'post' | 'node' | 'profile';
+
+    name: string;
+
+    slug: string;
+
+    description?: string;
 
     /**
-     * A minimal reference to an account.
+     * Arbitrary metadata for the resource.
      */
-    author: Post.Author;
+    meta?: Record<string, unknown>;
+  }
+
+  export namespace Recomentation {
+    export interface Asset {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+  }
+
+  /**
+   * A new post within a thread of posts. A post may reply to another post in the
+   * thread by specifying the `reply_to` property. The identifier in the `reply_to`
+   * value must be post within the same thread.
+   */
+  export interface Reply {
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
 
     /**
      * The body text of a post within a thread. The type is either a string or an
@@ -810,13 +888,6 @@ export namespace ThreadRetrieveResponse {
      * The time the resource was created.
      */
     createdAt: string;
-
-    links: Array<Post.Link>;
-
-    /**
-     * A list of reactions this post has had from people.
-     */
-    reacts: Array<Post.React>;
 
     /**
      * A unique identifier for this resource.
@@ -845,11 +916,6 @@ export namespace ThreadRetrieveResponse {
     deletedAt?: string;
 
     /**
-     * Arbitrary metadata for the resource.
-     */
-    meta?: Record<string, unknown>;
-
-    /**
      * Arbitrary extra data stored with the resource.
      */
     misc?: unknown;
@@ -858,104 +924,6 @@ export namespace ThreadRetrieveResponse {
      * A unique identifier for this resource.
      */
     reply_to?: string;
-  }
-
-  export namespace Post {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-
-    /**
-     * A minimal reference to an account.
-     */
-    export interface Author {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      admin: boolean;
-
-      /**
-       * The unique @ handle of an account.
-       */
-      handle: string;
-
-      /**
-       * The account owners display name.
-       */
-      name: string;
-    }
-
-    /**
-     * A web address with content information such as title, description, etc.
-     */
-    export interface Link {
-      assets: Array<Link.Asset>;
-
-      domain: string;
-
-      slug: string;
-
-      /**
-       * A web address
-       */
-      url: string;
-
-      description?: string;
-
-      title?: string;
-    }
-
-    export namespace Link {
-      export interface Asset {
-        /**
-         * A unique identifier for this resource.
-         */
-        id: string;
-
-        filename: string;
-
-        height: number;
-
-        mime_type: string;
-
-        url: string;
-
-        width: number;
-      }
-    }
-
-    export interface React {
-      /**
-       * A unique identifier for this resource.
-       */
-      id?: string;
-
-      emoji?: string;
-    }
-  }
-
-  export interface React {
-    /**
-     * A unique identifier for this resource.
-     */
-    id?: string;
-
-    emoji?: string;
   }
 
   /**
@@ -1011,6 +979,14 @@ export interface ThreadUpdateResponse {
    */
   author: ThreadUpdateResponse.Author;
 
+  /**
+   * The body text of a post within a thread. The type is either a string or an
+   * object, depending on what was used during creation. Strings can be used for
+   * basic plain text or markdown content and objects are used for more complex types
+   * such as Slate.js editor documents.
+   */
+  body: string;
+
   category: ThreadUpdateResponse.Category;
 
   collections: Array<ThreadUpdateResponse.Collection>;
@@ -1019,6 +995,8 @@ export interface ThreadUpdateResponse {
    * The time the resource was created.
    */
   createdAt: string;
+
+  links: Array<ThreadUpdateResponse.Link>;
 
   /**
    * Whether the thread is pinned in this category.
@@ -1030,17 +1008,14 @@ export interface ThreadUpdateResponse {
    */
   post_count: number;
 
-  posts: Array<ThreadUpdateResponse.Post>;
-
   /**
    * A list of reactions this post has had from people.
    */
   reacts: Array<ThreadUpdateResponse.React>;
 
-  /**
-   * A short version of the thread's body text for use in previews.
-   */
-  short: string;
+  recomentations: Array<ThreadUpdateResponse.Recomentation>;
+
+  replies: Array<ThreadUpdateResponse.Reply>;
 
   /**
    * A thread's ID and optional slug separated by a dash = it's unique mark. This
@@ -1059,7 +1034,7 @@ export interface ThreadUpdateResponse {
   tags: Array<string>;
 
   /**
-   * The title of the thread.
+   * The title of a thread.
    */
   title: string;
 
@@ -1072,6 +1047,11 @@ export interface ThreadUpdateResponse {
    * The time the resource was soft-deleted.
    */
   deletedAt?: string;
+
+  /**
+   * A short version of the post's body text for use in previews.
+   */
+  description?: string;
 
   /**
    * A web address with content information such as title, description, etc.
@@ -1245,22 +1225,104 @@ export namespace ThreadUpdateResponse {
   }
 
   /**
-   * A new post within a thread of posts. A post may reply to another post in the
-   * thread by specifying the `reply_to` property. The identifier in the `reply_to`
-   * value must be post within the same thread.
+   * A web address with content information such as title, description, etc.
    */
-  export interface Post {
+  export interface Link {
+    assets: Array<Link.Asset>;
+
+    domain: string;
+
+    slug: string;
+
+    /**
+     * A web address
+     */
+    url: string;
+
+    description?: string;
+
+    title?: string;
+  }
+
+  export namespace Link {
+    export interface Asset {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+  }
+
+  export interface React {
+    /**
+     * A unique identifier for this resource.
+     */
+    id?: string;
+
+    emoji?: string;
+  }
+
+  export interface Recomentation {
     /**
      * A unique identifier for this resource.
      */
     id: string;
 
-    assets: Array<Post.Asset>;
+    assets: Array<Recomentation.Asset>;
+
+    kind: 'post' | 'node' | 'profile';
+
+    name: string;
+
+    slug: string;
+
+    description?: string;
 
     /**
-     * A minimal reference to an account.
+     * Arbitrary metadata for the resource.
      */
-    author: Post.Author;
+    meta?: Record<string, unknown>;
+  }
+
+  export namespace Recomentation {
+    export interface Asset {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+  }
+
+  /**
+   * A new post within a thread of posts. A post may reply to another post in the
+   * thread by specifying the `reply_to` property. The identifier in the `reply_to`
+   * value must be post within the same thread.
+   */
+  export interface Reply {
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
 
     /**
      * The body text of a post within a thread. The type is either a string or an
@@ -1274,13 +1336,6 @@ export namespace ThreadUpdateResponse {
      * The time the resource was created.
      */
     createdAt: string;
-
-    links: Array<Post.Link>;
-
-    /**
-     * A list of reactions this post has had from people.
-     */
-    reacts: Array<Post.React>;
 
     /**
      * A unique identifier for this resource.
@@ -1309,11 +1364,6 @@ export namespace ThreadUpdateResponse {
     deletedAt?: string;
 
     /**
-     * Arbitrary metadata for the resource.
-     */
-    meta?: Record<string, unknown>;
-
-    /**
      * Arbitrary extra data stored with the resource.
      */
     misc?: unknown;
@@ -1322,104 +1372,6 @@ export namespace ThreadUpdateResponse {
      * A unique identifier for this resource.
      */
     reply_to?: string;
-  }
-
-  export namespace Post {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-
-    /**
-     * A minimal reference to an account.
-     */
-    export interface Author {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      admin: boolean;
-
-      /**
-       * The unique @ handle of an account.
-       */
-      handle: string;
-
-      /**
-       * The account owners display name.
-       */
-      name: string;
-    }
-
-    /**
-     * A web address with content information such as title, description, etc.
-     */
-    export interface Link {
-      assets: Array<Link.Asset>;
-
-      domain: string;
-
-      slug: string;
-
-      /**
-       * A web address
-       */
-      url: string;
-
-      description?: string;
-
-      title?: string;
-    }
-
-    export namespace Link {
-      export interface Asset {
-        /**
-         * A unique identifier for this resource.
-         */
-        id: string;
-
-        filename: string;
-
-        height: number;
-
-        mime_type: string;
-
-        url: string;
-
-        width: number;
-      }
-    }
-
-    export interface React {
-      /**
-       * A unique identifier for this resource.
-       */
-      id?: string;
-
-      emoji?: string;
-    }
-  }
-
-  export interface React {
-    /**
-     * A unique identifier for this resource.
-     */
-    id?: string;
-
-    emoji?: string;
   }
 
   /**
@@ -1488,16 +1440,15 @@ export namespace ThreadListResponse {
      */
     id: string;
 
-    assets: Array<Thread.Asset>;
-
     /**
-     * A minimal reference to an account.
+     * The body text of a post within a thread. The type is either a string or an
+     * object, depending on what was used during creation. Strings can be used for
+     * basic plain text or markdown content and objects are used for more complex types
+     * such as Slate.js editor documents.
      */
-    author: Thread.Author;
+    body: string;
 
     category: Thread.Category;
-
-    collections: Array<Thread.Collection>;
 
     /**
      * The time the resource was created.
@@ -1515,35 +1466,9 @@ export namespace ThreadListResponse {
     post_count: number;
 
     /**
-     * A list of reactions this post has had from people.
-     */
-    reacts: Array<Thread.React>;
-
-    /**
-     * A short version of the thread's body text for use in previews.
-     */
-    short: string;
-
-    /**
-     * A thread's ID and optional slug separated by a dash = it's unique mark. This
-     * allows endpoints to respond to varying forms of a thread's ID.
-     *
-     * For example, given a thread with the ID `cc5lnd2s1s4652adtu50` and the slug
-     * `top-10-movies-thread`, Storyden will understand both the forms:
-     * `cc5lnd2s1s4652adtu50-top-10-movies-thread` and `cc5lnd2s1s4652adtu50` as the
-     * identifier for that thread.
-     */
-    slug: string;
-
-    /**
      * A list of tags associated with the thread.
      */
     tags: Array<string>;
-
-    /**
-     * The title of the thread.
-     */
-    title: string;
 
     /**
      * The time the resource was updated.
@@ -1561,56 +1486,12 @@ export namespace ThreadListResponse {
     link?: Thread.Link;
 
     /**
-     * Arbitrary metadata for the resource.
-     */
-    meta?: Record<string, unknown>;
-
-    /**
      * Arbitrary extra data stored with the resource.
      */
     misc?: unknown;
   }
 
   export namespace Thread {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-
-    /**
-     * A minimal reference to an account.
-     */
-    export interface Author {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      admin: boolean;
-
-      /**
-       * The unique @ handle of an account.
-       */
-      handle: string;
-
-      /**
-       * The account owners display name.
-       */
-      name: string;
-    }
-
     export interface Category {
       /**
        * A unique identifier for this resource.
@@ -1659,80 +1540,6 @@ export namespace ThreadListResponse {
        * Arbitrary extra data stored with the resource.
        */
       misc?: unknown;
-    }
-
-    /**
-     * A collection is a group of threads owned by a user. It allows users to curate
-     * their own lists of content from the site. Collections can only contain root
-     * level posts (threads) with titles and slugs to link to.
-     */
-    export interface Collection {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      /**
-       * The time the resource was created.
-       */
-      createdAt: string;
-
-      description: string;
-
-      name: string;
-
-      /**
-       * A minimal reference to an account.
-       */
-      owner: Collection.Owner;
-
-      /**
-       * The time the resource was updated.
-       */
-      updatedAt: string;
-
-      /**
-       * The time the resource was soft-deleted.
-       */
-      deletedAt?: string;
-
-      /**
-       * Arbitrary extra data stored with the resource.
-       */
-      misc?: unknown;
-    }
-
-    export namespace Collection {
-      /**
-       * A minimal reference to an account.
-       */
-      export interface Owner {
-        /**
-         * A unique identifier for this resource.
-         */
-        id: string;
-
-        admin: boolean;
-
-        /**
-         * The unique @ handle of an account.
-         */
-        handle: string;
-
-        /**
-         * The account owners display name.
-         */
-        name: string;
-      }
-    }
-
-    export interface React {
-      /**
-       * A unique identifier for this resource.
-       */
-      id?: string;
-
-      emoji?: string;
     }
 
     /**
@@ -1886,6 +1693,4 @@ export namespace Threads {
   export import ThreadUpdateParams = ThreadsAPI.ThreadUpdateParams;
   export import ThreadListParams = ThreadsAPI.ThreadListParams;
   export import Posts = PostsAPI.Posts;
-  export import PostCreateResponse = PostsAPI.PostCreateResponse;
-  export import PostCreateParams = PostsAPI.PostCreateParams;
 }
