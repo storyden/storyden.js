@@ -56,22 +56,16 @@ export class Posts extends APIResource {
 }
 
 /**
- * A new post within a thread of posts. A post may reply to another post in the
- * thread by specifying the `reply_to` property. The identifier in the `reply_to`
- * value must be post within the same thread.
+ * A post represents a temporal piece of content, it can be a thread, or a reply to
+ * a thread or something else such as a blog, announcement, etc. Post is used in
+ * generic use-cases where it may not matter whether you want a thread or a reply,
+ * such as search results or recommendations.
  */
 export interface PostUpdateResponse {
   /**
    * A unique identifier for this resource.
    */
   id: string;
-
-  assets: Array<PostUpdateResponse.Asset>;
-
-  /**
-   * A minimal reference to an account.
-   */
-  author: PostUpdateResponse.Author;
 
   /**
    * The body text of a post within a thread. The type is either a string or an
@@ -86,29 +80,6 @@ export interface PostUpdateResponse {
    */
   createdAt: string;
 
-  links: Array<PostUpdateResponse.Link>;
-
-  /**
-   * A list of reactions this post has had from people.
-   */
-  reacts: Array<PostUpdateResponse.React>;
-
-  /**
-   * A unique identifier for this resource.
-   */
-  root_id: string;
-
-  /**
-   * A thread's ID and optional slug separated by a dash = it's unique mark. This
-   * allows endpoints to respond to varying forms of a thread's ID.
-   *
-   * For example, given a thread with the ID `cc5lnd2s1s4652adtu50` and the slug
-   * `top-10-movies-thread`, Storyden will understand both the forms:
-   * `cc5lnd2s1s4652adtu50-top-10-movies-thread` and `cc5lnd2s1s4652adtu50` as the
-   * identifier for that thread.
-   */
-  root_slug: string;
-
   /**
    * The time the resource was updated.
    */
@@ -120,108 +91,9 @@ export interface PostUpdateResponse {
   deletedAt?: string;
 
   /**
-   * Arbitrary metadata for the resource.
-   */
-  meta?: Record<string, unknown>;
-
-  /**
    * Arbitrary extra data stored with the resource.
    */
   misc?: unknown;
-
-  /**
-   * A unique identifier for this resource.
-   */
-  reply_to?: string;
-}
-
-export namespace PostUpdateResponse {
-  export interface Asset {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    filename: string;
-
-    height: number;
-
-    mime_type: string;
-
-    url: string;
-
-    width: number;
-  }
-
-  /**
-   * A minimal reference to an account.
-   */
-  export interface Author {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    admin: boolean;
-
-    /**
-     * The unique @ handle of an account.
-     */
-    handle: string;
-
-    /**
-     * The account owners display name.
-     */
-    name: string;
-  }
-
-  /**
-   * A web address with content information such as title, description, etc.
-   */
-  export interface Link {
-    assets: Array<Link.Asset>;
-
-    domain: string;
-
-    slug: string;
-
-    /**
-     * A web address
-     */
-    url: string;
-
-    description?: string;
-
-    title?: string;
-  }
-
-  export namespace Link {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-  }
-
-  export interface React {
-    /**
-     * A unique identifier for this resource.
-     */
-    id?: string;
-
-    emoji?: string;
-  }
 }
 
 export interface PostSearchResponse {
@@ -232,22 +104,16 @@ export interface PostSearchResponse {
 
 export namespace PostSearchResponse {
   /**
-   * A new post within a thread of posts. A post may reply to another post in the
-   * thread by specifying the `reply_to` property. The identifier in the `reply_to`
-   * value must be post within the same thread.
+   * A post represents a temporal piece of content, it can be a thread, or a reply to
+   * a thread or something else such as a blog, announcement, etc. Post is used in
+   * generic use-cases where it may not matter whether you want a thread or a reply,
+   * such as search results or recommendations.
    */
   export interface Result {
     /**
      * A unique identifier for this resource.
      */
     id: string;
-
-    assets: Array<Result.Asset>;
-
-    /**
-     * A minimal reference to an account.
-     */
-    author: Result.Author;
 
     /**
      * The body text of a post within a thread. The type is either a string or an
@@ -262,29 +128,6 @@ export namespace PostSearchResponse {
      */
     createdAt: string;
 
-    links: Array<Result.Link>;
-
-    /**
-     * A list of reactions this post has had from people.
-     */
-    reacts: Array<Result.React>;
-
-    /**
-     * A unique identifier for this resource.
-     */
-    root_id: string;
-
-    /**
-     * A thread's ID and optional slug separated by a dash = it's unique mark. This
-     * allows endpoints to respond to varying forms of a thread's ID.
-     *
-     * For example, given a thread with the ID `cc5lnd2s1s4652adtu50` and the slug
-     * `top-10-movies-thread`, Storyden will understand both the forms:
-     * `cc5lnd2s1s4652adtu50-top-10-movies-thread` and `cc5lnd2s1s4652adtu50` as the
-     * identifier for that thread.
-     */
-    root_slug: string;
-
     /**
      * The time the resource was updated.
      */
@@ -296,108 +139,9 @@ export namespace PostSearchResponse {
     deletedAt?: string;
 
     /**
-     * Arbitrary metadata for the resource.
-     */
-    meta?: Record<string, unknown>;
-
-    /**
      * Arbitrary extra data stored with the resource.
      */
     misc?: unknown;
-
-    /**
-     * A unique identifier for this resource.
-     */
-    reply_to?: string;
-  }
-
-  export namespace Result {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-
-    /**
-     * A minimal reference to an account.
-     */
-    export interface Author {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      admin: boolean;
-
-      /**
-       * The unique @ handle of an account.
-       */
-      handle: string;
-
-      /**
-       * The account owners display name.
-       */
-      name: string;
-    }
-
-    /**
-     * A web address with content information such as title, description, etc.
-     */
-    export interface Link {
-      assets: Array<Link.Asset>;
-
-      domain: string;
-
-      slug: string;
-
-      /**
-       * A web address
-       */
-      url: string;
-
-      description?: string;
-
-      title?: string;
-    }
-
-    export namespace Link {
-      export interface Asset {
-        /**
-         * A unique identifier for this resource.
-         */
-        id: string;
-
-        filename: string;
-
-        height: number;
-
-        mime_type: string;
-
-        url: string;
-
-        width: number;
-      }
-    }
-
-    export interface React {
-      /**
-       * A unique identifier for this resource.
-       */
-      id?: string;
-
-      emoji?: string;
-    }
   }
 }
 

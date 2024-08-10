@@ -237,14 +237,6 @@ Methods:
 
 ## Posts
 
-Types:
-
-- <code><a href="./src/resources/threads/posts.ts">PostCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/threads/{thread_mark}/posts">client.threads.posts.<a href="./src/resources/threads/posts.ts">create</a>(threadMark, { ...params }) -> PostCreateResponse</code>
-
 # Posts
 
 Types:
