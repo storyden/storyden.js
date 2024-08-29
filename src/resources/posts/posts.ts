@@ -75,6 +75,8 @@ export interface PostUpdateResponse {
    */
   body: string;
 
+  body_links: Array<PostUpdateResponse.BodyLink>;
+
   /**
    * The time the resource was created.
    */
@@ -94,6 +96,91 @@ export interface PostUpdateResponse {
    * Arbitrary extra data stored with the resource.
    */
   misc?: unknown;
+}
+
+export namespace PostUpdateResponse {
+  /**
+   * A minimal object used to refer to a link without sending too much data.
+   */
+  export interface BodyLink {
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
+
+    domain: string;
+
+    slug: string;
+
+    /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
+     * A web address
+     */
+    url: string;
+
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
+    description?: string;
+
+    favicon_image?: BodyLink.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: BodyLink.PrimaryImage;
+
+    title?: string;
+  }
+
+  export namespace BodyLink {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+  }
 }
 
 export interface PostSearchResponse {
@@ -123,6 +210,8 @@ export namespace PostSearchResponse {
      */
     body: string;
 
+    body_links: Array<Result.BodyLink>;
+
     /**
      * The time the resource was created.
      */
@@ -142,6 +231,91 @@ export namespace PostSearchResponse {
      * Arbitrary extra data stored with the resource.
      */
     misc?: unknown;
+  }
+
+  export namespace Result {
+    /**
+     * A minimal object used to refer to a link without sending too much data.
+     */
+    export interface BodyLink {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
+
+      domain: string;
+
+      slug: string;
+
+      /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
+       * A web address
+       */
+      url: string;
+
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
+      description?: string;
+
+      favicon_image?: BodyLink.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: BodyLink.PrimaryImage;
+
+      title?: string;
+    }
+
+    export namespace BodyLink {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+    }
   }
 }
 

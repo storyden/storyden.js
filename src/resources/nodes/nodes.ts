@@ -143,7 +143,7 @@ export interface NodeCreateResponse {
   deletedAt?: string;
 
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   link?: NodeCreateResponse.Link;
 
@@ -208,27 +208,71 @@ export namespace NodeCreateResponse {
   }
 
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   export interface Link {
-    assets: Array<Link.Asset>;
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
 
     domain: string;
 
     slug: string;
 
     /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
      * A web address
      */
     url: string;
 
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
     description?: string;
+
+    favicon_image?: Link.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: Link.PrimaryImage;
 
     title?: string;
   }
 
   export namespace Link {
-    export interface Asset {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
       /**
        * A unique identifier for this resource.
        */
@@ -305,7 +349,7 @@ export namespace NodeCreateResponse {
     deletedAt?: string;
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     link?: Parent.Link;
 
@@ -364,27 +408,71 @@ export namespace NodeCreateResponse {
     }
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     export interface Link {
-      assets: Array<Link.Asset>;
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
 
       domain: string;
 
       slug: string;
 
       /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
        * A web address
        */
       url: string;
 
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
       description?: string;
+
+      favicon_image?: Link.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: Link.PrimaryImage;
 
       title?: string;
     }
 
     export namespace Link {
-      export interface Asset {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
         /**
          * A unique identifier for this resource.
          */
@@ -468,7 +556,7 @@ export interface NodeUpdateResponse {
   deletedAt?: string;
 
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   link?: NodeUpdateResponse.Link;
 
@@ -533,27 +621,71 @@ export namespace NodeUpdateResponse {
   }
 
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   export interface Link {
-    assets: Array<Link.Asset>;
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
 
     domain: string;
 
     slug: string;
 
     /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
      * A web address
      */
     url: string;
 
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
     description?: string;
+
+    favicon_image?: Link.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: Link.PrimaryImage;
 
     title?: string;
   }
 
   export namespace Link {
-    export interface Asset {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
       /**
        * A unique identifier for this resource.
        */
@@ -630,7 +762,7 @@ export namespace NodeUpdateResponse {
     deletedAt?: string;
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     link?: Parent.Link;
 
@@ -689,27 +821,71 @@ export namespace NodeUpdateResponse {
     }
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     export interface Link {
-      assets: Array<Link.Asset>;
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
 
       domain: string;
 
       slug: string;
 
       /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
        * A web address
        */
       url: string;
 
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
       description?: string;
+
+      favicon_image?: Link.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: Link.PrimaryImage;
 
       title?: string;
     }
 
     export namespace Link {
-      export interface Asset {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
         /**
          * A unique identifier for this resource.
          */
@@ -820,7 +996,7 @@ export namespace NodeDeleteResponse {
     deletedAt?: string;
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     link?: Destination.Link;
 
@@ -885,27 +1061,71 @@ export namespace NodeDeleteResponse {
     }
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     export interface Link {
-      assets: Array<Link.Asset>;
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
 
       domain: string;
 
       slug: string;
 
       /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
        * A web address
        */
       url: string;
 
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
       description?: string;
+
+      favicon_image?: Link.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: Link.PrimaryImage;
 
       title?: string;
     }
 
     export namespace Link {
-      export interface Asset {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
         /**
          * A unique identifier for this resource.
          */
@@ -982,7 +1202,7 @@ export namespace NodeDeleteResponse {
       deletedAt?: string;
 
       /**
-       * A web address with content information such as title, description, etc.
+       * A minimal object used to refer to a link without sending too much data.
        */
       link?: Parent.Link;
 
@@ -1041,27 +1261,71 @@ export namespace NodeDeleteResponse {
       }
 
       /**
-       * A web address with content information such as title, description, etc.
+       * A minimal object used to refer to a link without sending too much data.
        */
       export interface Link {
-        assets: Array<Link.Asset>;
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        /**
+         * The time the resource was created.
+         */
+        createdAt: string;
 
         domain: string;
 
         slug: string;
 
         /**
+         * The time the resource was updated.
+         */
+        updatedAt: string;
+
+        /**
          * A web address
          */
         url: string;
 
+        /**
+         * The time the resource was soft-deleted.
+         */
+        deletedAt?: string;
+
         description?: string;
+
+        favicon_image?: Link.FaviconImage;
+
+        /**
+         * Arbitrary extra data stored with the resource.
+         */
+        misc?: unknown;
+
+        primary_image?: Link.PrimaryImage;
 
         title?: string;
       }
 
       export namespace Link {
-        export interface Asset {
+        export interface FaviconImage {
+          /**
+           * A unique identifier for this resource.
+           */
+          id: string;
+
+          filename: string;
+
+          height: number;
+
+          mime_type: string;
+
+          url: string;
+
+          width: number;
+        }
+
+        export interface PrimaryImage {
           /**
            * A unique identifier for this resource.
            */
