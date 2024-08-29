@@ -29,9 +29,9 @@ describe('resource webauthn', () => {
       response: {
         clientDataJSON: 'clientDataJSON',
         attestationObject: 'attestationObject',
-        transports: ['string', 'string', 'string'],
         authenticatorData: 'authenticatorData',
         signature: 'signature',
+        transports: ['string', 'string', 'string'],
         userHandle: 'userHandle',
       },
       type: 'type',
