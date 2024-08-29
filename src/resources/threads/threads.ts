@@ -91,6 +91,8 @@ export interface ThreadCreateResponse {
    */
   body: string;
 
+  body_links: Array<ThreadCreateResponse.BodyLink>;
+
   category: ThreadCreateResponse.Category;
 
   collections: Array<ThreadCreateResponse.Collection>;
@@ -99,8 +101,6 @@ export interface ThreadCreateResponse {
    * The time the resource was created.
    */
   createdAt: string;
-
-  links: Array<ThreadCreateResponse.Link>;
 
   /**
    * Whether the thread is pinned in this category.
@@ -158,7 +158,7 @@ export interface ThreadCreateResponse {
   description?: string;
 
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   link?: ThreadCreateResponse.Link;
 
@@ -211,6 +211,89 @@ export namespace ThreadCreateResponse {
      * The account owners display name.
      */
     name: string;
+  }
+
+  /**
+   * A minimal object used to refer to a link without sending too much data.
+   */
+  export interface BodyLink {
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
+
+    domain: string;
+
+    slug: string;
+
+    /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
+     * A web address
+     */
+    url: string;
+
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
+    description?: string;
+
+    favicon_image?: BodyLink.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: BodyLink.PrimaryImage;
+
+    title?: string;
+  }
+
+  export namespace BodyLink {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
   }
 
   export interface Category {
@@ -328,45 +411,6 @@ export namespace ThreadCreateResponse {
     }
   }
 
-  /**
-   * A web address with content information such as title, description, etc.
-   */
-  export interface Link {
-    assets: Array<Link.Asset>;
-
-    domain: string;
-
-    slug: string;
-
-    /**
-     * A web address
-     */
-    url: string;
-
-    description?: string;
-
-    title?: string;
-  }
-
-  export namespace Link {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-  }
-
   export interface React {
     /**
      * A unique identifier for this resource.
@@ -436,6 +480,8 @@ export namespace ThreadCreateResponse {
      */
     body: string;
 
+    body_links: Array<Reply.BodyLink>;
+
     /**
      * The time the resource was created.
      */
@@ -478,28 +524,157 @@ export namespace ThreadCreateResponse {
     reply_to?: string;
   }
 
+  export namespace Reply {
+    /**
+     * A minimal object used to refer to a link without sending too much data.
+     */
+    export interface BodyLink {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
+
+      domain: string;
+
+      slug: string;
+
+      /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
+       * A web address
+       */
+      url: string;
+
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
+      description?: string;
+
+      favicon_image?: BodyLink.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: BodyLink.PrimaryImage;
+
+      title?: string;
+    }
+
+    export namespace BodyLink {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+    }
+  }
+
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   export interface Link {
-    assets: Array<Link.Asset>;
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
 
     domain: string;
 
     slug: string;
 
     /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
      * A web address
      */
     url: string;
 
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
     description?: string;
+
+    favicon_image?: Link.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: Link.PrimaryImage;
 
     title?: string;
   }
 
   export namespace Link {
-    export interface Asset {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
       /**
        * A unique identifier for this resource.
        */
@@ -539,6 +714,8 @@ export interface ThreadRetrieveResponse {
    */
   body: string;
 
+  body_links: Array<ThreadRetrieveResponse.BodyLink>;
+
   category: ThreadRetrieveResponse.Category;
 
   collections: Array<ThreadRetrieveResponse.Collection>;
@@ -547,8 +724,6 @@ export interface ThreadRetrieveResponse {
    * The time the resource was created.
    */
   createdAt: string;
-
-  links: Array<ThreadRetrieveResponse.Link>;
 
   /**
    * Whether the thread is pinned in this category.
@@ -606,7 +781,7 @@ export interface ThreadRetrieveResponse {
   description?: string;
 
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   link?: ThreadRetrieveResponse.Link;
 
@@ -659,6 +834,89 @@ export namespace ThreadRetrieveResponse {
      * The account owners display name.
      */
     name: string;
+  }
+
+  /**
+   * A minimal object used to refer to a link without sending too much data.
+   */
+  export interface BodyLink {
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
+
+    domain: string;
+
+    slug: string;
+
+    /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
+     * A web address
+     */
+    url: string;
+
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
+    description?: string;
+
+    favicon_image?: BodyLink.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: BodyLink.PrimaryImage;
+
+    title?: string;
+  }
+
+  export namespace BodyLink {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
   }
 
   export interface Category {
@@ -776,45 +1034,6 @@ export namespace ThreadRetrieveResponse {
     }
   }
 
-  /**
-   * A web address with content information such as title, description, etc.
-   */
-  export interface Link {
-    assets: Array<Link.Asset>;
-
-    domain: string;
-
-    slug: string;
-
-    /**
-     * A web address
-     */
-    url: string;
-
-    description?: string;
-
-    title?: string;
-  }
-
-  export namespace Link {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-  }
-
   export interface React {
     /**
      * A unique identifier for this resource.
@@ -884,6 +1103,8 @@ export namespace ThreadRetrieveResponse {
      */
     body: string;
 
+    body_links: Array<Reply.BodyLink>;
+
     /**
      * The time the resource was created.
      */
@@ -926,28 +1147,157 @@ export namespace ThreadRetrieveResponse {
     reply_to?: string;
   }
 
+  export namespace Reply {
+    /**
+     * A minimal object used to refer to a link without sending too much data.
+     */
+    export interface BodyLink {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
+
+      domain: string;
+
+      slug: string;
+
+      /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
+       * A web address
+       */
+      url: string;
+
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
+      description?: string;
+
+      favicon_image?: BodyLink.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: BodyLink.PrimaryImage;
+
+      title?: string;
+    }
+
+    export namespace BodyLink {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+    }
+  }
+
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   export interface Link {
-    assets: Array<Link.Asset>;
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
 
     domain: string;
 
     slug: string;
 
     /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
      * A web address
      */
     url: string;
 
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
     description?: string;
+
+    favicon_image?: Link.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: Link.PrimaryImage;
 
     title?: string;
   }
 
   export namespace Link {
-    export interface Asset {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
       /**
        * A unique identifier for this resource.
        */
@@ -987,6 +1337,8 @@ export interface ThreadUpdateResponse {
    */
   body: string;
 
+  body_links: Array<ThreadUpdateResponse.BodyLink>;
+
   category: ThreadUpdateResponse.Category;
 
   collections: Array<ThreadUpdateResponse.Collection>;
@@ -995,8 +1347,6 @@ export interface ThreadUpdateResponse {
    * The time the resource was created.
    */
   createdAt: string;
-
-  links: Array<ThreadUpdateResponse.Link>;
 
   /**
    * Whether the thread is pinned in this category.
@@ -1054,7 +1404,7 @@ export interface ThreadUpdateResponse {
   description?: string;
 
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   link?: ThreadUpdateResponse.Link;
 
@@ -1107,6 +1457,89 @@ export namespace ThreadUpdateResponse {
      * The account owners display name.
      */
     name: string;
+  }
+
+  /**
+   * A minimal object used to refer to a link without sending too much data.
+   */
+  export interface BodyLink {
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
+
+    domain: string;
+
+    slug: string;
+
+    /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
+     * A web address
+     */
+    url: string;
+
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
+    description?: string;
+
+    favicon_image?: BodyLink.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: BodyLink.PrimaryImage;
+
+    title?: string;
+  }
+
+  export namespace BodyLink {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
   }
 
   export interface Category {
@@ -1224,45 +1657,6 @@ export namespace ThreadUpdateResponse {
     }
   }
 
-  /**
-   * A web address with content information such as title, description, etc.
-   */
-  export interface Link {
-    assets: Array<Link.Asset>;
-
-    domain: string;
-
-    slug: string;
-
-    /**
-     * A web address
-     */
-    url: string;
-
-    description?: string;
-
-    title?: string;
-  }
-
-  export namespace Link {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      url: string;
-
-      width: number;
-    }
-  }
-
   export interface React {
     /**
      * A unique identifier for this resource.
@@ -1332,6 +1726,8 @@ export namespace ThreadUpdateResponse {
      */
     body: string;
 
+    body_links: Array<Reply.BodyLink>;
+
     /**
      * The time the resource was created.
      */
@@ -1374,28 +1770,157 @@ export namespace ThreadUpdateResponse {
     reply_to?: string;
   }
 
+  export namespace Reply {
+    /**
+     * A minimal object used to refer to a link without sending too much data.
+     */
+    export interface BodyLink {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
+
+      domain: string;
+
+      slug: string;
+
+      /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
+       * A web address
+       */
+      url: string;
+
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
+      description?: string;
+
+      favicon_image?: BodyLink.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: BodyLink.PrimaryImage;
+
+      title?: string;
+    }
+
+    export namespace BodyLink {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+    }
+  }
+
   /**
-   * A web address with content information such as title, description, etc.
+   * A minimal object used to refer to a link without sending too much data.
    */
   export interface Link {
-    assets: Array<Link.Asset>;
+    /**
+     * A unique identifier for this resource.
+     */
+    id: string;
+
+    /**
+     * The time the resource was created.
+     */
+    createdAt: string;
 
     domain: string;
 
     slug: string;
 
     /**
+     * The time the resource was updated.
+     */
+    updatedAt: string;
+
+    /**
      * A web address
      */
     url: string;
 
+    /**
+     * The time the resource was soft-deleted.
+     */
+    deletedAt?: string;
+
     description?: string;
+
+    favicon_image?: Link.FaviconImage;
+
+    /**
+     * Arbitrary extra data stored with the resource.
+     */
+    misc?: unknown;
+
+    primary_image?: Link.PrimaryImage;
 
     title?: string;
   }
 
   export namespace Link {
-    export interface Asset {
+    export interface FaviconImage {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      filename: string;
+
+      height: number;
+
+      mime_type: string;
+
+      url: string;
+
+      width: number;
+    }
+
+    export interface PrimaryImage {
       /**
        * A unique identifier for this resource.
        */
@@ -1448,6 +1973,8 @@ export namespace ThreadListResponse {
      */
     body: string;
 
+    body_links: Array<Thread.BodyLink>;
+
     category: Thread.Category;
 
     /**
@@ -1481,7 +2008,7 @@ export namespace ThreadListResponse {
     deletedAt?: string;
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     link?: Thread.Link;
 
@@ -1492,6 +2019,89 @@ export namespace ThreadListResponse {
   }
 
   export namespace Thread {
+    /**
+     * A minimal object used to refer to a link without sending too much data.
+     */
+    export interface BodyLink {
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
+
+      domain: string;
+
+      slug: string;
+
+      /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
+       * A web address
+       */
+      url: string;
+
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
+      description?: string;
+
+      favicon_image?: BodyLink.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: BodyLink.PrimaryImage;
+
+      title?: string;
+    }
+
+    export namespace BodyLink {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+    }
+
     export interface Category {
       /**
        * A unique identifier for this resource.
@@ -1543,27 +2153,71 @@ export namespace ThreadListResponse {
     }
 
     /**
-     * A web address with content information such as title, description, etc.
+     * A minimal object used to refer to a link without sending too much data.
      */
     export interface Link {
-      assets: Array<Link.Asset>;
+      /**
+       * A unique identifier for this resource.
+       */
+      id: string;
+
+      /**
+       * The time the resource was created.
+       */
+      createdAt: string;
 
       domain: string;
 
       slug: string;
 
       /**
+       * The time the resource was updated.
+       */
+      updatedAt: string;
+
+      /**
        * A web address
        */
       url: string;
 
+      /**
+       * The time the resource was soft-deleted.
+       */
+      deletedAt?: string;
+
       description?: string;
+
+      favicon_image?: Link.FaviconImage;
+
+      /**
+       * Arbitrary extra data stored with the resource.
+       */
+      misc?: unknown;
+
+      primary_image?: Link.PrimaryImage;
 
       title?: string;
     }
 
     export namespace Link {
-      export interface Asset {
+      export interface FaviconImage {
+        /**
+         * A unique identifier for this resource.
+         */
+        id: string;
+
+        filename: string;
+
+        height: number;
+
+        mime_type: string;
+
+        url: string;
+
+        width: number;
+      }
+
+      export interface PrimaryImage {
         /**
          * A unique identifier for this resource.
          */
