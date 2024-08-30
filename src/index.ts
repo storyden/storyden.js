@@ -3,7 +3,6 @@
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
-import * as qs from 'qs';
 import * as Core from './core';
 import * as API from './resources/index';
 
@@ -124,10 +123,6 @@ export class Storyden extends Core.APIClient {
     };
   }
 
-  protected override stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
-  }
-
   static Storyden = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
@@ -174,78 +169,28 @@ export namespace Storyden {
   export import Misc = API.Misc;
 
   export import Admin = API.Admin;
-  export import AdminUpdateResponse = API.AdminUpdateResponse;
-  export import AdminUpdateParams = API.AdminUpdateParams;
 
   export import Auth = API.Auth;
-  export import AuthListResponse = API.AuthListResponse;
 
   export import Accounts = API.Accounts;
-  export import AccountUpdateResponse = API.AccountUpdateResponse;
-  export import AccountListResponse = API.AccountListResponse;
-  export import AccountUpdateParams = API.AccountUpdateParams;
 
   export import Profiles = API.Profiles;
-  export import ProfileRetrieveResponse = API.ProfileRetrieveResponse;
-  export import ProfileListResponse = API.ProfileListResponse;
-  export import ProfileListParams = API.ProfileListParams;
 
   export import Categories = API.Categories;
-  export import CategoryCreateResponse = API.CategoryCreateResponse;
-  export import CategoryUpdateResponse = API.CategoryUpdateResponse;
-  export import CategoryListResponse = API.CategoryListResponse;
-  export import CategoryCreateParams = API.CategoryCreateParams;
-  export import CategoryUpdateParams = API.CategoryUpdateParams;
 
   export import Threads = API.Threads;
-  export import ThreadCreateResponse = API.ThreadCreateResponse;
-  export import ThreadRetrieveResponse = API.ThreadRetrieveResponse;
-  export import ThreadUpdateResponse = API.ThreadUpdateResponse;
-  export import ThreadListResponse = API.ThreadListResponse;
-  export import ThreadCreateParams = API.ThreadCreateParams;
-  export import ThreadUpdateParams = API.ThreadUpdateParams;
-  export import ThreadListParams = API.ThreadListParams;
 
   export import Posts = API.Posts;
-  export import PostUpdateResponse = API.PostUpdateResponse;
-  export import PostSearchResponse = API.PostSearchResponse;
-  export import PostUpdateParams = API.PostUpdateParams;
-  export import PostSearchParams = API.PostSearchParams;
 
   export import Assets = API.Assets;
-  export import AssetCreateResponse = API.AssetCreateResponse;
-  export import AssetCreateParams = API.AssetCreateParams;
 
   export import Collections = API.Collections;
-  export import CollectionCreateResponse = API.CollectionCreateResponse;
-  export import CollectionRetrieveResponse = API.CollectionRetrieveResponse;
-  export import CollectionUpdateResponse = API.CollectionUpdateResponse;
-  export import CollectionListResponse = API.CollectionListResponse;
-  export import CollectionCreateParams = API.CollectionCreateParams;
-  export import CollectionUpdateParams = API.CollectionUpdateParams;
-  export import CollectionListParams = API.CollectionListParams;
 
   export import Nodes = API.Nodes;
-  export import NodeCreateResponse = API.NodeCreateResponse;
-  export import NodeRetrieveResponse = API.NodeRetrieveResponse;
-  export import NodeUpdateResponse = API.NodeUpdateResponse;
-  export import NodeListResponse = API.NodeListResponse;
-  export import NodeDeleteResponse = API.NodeDeleteResponse;
-  export import NodeCreateParams = API.NodeCreateParams;
-  export import NodeUpdateParams = API.NodeUpdateParams;
-  export import NodeListParams = API.NodeListParams;
-  export import NodeDeleteParams = API.NodeDeleteParams;
 
   export import Links = API.Links;
-  export import LinkCreateResponse = API.LinkCreateResponse;
-  export import LinkRetrieveResponse = API.LinkRetrieveResponse;
-  export import LinkListResponse = API.LinkListResponse;
-  export import LinkCreateParams = API.LinkCreateParams;
-  export import LinkListParams = API.LinkListParams;
 
   export import Datagraph = API.Datagraph;
-  export import DatagraphListResponse = API.DatagraphListResponse;
-  export import DatagraphListParams = API.DatagraphListParams;
 }
 
 export default Storyden;

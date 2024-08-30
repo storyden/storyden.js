@@ -17,5 +17,4 @@ export namespace Misc {
   export import OpenAPI = OpenAPIAPI.OpenAPI;
   export import OpenAPIRetrieveResponse = OpenAPIAPI.OpenAPIRetrieveResponse;
   export import Info = InfoAPI.Info;
-  export import InfoRetrieveResponse = InfoAPI.InfoRetrieveResponse;
 }
