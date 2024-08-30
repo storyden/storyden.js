@@ -11,8 +11,5 @@ export class Self extends APIResource {
 
 export namespace Self {
   export import AuthMethods = AuthMethodsAPI.AuthMethods;
-  export import AuthMethodListResponse = AuthMethodsAPI.AuthMethodListResponse;
-  export import AuthMethodDeleteResponse = AuthMethodsAPI.AuthMethodDeleteResponse;
   export import Avatar = AvatarAPI.Avatar;
-  export import AvatarCreateParams = AvatarAPI.AvatarCreateParams;
 }
