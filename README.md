@@ -28,7 +28,7 @@ import Storyden from 'Storyden';
 const client = new Storyden();
 
 async function main() {
-  const versionRetrieveResponse = await client.misc.version.retrieve();
+  const version = await client.misc.version.retrieve();
 }
 
 main();
@@ -45,7 +45,7 @@ import Storyden from 'Storyden';
 const client = new Storyden();
 
 async function main() {
-  const versionRetrieveResponse: string = await client.misc.version.retrieve();
+  const version: string = await client.misc.version.retrieve();
 }
 
 main();
@@ -62,7 +62,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const versionRetrieveResponse = await client.misc.version.retrieve().catch(async (err) => {
+  const version = await client.misc.version.retrieve().catch(async (err) => {
     if (err instanceof Storyden.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -147,9 +147,9 @@ const response = await client.misc.version.retrieve().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: versionRetrieveResponse, response: raw } = await client.misc.version.retrieve().withResponse();
+const { data: version, response: raw } = await client.misc.version.retrieve().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(versionRetrieveResponse);
+console.log(version);
 ```
 
 ### Making custom/undocumented requests
