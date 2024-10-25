@@ -2,5 +2,5 @@
 
 export { Info } from './info/index';
 export { Misc } from './misc';
-export { OpenAPI, type OpenAPIRetrieveResponse } from './openapi';
-export { Version, type VersionRetrieveResponse } from './version';
+export { OpenAPIRetrieveResponse, OpenAPI } from './openapi';
+export { VersionRetrieveResponse, Version } from './version';

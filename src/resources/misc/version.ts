@@ -20,5 +20,5 @@ export class Version extends APIResource {
 export type VersionRetrieveResponse = string;
 
 export namespace Version {
-  export type VersionRetrieveResponse = VersionAPI.VersionRetrieveResponse;
+  export import VersionRetrieveResponse = VersionAPI.VersionRetrieveResponse;
 }
