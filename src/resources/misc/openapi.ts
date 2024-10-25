@@ -20,5 +20,5 @@ export class OpenAPI extends APIResource {
 export type OpenAPIRetrieveResponse = string;
 
 export namespace OpenAPI {
-  export import OpenAPIRetrieveResponse = OpenAPIAPI.OpenAPIRetrieveResponse;
+  export type OpenAPIRetrieveResponse = OpenAPIAPI.OpenAPIRetrieveResponse;
 }

@@ -13,8 +13,8 @@ export class Misc extends APIResource {
 
 export namespace Misc {
   export import Version = VersionAPI.Version;
-  export import VersionRetrieveResponse = VersionAPI.VersionRetrieveResponse;
+  export type VersionRetrieveResponse = VersionAPI.VersionRetrieveResponse;
   export import OpenAPI = OpenAPIAPI.OpenAPI;
-  export import OpenAPIRetrieveResponse = OpenAPIAPI.OpenAPIRetrieveResponse;
+  export type OpenAPIRetrieveResponse = OpenAPIAPI.OpenAPIRetrieveResponse;
   export import Info = InfoAPI.Info;
 }
