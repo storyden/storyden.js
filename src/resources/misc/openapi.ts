@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as OpenAPIAPI from './openapi';
 
 export class OpenAPI extends APIResource {
   /**
@@ -19,6 +18,6 @@ export class OpenAPI extends APIResource {
 
 export type OpenAPIRetrieveResponse = string;
 
-export namespace OpenAPI {
-  export import OpenAPIRetrieveResponse = OpenAPIAPI.OpenAPIRetrieveResponse;
+export declare namespace OpenAPI {
+  export { type OpenAPIRetrieveResponse as OpenAPIRetrieveResponse };
 }

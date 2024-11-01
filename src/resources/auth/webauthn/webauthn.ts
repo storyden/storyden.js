@@ -2,11 +2,14 @@
 
 import { APIResource } from '../../../resource';
 import * as AssertAPI from './assert';
+import { Assert } from './assert';
 
 export class Webauthn extends APIResource {
   assert: AssertAPI.Assert = new AssertAPI.Assert(this._client);
 }
 
-export namespace Webauthn {
-  export import Assert = AssertAPI.Assert;
+Webauthn.Assert = Assert;
+
+export declare namespace Webauthn {
+  export { Assert as Assert };
 }

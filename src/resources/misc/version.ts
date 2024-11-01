@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as VersionAPI from './version';
 
 export class Version extends APIResource {
   /**
@@ -19,6 +18,6 @@ export class Version extends APIResource {
 
 export type VersionRetrieveResponse = string;
 
-export namespace Version {
-  export import VersionRetrieveResponse = VersionAPI.VersionRetrieveResponse;
+export declare namespace Version {
+  export { type VersionRetrieveResponse as VersionRetrieveResponse };
 }

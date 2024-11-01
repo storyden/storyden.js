@@ -2,11 +2,14 @@
 
 import { APIResource } from '../../resource';
 import * as ReactsAPI from './reacts';
+import { Reacts } from './reacts';
 
 export class Posts extends APIResource {
   reacts: ReactsAPI.Reacts = new ReactsAPI.Reacts(this._client);
 }
 
-export namespace Posts {
-  export import Reacts = ReactsAPI.Reacts;
+Posts.Reacts = Reacts;
+
+export declare namespace Posts {
+  export { Reacts as Reacts };
 }

@@ -2,11 +2,14 @@
 
 import { APIResource } from '../../resource';
 import * as BansAPI from './bans';
+import { Bans } from './bans';
 
 export class Admin extends APIResource {
   bans: BansAPI.Bans = new BansAPI.Bans(this._client);
 }
 
-export namespace Admin {
-  export import Bans = BansAPI.Bans;
+Admin.Bans = Bans;
+
+export declare namespace Admin {
+  export { Bans as Bans };
 }
