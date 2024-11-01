@@ -2,11 +2,14 @@
 
 import { APIResource } from '../../../resource';
 import * as IconAPI from './icon';
+import { Icon } from './icon';
 
 export class Info extends APIResource {
   icon: IconAPI.Icon = new IconAPI.Icon(this._client);
 }
 
-export namespace Info {
-  export import Icon = IconAPI.Icon;
+Info.Icon = Icon;
+
+export declare namespace Info {
+  export { Icon as Icon };
 }

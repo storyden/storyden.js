@@ -2,8 +2,11 @@
 
 import { APIResource } from '../../resource';
 import * as OpenAPIAPI from './openapi';
+import { OpenAPI, OpenAPIRetrieveResponse } from './openapi';
 import * as VersionAPI from './version';
+import { Version, VersionRetrieveResponse } from './version';
 import * as InfoAPI from './info/info';
+import { Info } from './info/info';
 
 export class Misc extends APIResource {
   version: VersionAPI.Version = new VersionAPI.Version(this._client);
@@ -11,10 +14,14 @@ export class Misc extends APIResource {
   info: InfoAPI.Info = new InfoAPI.Info(this._client);
 }
 
-export namespace Misc {
-  export import Version = VersionAPI.Version;
-  export import VersionRetrieveResponse = VersionAPI.VersionRetrieveResponse;
-  export import OpenAPI = OpenAPIAPI.OpenAPI;
-  export import OpenAPIRetrieveResponse = OpenAPIAPI.OpenAPIRetrieveResponse;
-  export import Info = InfoAPI.Info;
+Misc.Version = Version;
+Misc.OpenAPI = OpenAPI;
+Misc.Info = Info;
+
+export declare namespace Misc {
+  export { Version as Version, type VersionRetrieveResponse as VersionRetrieveResponse };
+
+  export { OpenAPI as OpenAPI, type OpenAPIRetrieveResponse as OpenAPIRetrieveResponse };
+
+  export { Info as Info };
 }

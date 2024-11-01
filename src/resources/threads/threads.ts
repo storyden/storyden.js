@@ -2,11 +2,14 @@
 
 import { APIResource } from '../../resource';
 import * as PostsAPI from './posts';
+import { Posts } from './posts';
 
 export class Threads extends APIResource {
   posts: PostsAPI.Posts = new PostsAPI.Posts(this._client);
 }
 
-export namespace Threads {
-  export import Posts = PostsAPI.Posts;
+Threads.Posts = Posts;
+
+export declare namespace Threads {
+  export { Posts as Posts };
 }

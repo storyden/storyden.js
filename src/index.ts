@@ -1,10 +1,23 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Errors from './error';
-import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
 import * as Core from './core';
+import * as Errors from './error';
+import * as Uploads from './uploads';
 import * as API from './resources/index';
+import { Assets } from './resources/assets';
+import { Categories } from './resources/categories';
+import { Datagraph } from './resources/datagraph';
+import { Links } from './resources/links';
+import { Profiles } from './resources/profiles';
+import { Accounts } from './resources/accounts/accounts';
+import { Admin } from './resources/admin/admin';
+import { Auth } from './resources/auth/auth';
+import { Collections } from './resources/collections/collections';
+import { Misc } from './resources/misc/misc';
+import { Nodes } from './resources/nodes/nodes';
+import { Posts } from './resources/posts/posts';
+import { Threads } from './resources/threads/threads';
 
 export interface ClientOptions {
   /**
@@ -144,53 +157,65 @@ export class Storyden extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
-  StorydenError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} = Errors;
+export const StorydenError = Errors.StorydenError;
+export const APIError = Errors.APIError;
+export const APIConnectionError = Errors.APIConnectionError;
+export const APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
+export const APIUserAbortError = Errors.APIUserAbortError;
+export const NotFoundError = Errors.NotFoundError;
+export const ConflictError = Errors.ConflictError;
+export const RateLimitError = Errors.RateLimitError;
+export const BadRequestError = Errors.BadRequestError;
+export const AuthenticationError = Errors.AuthenticationError;
+export const InternalServerError = Errors.InternalServerError;
+export const PermissionDeniedError = Errors.PermissionDeniedError;
+export const UnprocessableEntityError = Errors.UnprocessableEntityError;
 
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace Storyden {
-  export import RequestOptions = Core.RequestOptions;
+Storyden.Misc = Misc;
+Storyden.Admin = Admin;
+Storyden.Auth = Auth;
+Storyden.Accounts = Accounts;
+Storyden.Profiles = Profiles;
+Storyden.Categories = Categories;
+Storyden.Threads = Threads;
+Storyden.Posts = Posts;
+Storyden.Assets = Assets;
+Storyden.Collections = Collections;
+Storyden.Nodes = Nodes;
+Storyden.Links = Links;
+Storyden.Datagraph = Datagraph;
 
-  export import Misc = API.Misc;
+export declare namespace Storyden {
+  export type RequestOptions = Core.RequestOptions;
 
-  export import Admin = API.Admin;
+  export { Misc as Misc };
 
-  export import Auth = API.Auth;
+  export { Admin as Admin };
 
-  export import Accounts = API.Accounts;
+  export { Auth as Auth };
 
-  export import Profiles = API.Profiles;
+  export { Accounts as Accounts };
 
-  export import Categories = API.Categories;
+  export { Profiles as Profiles };
 
-  export import Threads = API.Threads;
+  export { Categories as Categories };
 
-  export import Posts = API.Posts;
+  export { Threads as Threads };
 
-  export import Assets = API.Assets;
+  export { Posts as Posts };
 
-  export import Collections = API.Collections;
+  export { Assets as Assets };
 
-  export import Nodes = API.Nodes;
+  export { Collections as Collections };
 
-  export import Links = API.Links;
+  export { Nodes as Nodes };
 
-  export import Datagraph = API.Datagraph;
+  export { Links as Links };
+
+  export { Datagraph as Datagraph };
 }
 
 export default Storyden;

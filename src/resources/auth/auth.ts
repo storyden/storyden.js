@@ -2,11 +2,17 @@
 
 import { APIResource } from '../../resource';
 import * as EmailAPI from './email';
+import { Email } from './email';
 import * as EmailPasswordAPI from './email-password';
+import { EmailPassword } from './email-password';
 import * as OAuthAPI from './oauth';
+import { OAuth } from './oauth';
 import * as PasswordAPI from './password';
+import { Password } from './password';
 import * as PhoneAPI from './phone';
+import { Phone } from './phone';
 import * as WebauthnAPI from './webauthn/webauthn';
+import { Webauthn } from './webauthn/webauthn';
 
 export class Auth extends APIResource {
   password: PasswordAPI.Password = new PasswordAPI.Password(this._client);
@@ -17,11 +23,23 @@ export class Auth extends APIResource {
   phone: PhoneAPI.Phone = new PhoneAPI.Phone(this._client);
 }
 
-export namespace Auth {
-  export import Password = PasswordAPI.Password;
-  export import EmailPassword = EmailPasswordAPI.EmailPassword;
-  export import Email = EmailAPI.Email;
-  export import OAuth = OAuthAPI.OAuth;
-  export import Webauthn = WebauthnAPI.Webauthn;
-  export import Phone = PhoneAPI.Phone;
+Auth.Password = Password;
+Auth.EmailPassword = EmailPassword;
+Auth.Email = Email;
+Auth.OAuth = OAuth;
+Auth.Webauthn = Webauthn;
+Auth.Phone = Phone;
+
+export declare namespace Auth {
+  export { Password as Password };
+
+  export { EmailPassword as EmailPassword };
+
+  export { Email as Email };
+
+  export { OAuth as OAuth };
+
+  export { Webauthn as Webauthn };
+
+  export { Phone as Phone };
 }
