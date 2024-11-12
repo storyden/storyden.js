@@ -157,25 +157,6 @@ export class Storyden extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export {
-  StorydenError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
 Storyden.Misc = Misc;
 Storyden.Admin = Admin;
 Storyden.Auth = Auth;
@@ -189,7 +170,6 @@ Storyden.Collections = Collections;
 Storyden.Nodes = Nodes;
 Storyden.Links = Links;
 Storyden.Datagraph = Datagraph;
-
 export declare namespace Storyden {
   export type RequestOptions = Core.RequestOptions;
 
@@ -219,5 +199,22 @@ export declare namespace Storyden {
 
   export { Datagraph as Datagraph };
 }
+
+export { toFile, fileFromPath } from 'Storyden/uploads';
+export {
+  StorydenError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} from 'Storyden/error';
 
 export default Storyden;
