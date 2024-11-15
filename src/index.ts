@@ -200,7 +200,7 @@ export declare namespace Storyden {
   export { Datagraph as Datagraph };
 }
 
-export { toFile, fileFromPath } from 'Storyden/uploads';
+export { toFile, fileFromPath } from './uploads';
 export {
   StorydenError,
   APIError,
@@ -215,6 +215,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'Storyden/error';
+} from './error';
 
 export default Storyden;
