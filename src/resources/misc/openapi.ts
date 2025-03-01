@@ -5,18 +5,19 @@ import * as Core from '../../core';
 
 export class OpenAPI extends APIResource {
   /**
-   * Note: the generator creates a `map[string]interface{}` if this is set to
-   * `application/json`... so I'm just using plain text for now.
+   * This endpoint returns the OpenAPI specification for the Storyden API in JSON
+   * format. This is useful for clients that want to dynamically load the API
+   * specification for documentation or code generation.
    */
-  retrieve(options?: Core.RequestOptions): Core.APIPromise<string> {
+  retrieve(options?: Core.RequestOptions): Core.APIPromise<unknown> {
     return this._client.get('/openapi.json', {
       ...options,
-      headers: { Accept: 'text/plain', ...options?.headers },
+      headers: { Accept: 'application/vnd.oai.openapi+json;version=3.1.0', ...options?.headers },
     });
   }
 }
 
-export type OpenAPIRetrieveResponse = string;
+export type OpenAPIRetrieveResponse = unknown;
 
 export declare namespace OpenAPI {
   export { type OpenAPIRetrieveResponse as OpenAPIRetrieveResponse };

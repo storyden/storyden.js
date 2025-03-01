@@ -18,7 +18,7 @@ Types:
 
 Methods:
 
-- <code title="get /openapi.json">client.misc.openAPI.<a href="./src/resources/misc/openapi.ts">retrieve</a>() -> string</code>
+- <code title="get /openapi.json">client.misc.openAPI.<a href="./src/resources/misc/openapi.ts">retrieve</a>() -> unknown</code>
 
 ## Info
 
