@@ -27,11 +27,7 @@ import Storyden from 'Storyden';
 
 const client = new Storyden();
 
-async function main() {
-  const version = await client.misc.version.retrieve();
-}
-
-main();
+const version = await client.misc.version.retrieve();
 ```
 
 ### Request & Response types
@@ -44,11 +40,7 @@ import Storyden from 'Storyden';
 
 const client = new Storyden();
 
-async function main() {
-  const version: string = await client.misc.version.retrieve();
-}
-
-main();
+const version: string = await client.misc.version.retrieve();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -61,19 +53,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const version = await client.misc.version.retrieve().catch(async (err) => {
-    if (err instanceof Storyden.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const version = await client.misc.version.retrieve().catch(async (err) => {
+  if (err instanceof Storyden.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
