@@ -102,6 +102,7 @@ export class Storyden extends Core.APIClient {
 
     super({
       baseURL: options.baseURL!,
+      baseURLOverridden: baseURL ? baseURL !== '/api' : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -124,6 +125,13 @@ export class Storyden extends Core.APIClient {
   nodes: API.Nodes = new API.Nodes(this);
   links: API.Links = new API.Links(this);
   datagraph: API.Datagraph = new API.Datagraph(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== '/api';
+  }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
