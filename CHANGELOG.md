@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2025-07-02)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/storyden/storyden.js/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** manual updates ([09a5dd2](https://github.com/storyden/storyden.js/commit/09a5dd2ad85ed3be308851cc02fcaf6fe72dcb38))
+
+
+### Chores
+
+* configure new SDK language ([3236362](https://github.com/storyden/storyden.js/commit/323636237042a42c3130c418f2c05a24a043c410))
+* update SDK settings ([f4340de](https://github.com/storyden/storyden.js/commit/f4340de73aed18870fb3f242aec4d499e3bdf2e4))
+* update SDK settings ([38afde4](https://github.com/storyden/storyden.js/commit/38afde4ca916c3f189634ea8d3b65e13984bd6ac))
+
 ## 0.1.0-alpha.1 (2025-07-02)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/storyden/storyden.js/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
