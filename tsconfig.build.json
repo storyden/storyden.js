@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "Storyden/*": ["dist/src/*"],
-      "Storyden": ["dist/src/index.ts"],
+      "storyden/*": ["dist/src/*"],
+      "storyden": ["dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,
