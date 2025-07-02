@@ -1,25 +1,149 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
+import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { Assets } from './resources/assets';
-import { Categories } from './resources/categories';
-import { Datagraph } from './resources/datagraph';
-import { Links } from './resources/links';
-import { Profiles } from './resources/profiles';
-import { Accounts } from './resources/accounts/accounts';
-import { Admin } from './resources/admin/admin';
-import { Auth } from './resources/auth/auth';
-import { Collections } from './resources/collections/collections';
-import { Misc } from './resources/misc/misc';
-import { Nodes } from './resources/nodes/nodes';
-import { Posts } from './resources/posts/posts';
-import { Threads } from './resources/threads/threads';
+import { AssetUploadParams, AssetUploadResponse, Assets } from './resources/assets';
+import {
+  Categories,
+  CategoryCreateParams,
+  CategoryCreateResponse,
+  CategoryListResponse,
+  CategoryUpdateParams,
+  CategoryUpdateResponse,
+  CategoryUpdateSortOrderParams,
+  CategoryUpdateSortOrderResponse,
+} from './resources/categories';
+import {
+  Datagraph,
+  DatagraphAskQuestionParams,
+  DatagraphAskQuestionResponse,
+  DatagraphQueryParams,
+  DatagraphQueryResponse,
+} from './resources/datagraph';
+import { DocRetrieveResponse, Docs } from './resources/docs';
+import {
+  InvitationCreateParams,
+  InvitationCreateResponse,
+  InvitationListParams,
+  InvitationListResponse,
+  InvitationRetrieveResponse,
+  Invitations,
+} from './resources/invitations';
+import {
+  LinkCreateParams,
+  LinkCreateResponse,
+  LinkListParams,
+  LinkListResponse,
+  LinkRetrieveResponse,
+  Links,
+} from './resources/links';
+import {
+  NotificationListParams,
+  NotificationListResponse,
+  NotificationUpdateReadStatusParams,
+  NotificationUpdateReadStatusResponse,
+  Notifications,
+} from './resources/notifications';
+import { OpenAPIJson, OpenAPIJsonRetrieveResponse } from './resources/openapi-json';
+import {
+  RoleCreateParams,
+  RoleCreateResponse,
+  RoleListResponse,
+  RoleRetrieveResponse,
+  RoleUpdateParams,
+  RoleUpdateResponse,
+  Roles,
+} from './resources/roles';
+import { TagListParams, TagListResponse, TagRetrieveResponse, Tags } from './resources/tags';
+import {
+  ThreadCreateParams,
+  ThreadCreateReplyParams,
+  ThreadCreateReplyResponse,
+  ThreadCreateResponse,
+  ThreadListParams,
+  ThreadListResponse,
+  ThreadRetrieveParams,
+  ThreadRetrieveResponse,
+  ThreadUpdateParams,
+  ThreadUpdateResponse,
+  Threads,
+} from './resources/threads';
+import { Version, VersionRetrieveResponse } from './resources/version';
+import {
+  AccountListResponse,
+  AccountPatchAllParams,
+  AccountPatchAllResponse,
+  Accounts,
+} from './resources/accounts/accounts';
+import { Admin, AdminUpdateSettingsParams, AdminUpdateSettingsResponse } from './resources/admin/admin';
+import { Auth, AuthListProvidersResponse } from './resources/auth/auth';
+import {
+  CollectionCreateParams,
+  CollectionCreateResponse,
+  CollectionListParams,
+  CollectionListResponse,
+  CollectionRetrieveResponse,
+  CollectionUpdateParams,
+  CollectionUpdateResponse,
+  Collections,
+} from './resources/collections/collections';
+import {
+  EventCreateParams,
+  EventCreateResponse,
+  EventListParams,
+  EventListResponse,
+  EventRetrieveResponse,
+  EventUpdateParams,
+  EventUpdateResponse,
+  Events,
+} from './resources/events/events';
+import { Info, InfoRetrieveResponse } from './resources/info/info';
+import { LikeRetrieveByProfileParams, LikeRetrieveByProfileResponse, Likes } from './resources/likes/likes';
+import {
+  NodeCreateParams,
+  NodeCreateResponse,
+  NodeDeleteParams,
+  NodeDeleteResponse,
+  NodeListParams,
+  NodeListResponse,
+  NodeProposeContentParams,
+  NodeProposeContentResponse,
+  NodeProposeTagsParams,
+  NodeProposeTagsResponse,
+  NodeProposeTitleParams,
+  NodeProposeTitleResponse,
+  NodeRetrieveParams,
+  NodeRetrieveResponse,
+  NodeUpdateParams,
+  NodeUpdatePositionParams,
+  NodeUpdatePositionResponse,
+  NodeUpdatePropertiesParams,
+  NodeUpdatePropertiesResponse,
+  NodeUpdatePropertySchemaParams,
+  NodeUpdatePropertySchemaResponse,
+  NodeUpdateResponse,
+  NodeUpdateVisibilityParams,
+  NodeUpdateVisibilityResponse,
+  Nodes,
+} from './resources/nodes/nodes';
+import { PostUpdateParams, PostUpdateResponse, Posts } from './resources/posts/posts';
+import {
+  ProfileListParams,
+  ProfileListResponse,
+  ProfileRetrieveResponse,
+  Profiles,
+} from './resources/profiles/profiles';
 
 export interface ClientOptions {
+  /**
+   * Defaults to process.env['STORYDEN_API_KEY'].
+   */
+  apiKey?: string | null | undefined;
+
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
@@ -81,11 +205,14 @@ export interface ClientOptions {
  * API Client for interfacing with the Storyden API.
  */
 export class Storyden extends Core.APIClient {
+  apiKey: string | null;
+
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Storyden API.
    *
+   * @param {string | null | undefined} [opts.apiKey=process.env['STORYDEN_API_KEY'] ?? null]
    * @param {string} [opts.baseURL=process.env['STORYDEN_BASE_URL'] ?? /api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -94,8 +221,13 @@ export class Storyden extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({ baseURL = Core.readEnv('STORYDEN_BASE_URL'), ...opts }: ClientOptions = {}) {
+  constructor({
+    baseURL = Core.readEnv('STORYDEN_BASE_URL'),
+    apiKey = Core.readEnv('STORYDEN_API_KEY') ?? null,
+    ...opts
+  }: ClientOptions = {}) {
     const options: ClientOptions = {
+      apiKey,
       ...opts,
       baseURL: baseURL || `/api`,
     };
@@ -110,21 +242,32 @@ export class Storyden extends Core.APIClient {
     });
 
     this._options = options;
+
+    this.apiKey = apiKey;
   }
 
-  misc: API.Misc = new API.Misc(this);
+  version: API.Version = new API.Version(this);
+  openAPIJson: API.OpenAPIJson = new API.OpenAPIJson(this);
+  docs: API.Docs = new API.Docs(this);
+  info: API.Info = new API.Info(this);
   admin: API.Admin = new API.Admin(this);
+  roles: API.Roles = new API.Roles(this);
   auth: API.Auth = new API.Auth(this);
   accounts: API.Accounts = new API.Accounts(this);
+  invitations: API.Invitations = new API.Invitations(this);
+  notifications: API.Notifications = new API.Notifications(this);
   profiles: API.Profiles = new API.Profiles(this);
   categories: API.Categories = new API.Categories(this);
+  tags: API.Tags = new API.Tags(this);
   threads: API.Threads = new API.Threads(this);
   posts: API.Posts = new API.Posts(this);
   assets: API.Assets = new API.Assets(this);
+  likes: API.Likes = new API.Likes(this);
   collections: API.Collections = new API.Collections(this);
   nodes: API.Nodes = new API.Nodes(this);
   links: API.Links = new API.Links(this);
   datagraph: API.Datagraph = new API.Datagraph(this);
+  events: API.Events = new API.Events(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -142,6 +285,30 @@ export class Storyden extends Core.APIClient {
       ...super.defaultHeaders(opts),
       ...this._options.defaultHeaders,
     };
+  }
+
+  protected override validateHeaders(headers: Core.Headers, customHeaders: Core.Headers) {
+    if (this.apiKey && headers['authorization']) {
+      return;
+    }
+    if (customHeaders['authorization'] === null) {
+      return;
+    }
+
+    throw new Error(
+      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted',
+    );
+  }
+
+  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    if (this.apiKey == null) {
+      return {};
+    }
+    return { Authorization: `Bearer ${this.apiKey}` };
+  }
+
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
   }
 
   static Storyden = this;
@@ -165,47 +332,204 @@ export class Storyden extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-Storyden.Misc = Misc;
+Storyden.Version = Version;
+Storyden.OpenAPIJson = OpenAPIJson;
+Storyden.Docs = Docs;
+Storyden.Info = Info;
 Storyden.Admin = Admin;
+Storyden.Roles = Roles;
 Storyden.Auth = Auth;
 Storyden.Accounts = Accounts;
+Storyden.Invitations = Invitations;
+Storyden.Notifications = Notifications;
 Storyden.Profiles = Profiles;
 Storyden.Categories = Categories;
+Storyden.Tags = Tags;
 Storyden.Threads = Threads;
 Storyden.Posts = Posts;
 Storyden.Assets = Assets;
+Storyden.Likes = Likes;
 Storyden.Collections = Collections;
 Storyden.Nodes = Nodes;
 Storyden.Links = Links;
 Storyden.Datagraph = Datagraph;
+Storyden.Events = Events;
 export declare namespace Storyden {
   export type RequestOptions = Core.RequestOptions;
 
-  export { Misc as Misc };
+  export { Version as Version, type VersionRetrieveResponse as VersionRetrieveResponse };
 
-  export { Admin as Admin };
+  export { OpenAPIJson as OpenAPIJson, type OpenAPIJsonRetrieveResponse as OpenAPIJsonRetrieveResponse };
 
-  export { Auth as Auth };
+  export { Docs as Docs, type DocRetrieveResponse as DocRetrieveResponse };
 
-  export { Accounts as Accounts };
+  export { Info as Info, type InfoRetrieveResponse as InfoRetrieveResponse };
 
-  export { Profiles as Profiles };
+  export {
+    Admin as Admin,
+    type AdminUpdateSettingsResponse as AdminUpdateSettingsResponse,
+    type AdminUpdateSettingsParams as AdminUpdateSettingsParams,
+  };
 
-  export { Categories as Categories };
+  export {
+    Roles as Roles,
+    type RoleCreateResponse as RoleCreateResponse,
+    type RoleRetrieveResponse as RoleRetrieveResponse,
+    type RoleUpdateResponse as RoleUpdateResponse,
+    type RoleListResponse as RoleListResponse,
+    type RoleCreateParams as RoleCreateParams,
+    type RoleUpdateParams as RoleUpdateParams,
+  };
 
-  export { Threads as Threads };
+  export { Auth as Auth, type AuthListProvidersResponse as AuthListProvidersResponse };
 
-  export { Posts as Posts };
+  export {
+    Accounts as Accounts,
+    type AccountListResponse as AccountListResponse,
+    type AccountPatchAllResponse as AccountPatchAllResponse,
+    type AccountPatchAllParams as AccountPatchAllParams,
+  };
 
-  export { Assets as Assets };
+  export {
+    Invitations as Invitations,
+    type InvitationCreateResponse as InvitationCreateResponse,
+    type InvitationRetrieveResponse as InvitationRetrieveResponse,
+    type InvitationListResponse as InvitationListResponse,
+    type InvitationCreateParams as InvitationCreateParams,
+    type InvitationListParams as InvitationListParams,
+  };
 
-  export { Collections as Collections };
+  export {
+    Notifications as Notifications,
+    type NotificationListResponse as NotificationListResponse,
+    type NotificationUpdateReadStatusResponse as NotificationUpdateReadStatusResponse,
+    type NotificationListParams as NotificationListParams,
+    type NotificationUpdateReadStatusParams as NotificationUpdateReadStatusParams,
+  };
 
-  export { Nodes as Nodes };
+  export {
+    Profiles as Profiles,
+    type ProfileRetrieveResponse as ProfileRetrieveResponse,
+    type ProfileListResponse as ProfileListResponse,
+    type ProfileListParams as ProfileListParams,
+  };
 
-  export { Links as Links };
+  export {
+    Categories as Categories,
+    type CategoryCreateResponse as CategoryCreateResponse,
+    type CategoryUpdateResponse as CategoryUpdateResponse,
+    type CategoryListResponse as CategoryListResponse,
+    type CategoryUpdateSortOrderResponse as CategoryUpdateSortOrderResponse,
+    type CategoryCreateParams as CategoryCreateParams,
+    type CategoryUpdateParams as CategoryUpdateParams,
+    type CategoryUpdateSortOrderParams as CategoryUpdateSortOrderParams,
+  };
 
-  export { Datagraph as Datagraph };
+  export {
+    Tags as Tags,
+    type TagRetrieveResponse as TagRetrieveResponse,
+    type TagListResponse as TagListResponse,
+    type TagListParams as TagListParams,
+  };
+
+  export {
+    Threads as Threads,
+    type ThreadCreateResponse as ThreadCreateResponse,
+    type ThreadRetrieveResponse as ThreadRetrieveResponse,
+    type ThreadUpdateResponse as ThreadUpdateResponse,
+    type ThreadListResponse as ThreadListResponse,
+    type ThreadCreateReplyResponse as ThreadCreateReplyResponse,
+    type ThreadCreateParams as ThreadCreateParams,
+    type ThreadRetrieveParams as ThreadRetrieveParams,
+    type ThreadUpdateParams as ThreadUpdateParams,
+    type ThreadListParams as ThreadListParams,
+    type ThreadCreateReplyParams as ThreadCreateReplyParams,
+  };
+
+  export {
+    Posts as Posts,
+    type PostUpdateResponse as PostUpdateResponse,
+    type PostUpdateParams as PostUpdateParams,
+  };
+
+  export {
+    Assets as Assets,
+    type AssetUploadResponse as AssetUploadResponse,
+    type AssetUploadParams as AssetUploadParams,
+  };
+
+  export {
+    Likes as Likes,
+    type LikeRetrieveByProfileResponse as LikeRetrieveByProfileResponse,
+    type LikeRetrieveByProfileParams as LikeRetrieveByProfileParams,
+  };
+
+  export {
+    Collections as Collections,
+    type CollectionCreateResponse as CollectionCreateResponse,
+    type CollectionRetrieveResponse as CollectionRetrieveResponse,
+    type CollectionUpdateResponse as CollectionUpdateResponse,
+    type CollectionListResponse as CollectionListResponse,
+    type CollectionCreateParams as CollectionCreateParams,
+    type CollectionUpdateParams as CollectionUpdateParams,
+    type CollectionListParams as CollectionListParams,
+  };
+
+  export {
+    Nodes as Nodes,
+    type NodeCreateResponse as NodeCreateResponse,
+    type NodeRetrieveResponse as NodeRetrieveResponse,
+    type NodeUpdateResponse as NodeUpdateResponse,
+    type NodeListResponse as NodeListResponse,
+    type NodeDeleteResponse as NodeDeleteResponse,
+    type NodeProposeContentResponse as NodeProposeContentResponse,
+    type NodeProposeTagsResponse as NodeProposeTagsResponse,
+    type NodeProposeTitleResponse as NodeProposeTitleResponse,
+    type NodeUpdatePositionResponse as NodeUpdatePositionResponse,
+    type NodeUpdatePropertiesResponse as NodeUpdatePropertiesResponse,
+    type NodeUpdatePropertySchemaResponse as NodeUpdatePropertySchemaResponse,
+    type NodeUpdateVisibilityResponse as NodeUpdateVisibilityResponse,
+    type NodeCreateParams as NodeCreateParams,
+    type NodeRetrieveParams as NodeRetrieveParams,
+    type NodeUpdateParams as NodeUpdateParams,
+    type NodeListParams as NodeListParams,
+    type NodeDeleteParams as NodeDeleteParams,
+    type NodeProposeContentParams as NodeProposeContentParams,
+    type NodeProposeTagsParams as NodeProposeTagsParams,
+    type NodeProposeTitleParams as NodeProposeTitleParams,
+    type NodeUpdatePositionParams as NodeUpdatePositionParams,
+    type NodeUpdatePropertiesParams as NodeUpdatePropertiesParams,
+    type NodeUpdatePropertySchemaParams as NodeUpdatePropertySchemaParams,
+    type NodeUpdateVisibilityParams as NodeUpdateVisibilityParams,
+  };
+
+  export {
+    Links as Links,
+    type LinkCreateResponse as LinkCreateResponse,
+    type LinkRetrieveResponse as LinkRetrieveResponse,
+    type LinkListResponse as LinkListResponse,
+    type LinkCreateParams as LinkCreateParams,
+    type LinkListParams as LinkListParams,
+  };
+
+  export {
+    Datagraph as Datagraph,
+    type DatagraphAskQuestionResponse as DatagraphAskQuestionResponse,
+    type DatagraphQueryResponse as DatagraphQueryResponse,
+    type DatagraphAskQuestionParams as DatagraphAskQuestionParams,
+    type DatagraphQueryParams as DatagraphQueryParams,
+  };
+
+  export {
+    Events as Events,
+    type EventCreateResponse as EventCreateResponse,
+    type EventRetrieveResponse as EventRetrieveResponse,
+    type EventUpdateResponse as EventUpdateResponse,
+    type EventListResponse as EventListResponse,
+    type EventCreateParams as EventCreateParams,
+    type EventUpdateParams as EventUpdateParams,
+    type EventListParams as EventListParams,
+  };
 }
 
 export { toFile, fileFromPath } from './uploads';

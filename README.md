@@ -1,17 +1,17 @@
 # Storyden Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/Storyden.svg)](https://npmjs.org/package/Storyden) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/Storyden)
+[![NPM version](https://img.shields.io/npm/v/storyden.svg)](https://npmjs.org/package/storyden) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/storyden)
 
 This library provides convenient access to the Storyden REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found on [docs.storyden.com](https://docs.Storyden.com). The full API of this library can be found in [api.md](api.md).
+The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
 ```sh
-npm install Storyden
+npm install storyden
 ```
 
 ## Usage
@@ -20,11 +20,11 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Storyden from 'Storyden';
+import Storyden from 'storyden';
 
 const client = new Storyden();
 
-const version = await client.misc.version.retrieve();
+const version = await client.version.retrieve();
 ```
 
 ### Request & Response types
@@ -33,11 +33,11 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Storyden from 'Storyden';
+import Storyden from 'storyden';
 
 const client = new Storyden();
 
-const version: string = await client.misc.version.retrieve();
+const version: string = await client.version.retrieve();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -50,7 +50,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const version = await client.misc.version.retrieve().catch(async (err) => {
+const version = await client.version.retrieve().catch(async (err) => {
   if (err instanceof Storyden.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -90,7 +90,7 @@ const client = new Storyden({
 });
 
 // Or, configure per-request:
-await client.misc.version.retrieve({
+await client.version.retrieve({
   maxRetries: 5,
 });
 ```
@@ -107,7 +107,7 @@ const client = new Storyden({
 });
 
 // Override per-request:
-await client.misc.version.retrieve({
+await client.version.retrieve({
   timeout: 5 * 1000,
 });
 ```
@@ -128,11 +128,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Storyden();
 
-const response = await client.misc.version.retrieve().asResponse();
+const response = await client.version.retrieve().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: version, response: raw } = await client.misc.version.retrieve().withResponse();
+const { data: version, response: raw } = await client.version.retrieve().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(version);
 ```
@@ -192,11 +192,11 @@ add the following import before your first import `from "Storyden"`:
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'Storyden/shims/web';
-import Storyden from 'Storyden';
+import 'storyden/shims/web';
+import Storyden from 'storyden';
 ```
 
-To do the inverse, add `import "Storyden/shims/node"` (which does import polyfills).
+To do the inverse, add `import "storyden/shims/node"` (which does import polyfills).
 This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/storyden/storyden.js/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
@@ -206,7 +206,7 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Storyden from 'Storyden';
+import Storyden from 'storyden';
 
 const client = new Storyden({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
@@ -238,7 +238,7 @@ const client = new Storyden({
 });
 
 // Override per-request:
-await client.misc.version.retrieve({
+await client.version.retrieve({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```

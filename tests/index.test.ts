@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Storyden from 'Storyden';
-import { APIUserAbortError } from 'Storyden';
-import { Headers } from 'Storyden/core';
+import Storyden from 'storyden';
+import { APIUserAbortError } from 'storyden';
+import { Headers } from 'storyden/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {

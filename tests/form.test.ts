@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'Storyden/core';
-import { Blob } from 'Storyden/_shims/index';
-import { toFile } from 'Storyden';
+import { multipartFormRequestOptions, createForm } from 'storyden/core';
+import { Blob } from 'storyden/_shims/index';
+import { toFile } from 'storyden';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

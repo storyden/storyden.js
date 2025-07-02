@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'Storyden/core';
-import { Headers } from 'Storyden/_shims/index';
+import { createResponseHeaders } from 'storyden/core';
+import { Headers } from 'storyden/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters

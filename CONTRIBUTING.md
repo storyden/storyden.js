@@ -55,12 +55,12 @@ $ cd storyden.js
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link Storyden
+$ yarn link storyden
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global Storyden
+$ pnpm link -—global storyden
 ```
 
 ## Running tests

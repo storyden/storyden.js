@@ -1,8 +1,8 @@
 {
-  "name": "Storyden",
-  "version": "0.1.0-alpha.1",
+  "name": "storyden",
+  "version": "0.1.0-alpha.2",
   "description": "The official TypeScript library for the Storyden API",
-  "author": "Storyden <dev-feedback@Storyden.com>",
+  "author": "Storyden <>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -59,8 +59,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "Storyden": ".",
-    "Storyden/*": "./src/*"
+    "storyden": ".",
+    "storyden/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {
