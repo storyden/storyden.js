@@ -1,6 +1,6 @@
 {
   "name": "Storyden-mcp",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "The official MCP Server for the Storyden API",
   "author": "Storyden <dev-feedback@Storyden.com>",
   "types": "dist/index.d.ts",
