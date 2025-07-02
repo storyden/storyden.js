@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 import * as AssetsAPI from './assets';
 import { AssetAddResponse, AssetRemoveResponse, Assets } from './assets';
 import * as ChildrenAPI from './children';
@@ -14,7 +15,7 @@ import {
   Children,
 } from './children';
 import * as NodesNodesAPI from './nodes_';
-import { NodeRemoveChildResponse, NodeSetParentResponse, Nodes as NodesAPINodes } from './nodes_';
+import { Nodes as NodesAPINodes } from './nodes_';
 
 export class Nodes extends APIResource {
   children: ChildrenAPI.Children = new ChildrenAPI.Children(this._client);
@@ -26,10 +27,12 @@ export class Nodes extends APIResource {
    *
    * @example
    * ```ts
-   * const node = await client.nodes.create({ name: 'name' });
+   * const commonProperties = await client.nodes.create({
+   *   name: 'name',
+   * });
    * ```
    */
-  create(body: NodeCreateParams, options?: Core.RequestOptions): Core.APIPromise<NodeCreateResponse> {
+  create(body: NodeCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.CommonProperties> {
     return this._client.post('/nodes', { body, ...options });
   }
 
@@ -315,47 +318,14 @@ export class Nodes extends APIResource {
 }
 
 /**
- * A node is a text document with children and assets. It serves as an abstraction
- * for grouping structured data objects. It can represent things such as brands,
- * manufacturers, authors, directors, etc. Nodes can be referenced in content posts
- * and they also have their own content.
+ * The full properties of a node including all child nodes.
  */
-export interface NodeCreateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
-}
+export interface NodeRetrieveResponse extends Shared.CommonProperties {}
 
 /**
  * The full properties of a node including all child nodes.
  */
-export interface NodeRetrieveResponse {}
-
-/**
- * The full properties of a node including all child nodes.
- */
-export interface NodeUpdateResponse {}
+export interface NodeUpdateResponse extends Shared.CommonProperties {}
 
 export interface NodeListResponse {
   current_page: number;
@@ -375,7 +345,7 @@ export namespace NodeListResponse {
   /**
    * The full properties of a node including all child nodes.
    */
-  export interface Node {}
+  export interface Node extends Shared.CommonProperties {}
 }
 
 export interface NodeDeleteResponse {
@@ -385,42 +355,7 @@ export interface NodeDeleteResponse {
    * manufacturers, authors, directors, etc. Nodes can be referenced in content posts
    * and they also have their own content.
    */
-  destination?: NodeDeleteResponse.Destination;
-}
-
-export namespace NodeDeleteResponse {
-  /**
-   * A node is a text document with children and assets. It serves as an abstraction
-   * for grouping structured data objects. It can represent things such as brands,
-   * manufacturers, authors, directors, etc. Nodes can be referenced in content posts
-   * and they also have their own content.
-   */
-  export interface Destination {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
-
-    /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
-  }
+  destination?: Shared.CommonProperties;
 }
 
 /**
@@ -447,7 +382,7 @@ export interface NodeProposeTitleResponse {
 /**
  * The full properties of a node including all child nodes.
  */
-export interface NodeUpdatePositionResponse {}
+export interface NodeUpdatePositionResponse extends Shared.CommonProperties {}
 
 export interface NodeUpdatePropertiesResponse {
   properties: Array<NodeUpdatePropertiesResponse.Property>;
@@ -492,7 +427,7 @@ export namespace NodeUpdatePropertySchemaResponse {
 /**
  * The full properties of a node including all child nodes.
  */
-export interface NodeUpdateVisibilityResponse {}
+export interface NodeUpdateVisibilityResponse extends Shared.CommonProperties {}
 
 export interface NodeCreateParams {
   name: string;
@@ -789,7 +724,6 @@ Nodes.Nodes = NodesAPINodes;
 
 export declare namespace Nodes {
   export {
-    type NodeCreateResponse as NodeCreateResponse,
     type NodeRetrieveResponse as NodeRetrieveResponse,
     type NodeUpdateResponse as NodeUpdateResponse,
     type NodeListResponse as NodeListResponse,
@@ -829,9 +763,5 @@ export declare namespace Nodes {
     type AssetRemoveResponse as AssetRemoveResponse,
   };
 
-  export {
-    NodesAPINodes as Nodes,
-    type NodeRemoveChildResponse as NodeRemoveChildResponse,
-    type NodeSetParentResponse as NodeSetParentResponse,
-  };
+  export { NodesAPINodes as Nodes };
 }

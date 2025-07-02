@@ -2,6 +2,11 @@
 
 export {
   Events,
+  type EventLocationPhysical,
+  type EventLocationVirtual,
+  type EventParticipant,
+  type EventTimeRange,
+  type Thread,
   type EventCreateResponse,
   type EventRetrieveResponse,
   type EventUpdateResponse,
