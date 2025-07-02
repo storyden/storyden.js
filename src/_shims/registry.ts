@@ -42,12 +42,12 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'Storyden/shims/${shims.kind}'\` before importing anything else from Storyden`,
+      `you must \`import 'storyden/shims/${shims.kind}'\` before importing anything else from storyden`,
     );
   }
   if (kind) {
     throw new Error(
-      `can't \`import 'Storyden/shims/${shims.kind}'\` after \`import 'Storyden/shims/${kind}'\``,
+      `can't \`import 'storyden/shims/${shims.kind}'\` after \`import 'storyden/shims/${kind}'\``,
     );
   }
   auto = options.auto;

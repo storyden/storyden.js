@@ -4,8 +4,8 @@
 /**
  * Types will get added to this namespace when you import one of the following:
  *
- *   import 'Storyden/shims/node'
- *   import 'Storyden/shims/web'
+ *   import 'storyden/shims/node'
+ *   import 'storyden/shims/web'
  *
  * Importing more than one will cause type and runtime errors.
  */

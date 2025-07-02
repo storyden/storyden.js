@@ -1,4 +1,4 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Posts } from './posts';
-export { Reacts } from './reacts';
+export { Posts, type PostUpdateResponse, type PostUpdateParams } from './posts';
+export { Reacts, type ReactAddResponse, type ReactAddParams } from './reacts';

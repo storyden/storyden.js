@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'Storyden/uploads';
-import { File } from 'Storyden/_shims/index';
+import { toFile, type ResponseLike } from 'storyden/uploads';
+import { File } from 'storyden/_shims/index';
 
 class MyClass {
   name: string = 'foo';

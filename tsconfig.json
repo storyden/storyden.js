@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "Storyden/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "Storyden/*": ["src/*"],
-      "Storyden": ["src/index.ts"]
+      "storyden/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "storyden/*": ["src/*"],
+      "storyden": ["src/index.ts"]
     },
     "noEmit": true,
 
