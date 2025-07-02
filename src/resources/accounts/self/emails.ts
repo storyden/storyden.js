@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../resource';
 import * as Core from '../../../core';
+import * as Shared from '../../shared';
 
 export class Emails extends APIResource {
   /**
@@ -9,12 +10,16 @@ export class Emails extends APIResource {
    *
    * @example
    * ```ts
-   * const email = await client.accounts.self.emails.create({
-   *   email_address: 'hello@storyden.org',
-   * });
+   * const accountEmailAddress =
+   *   await client.accounts.self.emails.create({
+   *     email_address: 'hello@storyden.org',
+   *   });
    * ```
    */
-  create(body: EmailCreateParams, options?: Core.RequestOptions): Core.APIPromise<EmailCreateResponse> {
+  create(
+    body: EmailCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.AccountEmailAddress> {
     return this._client.post('/accounts/self/emails', { body, ...options });
   }
 
@@ -36,23 +41,6 @@ export class Emails extends APIResource {
   }
 }
 
-export interface EmailCreateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
-  /**
-   * A valid email address.
-   */
-  email_address: string;
-
-  /**
-   * Is the email address verified to be owned by the account?
-   */
-  verified: boolean;
-}
-
 export interface EmailCreateParams {
   /**
    * A valid email address.
@@ -61,5 +49,5 @@ export interface EmailCreateParams {
 }
 
 export declare namespace Emails {
-  export { type EmailCreateResponse as EmailCreateResponse, type EmailCreateParams as EmailCreateParams };
+  export { type EmailCreateParams as EmailCreateParams };
 }

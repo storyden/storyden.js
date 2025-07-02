@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../resource';
 import * as Core from '../../../core';
+import * as Shared from '../../shared';
 
 export class AuthMethods extends APIResource {
   /**
@@ -39,7 +40,7 @@ export class AuthMethods extends APIResource {
 export interface AuthMethodDeleteResponse {
   active: Array<AuthMethodDeleteResponse.Active>;
 
-  available: Array<AuthMethodDeleteResponse.Available>;
+  available: Array<Shared.AuthProvider>;
 }
 
 export namespace AuthMethodDeleteResponse {
@@ -69,50 +70,14 @@ export namespace AuthMethodDeleteResponse {
      */
     name: string;
 
-    provider: Active.Provider;
-  }
-
-  export namespace Active {
-    export interface Provider {
-      /**
-       * The human-readable name of the provider.
-       */
-      name: string;
-
-      /**
-       * The slug name of the provider.
-       */
-      provider: string;
-
-      /**
-       * The hyperlink to render for the user.
-       */
-      link?: string;
-    }
-  }
-
-  export interface Available {
-    /**
-     * The human-readable name of the provider.
-     */
-    name: string;
-
-    /**
-     * The slug name of the provider.
-     */
-    provider: string;
-
-    /**
-     * The hyperlink to render for the user.
-     */
-    link?: string;
+    provider: Shared.AuthProvider;
   }
 }
 
 export interface AuthMethodRetrieveAuthMethodsResponse {
   active: Array<AuthMethodRetrieveAuthMethodsResponse.Active>;
 
-  available: Array<AuthMethodRetrieveAuthMethodsResponse.Available>;
+  available: Array<Shared.AuthProvider>;
 }
 
 export namespace AuthMethodRetrieveAuthMethodsResponse {
@@ -142,43 +107,7 @@ export namespace AuthMethodRetrieveAuthMethodsResponse {
      */
     name: string;
 
-    provider: Active.Provider;
-  }
-
-  export namespace Active {
-    export interface Provider {
-      /**
-       * The human-readable name of the provider.
-       */
-      name: string;
-
-      /**
-       * The slug name of the provider.
-       */
-      provider: string;
-
-      /**
-       * The hyperlink to render for the user.
-       */
-      link?: string;
-    }
-  }
-
-  export interface Available {
-    /**
-     * The human-readable name of the provider.
-     */
-    name: string;
-
-    /**
-     * The slug name of the provider.
-     */
-    provider: string;
-
-    /**
-     * The hyperlink to render for the user.
-     */
-    link?: string;
+    provider: Shared.AuthProvider;
   }
 }
 

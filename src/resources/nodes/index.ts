@@ -10,7 +10,6 @@ export {
 } from './children';
 export {
   Nodes,
-  type NodeCreateResponse,
   type NodeRetrieveResponse,
   type NodeUpdateResponse,
   type NodeListResponse,
@@ -35,4 +34,3 @@ export {
   type NodeUpdatePropertySchemaParams,
   type NodeUpdateVisibilityParams,
 } from './nodes';
-export { type NodeRemoveChildResponse, type NodeSetParentResponse } from './nodes_';

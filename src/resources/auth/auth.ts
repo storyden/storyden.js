@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 import * as AccessKeysAPI from './access-keys';
 import {
   AccessKeyCreateParams,
@@ -88,26 +89,7 @@ export class Auth extends APIResource {
 export interface AuthListProvidersResponse {
   mode: 'handle' | 'email' | 'phone';
 
-  providers: Array<AuthListProvidersResponse.Provider>;
-}
-
-export namespace AuthListProvidersResponse {
-  export interface Provider {
-    /**
-     * The human-readable name of the provider.
-     */
-    name: string;
-
-    /**
-     * The slug name of the provider.
-     */
-    provider: string;
-
-    /**
-     * The hyperlink to render for the user.
-     */
-    link?: string;
-  }
+  providers: Array<Shared.AuthProvider>;
 }
 
 Auth.Password = Password;

@@ -5,5 +5,5 @@ export {
   type AuthMethodDeleteResponse,
   type AuthMethodRetrieveAuthMethodsResponse,
 } from './auth-methods';
-export { Emails, type EmailCreateResponse, type EmailCreateParams } from './emails';
+export { Emails, type EmailCreateParams } from './emails';
 export { Self, type SelfAvatarParams } from './self';
