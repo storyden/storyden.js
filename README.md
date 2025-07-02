@@ -11,11 +11,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/storyden-node.git
+npm install Storyden
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install Storyden`
 
 ## Usage
 
@@ -200,7 +197,7 @@ import Storyden from 'Storyden';
 ```
 
 To do the inverse, add `import "Storyden/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/storyden-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/storyden/storyden.js/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -256,7 +253,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/storyden-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/storyden/storyden.js/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
