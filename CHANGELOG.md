@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-07-03)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/storyden/storyden.js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** update via SDK Studio ([09f4f84](https://github.com/storyden/storyden.js/commit/09f4f8443ec5a510a207850e3e2a1b16cef7075a))
+
+
+### Bug Fixes
+
+* **client:** don't send `Content-Type` for bodyless methods ([28ad36f](https://github.com/storyden/storyden.js/commit/28ad36f617dd64f149a7e3304f0f0e2220ded864))
+
+
+### Chores
+
+* mention unit type in timeout docs ([040447a](https://github.com/storyden/storyden.js/commit/040447a07796e221454184e3f27a208f005d095b))
+
 ## 0.1.0-alpha.2 (2025-07-02)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/storyden/storyden.js/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
