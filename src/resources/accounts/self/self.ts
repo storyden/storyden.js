@@ -6,7 +6,7 @@ import * as Core from '../../../core';
 import * as AuthMethodsAPI from './auth-methods';
 import { AuthMethodDeleteResponse, AuthMethodRetrieveAuthMethodsResponse, AuthMethods } from './auth-methods';
 import * as EmailsAPI from './emails';
-import { EmailCreateParams, EmailCreateResponse, Emails } from './emails';
+import { EmailCreateParams, Emails } from './emails';
 import { type BlobLike } from '../../../uploads';
 
 export class Self extends APIResource {
@@ -55,9 +55,5 @@ export declare namespace Self {
     type AuthMethodRetrieveAuthMethodsResponse as AuthMethodRetrieveAuthMethodsResponse,
   };
 
-  export {
-    Emails as Emails,
-    type EmailCreateResponse as EmailCreateResponse,
-    type EmailCreateParams as EmailCreateParams,
-  };
+  export { Emails as Emails, type EmailCreateParams as EmailCreateParams };
 }
