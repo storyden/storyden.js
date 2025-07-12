@@ -1,3 +1,30 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">AccountEmailAddress</a></code>
+- <code><a href="./src/resources/shared.ts">AccountRole</a></code>
+- <code><a href="./src/resources/shared.ts">Asset</a></code>
+- <code><a href="./src/resources/shared.ts">AuthProvider</a></code>
+- <code><a href="./src/resources/shared.ts">CategoryReference</a></code>
+- <code><a href="./src/resources/shared.ts">CollectionStatus</a></code>
+- <code><a href="./src/resources/shared.ts">CommonProperties</a></code>
+- <code><a href="./src/resources/shared.ts">DatagraphItemNode</a></code>
+- <code><a href="./src/resources/shared.ts">DatagraphItemPost</a></code>
+- <code><a href="./src/resources/shared.ts">DatagraphItemProfile</a></code>
+- <code><a href="./src/resources/shared.ts">DatagraphItemReply</a></code>
+- <code><a href="./src/resources/shared.ts">LikeData</a></code>
+- <code><a href="./src/resources/shared.ts">LinkReference</a></code>
+- <code><a href="./src/resources/shared.ts">PaginatedReplyList</a></code>
+- <code><a href="./src/resources/shared.ts">Post</a></code>
+- <code><a href="./src/resources/shared.ts">ProfileExternalLink</a></code>
+- <code><a href="./src/resources/shared.ts">ProfileReference</a></code>
+- <code><a href="./src/resources/shared.ts">PublicProfile</a></code>
+- <code><a href="./src/resources/shared.ts">React</a></code>
+- <code><a href="./src/resources/shared.ts">Reply</a></code>
+- <code><a href="./src/resources/shared.ts">ReplyStatus</a></code>
+- <code><a href="./src/resources/shared.ts">TagReferenceProps</a></code>
+
 # Version
 
 Types:
@@ -252,13 +279,9 @@ Methods:
 
 ### Emails
 
-Types:
-
-- <code><a href="./src/resources/accounts/self/emails.ts">EmailCreateResponse</a></code>
-
 Methods:
 
-- <code title="post /accounts/self/emails">client.accounts.self.emails.<a href="./src/resources/accounts/self/emails.ts">create</a>({ ...params }) -> EmailCreateResponse</code>
+- <code title="post /accounts/self/emails">client.accounts.self.emails.<a href="./src/resources/accounts/self/emails.ts">create</a>({ ...params }) -> AccountEmailAddress</code>
 - <code title="delete /accounts/self/emails/{email_address_id}">client.accounts.self.emails.<a href="./src/resources/accounts/self/emails.ts">delete</a>(emailAddressId) -> void</code>
 
 ## Roles
@@ -316,12 +339,11 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/profiles/profiles.ts">ProfileRetrieveResponse</a></code>
 - <code><a href="./src/resources/profiles/profiles.ts">ProfileListResponse</a></code>
 
 Methods:
 
-- <code title="get /profiles/{account_handle}">client.profiles.<a href="./src/resources/profiles/profiles.ts">retrieve</a>(accountHandle) -> ProfileRetrieveResponse</code>
+- <code title="get /profiles/{account_handle}">client.profiles.<a href="./src/resources/profiles/profiles.ts">retrieve</a>(accountHandle) -> PublicProfile</code>
 - <code title="get /profiles">client.profiles.<a href="./src/resources/profiles/profiles.ts">list</a>({ ...params }) -> ProfileListResponse</code>
 
 ## Following
@@ -378,53 +400,37 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/threads.ts">ThreadCreateResponse</a></code>
-- <code><a href="./src/resources/threads.ts">ThreadRetrieveResponse</a></code>
-- <code><a href="./src/resources/threads.ts">ThreadUpdateResponse</a></code>
 - <code><a href="./src/resources/threads.ts">ThreadListResponse</a></code>
-- <code><a href="./src/resources/threads.ts">ThreadCreateReplyResponse</a></code>
 
 Methods:
 
-- <code title="post /threads">client.threads.<a href="./src/resources/threads.ts">create</a>({ ...params }) -> ThreadCreateResponse</code>
-- <code title="get /threads/{thread_mark}">client.threads.<a href="./src/resources/threads.ts">retrieve</a>(threadMark, { ...params }) -> ThreadRetrieveResponse</code>
-- <code title="patch /threads/{thread_mark}">client.threads.<a href="./src/resources/threads.ts">update</a>(threadMark, { ...params }) -> ThreadUpdateResponse</code>
+- <code title="post /threads">client.threads.<a href="./src/resources/threads.ts">create</a>({ ...params }) -> Thread</code>
+- <code title="get /threads/{thread_mark}">client.threads.<a href="./src/resources/threads.ts">retrieve</a>(threadMark, { ...params }) -> Thread</code>
+- <code title="patch /threads/{thread_mark}">client.threads.<a href="./src/resources/threads.ts">update</a>(threadMark, { ...params }) -> Thread</code>
 - <code title="get /threads">client.threads.<a href="./src/resources/threads.ts">list</a>({ ...params }) -> ThreadListResponse</code>
 - <code title="delete /threads/{thread_mark}">client.threads.<a href="./src/resources/threads.ts">delete</a>(threadMark) -> void</code>
-- <code title="post /threads/{thread_mark}/replies">client.threads.<a href="./src/resources/threads.ts">createReply</a>(threadMark, { ...params }) -> ThreadCreateReplyResponse</code>
+- <code title="post /threads/{thread_mark}/replies">client.threads.<a href="./src/resources/threads.ts">createReply</a>(threadMark, { ...params }) -> Reply</code>
 
 # Posts
 
-Types:
-
-- <code><a href="./src/resources/posts/posts.ts">PostUpdateResponse</a></code>
-
 Methods:
 
-- <code title="patch /posts/{post_id}">client.posts.<a href="./src/resources/posts/posts.ts">update</a>(postId, { ...params }) -> PostUpdateResponse</code>
+- <code title="patch /posts/{post_id}">client.posts.<a href="./src/resources/posts/posts.ts">update</a>(postId, { ...params }) -> Post</code>
 - <code title="delete /posts/{post_id}">client.posts.<a href="./src/resources/posts/posts.ts">delete</a>(postId) -> void</code>
 
 ## Reacts
 
-Types:
-
-- <code><a href="./src/resources/posts/reacts.ts">ReactAddResponse</a></code>
-
 Methods:
 
-- <code title="put /posts/{post_id}/reacts">client.posts.reacts.<a href="./src/resources/posts/reacts.ts">add</a>(postId, { ...params }) -> ReactAddResponse</code>
+- <code title="put /posts/{post_id}/reacts">client.posts.reacts.<a href="./src/resources/posts/reacts.ts">add</a>(postId, { ...params }) -> React</code>
 - <code title="delete /posts/{post_id}/reacts/{react_id}">client.posts.reacts.<a href="./src/resources/posts/reacts.ts">remove</a>(postId, reactId) -> void</code>
 
 # Assets
 
-Types:
-
-- <code><a href="./src/resources/assets.ts">AssetUploadResponse</a></code>
-
 Methods:
 
 - <code title="get /assets/{asset_filename}">client.assets.<a href="./src/resources/assets.ts">download</a>(assetFilename) -> Response</code>
-- <code title="post /assets">client.assets.<a href="./src/resources/assets.ts">upload</a>({ ...params }) -> AssetUploadResponse</code>
+- <code title="post /assets">client.assets.<a href="./src/resources/assets.ts">upload</a>({ ...params }) -> Asset</code>
 
 # Likes
 
@@ -493,7 +499,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/nodes/nodes.ts">NodeCreateResponse</a></code>
 - <code><a href="./src/resources/nodes/nodes.ts">NodeRetrieveResponse</a></code>
 - <code><a href="./src/resources/nodes/nodes.ts">NodeUpdateResponse</a></code>
 - <code><a href="./src/resources/nodes/nodes.ts">NodeListResponse</a></code>
@@ -508,7 +513,7 @@ Types:
 
 Methods:
 
-- <code title="post /nodes">client.nodes.<a href="./src/resources/nodes/nodes.ts">create</a>({ ...params }) -> NodeCreateResponse</code>
+- <code title="post /nodes">client.nodes.<a href="./src/resources/nodes/nodes.ts">create</a>({ ...params }) -> CommonProperties</code>
 - <code title="get /nodes/{node_slug}">client.nodes.<a href="./src/resources/nodes/nodes.ts">retrieve</a>(nodeSlug, { ...params }) -> NodeRetrieveResponse</code>
 - <code title="patch /nodes/{node_slug}">client.nodes.<a href="./src/resources/nodes/nodes.ts">update</a>(nodeSlug, { ...params }) -> NodeUpdateResponse</code>
 - <code title="get /nodes">client.nodes.<a href="./src/resources/nodes/nodes.ts">list</a>({ ...params }) -> NodeListResponse</code>
@@ -547,27 +552,21 @@ Methods:
 
 ## Nodes
 
-Types:
-
-- <code><a href="./src/resources/nodes/nodes_.ts">NodeRemoveChildResponse</a></code>
-- <code><a href="./src/resources/nodes/nodes_.ts">NodeSetParentResponse</a></code>
-
 Methods:
 
-- <code title="delete /nodes/{node_slug}/nodes/{node_slug_child}">client.nodes.nodes.<a href="./src/resources/nodes/nodes_.ts">removeChild</a>(nodeSlug, nodeSlugChild) -> NodeRemoveChildResponse</code>
-- <code title="put /nodes/{node_slug}/nodes/{node_slug_child}">client.nodes.nodes.<a href="./src/resources/nodes/nodes_.ts">setParent</a>(nodeSlug, nodeSlugChild) -> NodeSetParentResponse</code>
+- <code title="delete /nodes/{node_slug}/nodes/{node_slug_child}">client.nodes.nodes.<a href="./src/resources/nodes/nodes_.ts">removeChild</a>(nodeSlug, nodeSlugChild) -> CommonProperties</code>
+- <code title="put /nodes/{node_slug}/nodes/{node_slug_child}">client.nodes.nodes.<a href="./src/resources/nodes/nodes_.ts">setParent</a>(nodeSlug, nodeSlugChild) -> CommonProperties</code>
 
 # Links
 
 Types:
 
-- <code><a href="./src/resources/links.ts">LinkCreateResponse</a></code>
 - <code><a href="./src/resources/links.ts">LinkRetrieveResponse</a></code>
 - <code><a href="./src/resources/links.ts">LinkListResponse</a></code>
 
 Methods:
 
-- <code title="post /links">client.links.<a href="./src/resources/links.ts">create</a>({ ...params }) -> LinkCreateResponse</code>
+- <code title="post /links">client.links.<a href="./src/resources/links.ts">create</a>({ ...params }) -> LinkReference</code>
 - <code title="get /links/{link_slug}">client.links.<a href="./src/resources/links.ts">retrieve</a>(linkSlug) -> LinkRetrieveResponse</code>
 - <code title="get /links">client.links.<a href="./src/resources/links.ts">list</a>({ ...params }) -> LinkListResponse</code>
 
@@ -587,6 +586,11 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/events/events.ts">EventLocationPhysical</a></code>
+- <code><a href="./src/resources/events/events.ts">EventLocationVirtual</a></code>
+- <code><a href="./src/resources/events/events.ts">EventParticipant</a></code>
+- <code><a href="./src/resources/events/events.ts">EventTimeRange</a></code>
+- <code><a href="./src/resources/events/events.ts">Thread</a></code>
 - <code><a href="./src/resources/events/events.ts">EventCreateResponse</a></code>
 - <code><a href="./src/resources/events/events.ts">EventRetrieveResponse</a></code>
 - <code><a href="./src/resources/events/events.ts">EventUpdateResponse</a></code>

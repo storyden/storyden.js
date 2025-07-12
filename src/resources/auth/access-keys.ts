@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 
 export class AccessKeys extends APIResource {
   /**
@@ -67,17 +68,7 @@ export class AccessKeys extends APIResource {
  * is never stored. The caller that receives this object is responsible for
  * securely storing the secret value for later use.
  */
-export interface AccessKeyCreateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
-
+export interface AccessKeyCreateResponse extends Shared.CommonProperties {
   enabled: boolean;
 
   /**
@@ -96,24 +87,9 @@ export interface AccessKeyCreateResponse {
   secret: string;
 
   /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
    * When the access key expires, if null, it never expires.
    */
   expires_at?: string;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
 }
 
 export interface AccessKeyListResponse {
@@ -121,17 +97,7 @@ export interface AccessKeyListResponse {
 }
 
 export namespace AccessKeyListResponse {
-  export interface Key {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
-
+  export interface Key extends Shared.CommonProperties {
     enabled: boolean;
 
     /**
@@ -140,24 +106,9 @@ export namespace AccessKeyListResponse {
     name: string;
 
     /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
      * When the access key expires, if null, it never expires.
      */
     expires_at?: string;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
   }
 }
 
