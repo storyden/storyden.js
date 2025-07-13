@@ -120,6 +120,16 @@ export interface ChildListParams {
    * Pagination query parameters.
    */
   page?: string;
+
+  /**
+   * Search query string.
+   */
+  q?: string;
+
+  /**
+   * Tags to filter by.
+   */
+  tags?: Array<string>;
 }
 
 export type ChildUpdatePropertySchemaParams = Array<ChildUpdatePropertySchemaParams.Body>;
