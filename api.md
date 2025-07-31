@@ -70,14 +70,14 @@ Methods:
 Methods:
 
 - <code title="get /info/icon/{icon_size}">client.info.icon.<a href="./src/resources/info/icon.ts">retrieve</a>(iconSize) -> Response</code>
-- <code title="post /info/icon">client.info.icon.<a href="./src/resources/info/icon.ts">upload</a>({ ...params }) -> void</code>
+- <code title="post /info/icon">client.info.icon.<a href="./src/resources/info/icon.ts">upload</a>(body) -> void</code>
 
 ## Banner
 
 Methods:
 
 - <code title="get /info/banner">client.info.banner.<a href="./src/resources/info/banner.ts">retrieve</a>() -> Response</code>
-- <code title="post /info/banner">client.info.banner.<a href="./src/resources/info/banner.ts">upload</a>({ ...params }) -> void</code>
+- <code title="post /info/banner">client.info.banner.<a href="./src/resources/info/banner.ts">upload</a>(body) -> void</code>
 
 # Admin
 
@@ -263,7 +263,7 @@ Methods:
 
 Methods:
 
-- <code title="post /accounts/self/avatar">client.accounts.self.<a href="./src/resources/accounts/self/self.ts">avatar</a>({ ...params }) -> void</code>
+- <code title="post /accounts/self/avatar">client.accounts.self.<a href="./src/resources/accounts/self/self.ts">avatar</a>(body) -> void</code>
 
 ### AuthMethods
 
@@ -430,7 +430,7 @@ Methods:
 Methods:
 
 - <code title="get /assets/{asset_filename}">client.assets.<a href="./src/resources/assets.ts">download</a>(assetFilename) -> Response</code>
-- <code title="post /assets">client.assets.<a href="./src/resources/assets.ts">upload</a>({ ...params }) -> Asset</code>
+- <code title="post /assets">client.assets.<a href="./src/resources/assets.ts">upload</a>(body, { ...params }) -> Asset</code>
 
 # Likes
 

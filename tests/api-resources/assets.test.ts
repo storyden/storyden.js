@@ -16,7 +16,9 @@ describe('resource assets', () => {
 
   // skipped: tests are disabled for the time being
   test.skip('upload', async () => {
-    const responsePromise = client.assets.upload();
+    const responsePromise = client.assets.upload(
+      await toFile(Buffer.from('# my file contents'), 'README.md'),
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -29,9 +31,11 @@ describe('resource assets', () => {
   // skipped: tests are disabled for the time being
   test.skip('upload: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.assets.upload({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Storyden.NotFoundError,
-    );
+    await expect(
+      client.assets.upload(await toFile(Buffer.from('# my file contents'), 'README.md'), {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Storyden.NotFoundError);
   });
 
   // skipped: tests are disabled for the time being
@@ -39,11 +43,8 @@ describe('resource assets', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.assets.upload(
-        {
-          filename: 'filename',
-          parent_asset_id: 'parent_asset_id',
-          body: await toFile(Buffer.from('# my file contents'), 'README.md'),
-        },
+        await toFile(Buffer.from('# my file contents'), 'README.md'),
+        { filename: 'filename', parent_asset_id: 'parent_asset_id' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Storyden.NotFoundError);
