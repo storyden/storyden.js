@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as Shared from './shared';
 import { type BlobLike } from '../uploads';
 import { type Response } from '../_shims/index';
 
@@ -21,16 +22,24 @@ export class Assets extends APIResource {
   /**
    * Upload and process a media file.
    */
-  upload(params?: AssetUploadParams, options?: Core.RequestOptions): Core.APIPromise<AssetUploadResponse>;
-  upload(options?: Core.RequestOptions): Core.APIPromise<AssetUploadResponse>;
   upload(
+    body: string | ArrayBufferView | ArrayBuffer | BlobLike,
+    params?: AssetUploadParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Asset>;
+  upload(
+    body: string | ArrayBufferView | ArrayBuffer | BlobLike,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Shared.Asset>;
+  upload(
+    body: string | ArrayBufferView | ArrayBuffer | BlobLike,
     params?: AssetUploadParams | Core.RequestOptions,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AssetUploadResponse> {
+  ): Core.APIPromise<Shared.Asset> {
     if (isRequestOptions(params)) {
-      return this.upload(undefined, params);
+      return this.upload(body, undefined, params);
     }
-    const { filename, parent_asset_id, body } = params ?? {};
+    const { filename, parent_asset_id } = params ?? {};
     return this._client.post('/assets', {
       query: { filename, parent_asset_id },
       body: body,
@@ -39,28 +48,6 @@ export class Assets extends APIResource {
       __binaryRequest: true,
     });
   }
-}
-
-export interface AssetUploadResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
-  filename: string;
-
-  height: number;
-
-  mime_type: string;
-
-  /**
-   * The API path of the asset, conforms to the schema's GET `/assets`.
-   */
-  path: string;
-
-  width: number;
-
-  parent?: unknown;
 }
 
 export interface AssetUploadParams {
@@ -77,13 +64,8 @@ export interface AssetUploadParams {
    * editable/croppable images or file version history.
    */
   parent_asset_id?: string;
-
-  /**
-   * Body param:
-   */
-  body?: string | ArrayBufferView | ArrayBuffer | BlobLike;
 }
 
 export declare namespace Assets {
-  export { type AssetUploadResponse as AssetUploadResponse, type AssetUploadParams as AssetUploadParams };
+  export { type AssetUploadParams as AssetUploadParams };
 }

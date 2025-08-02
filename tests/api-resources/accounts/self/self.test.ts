@@ -8,7 +8,9 @@ const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http
 describe('resource self', () => {
   // skipped: tests are disabled for the time being
   test.skip('avatar', async () => {
-    const responsePromise = client.accounts.self.avatar();
+    const responsePromise = client.accounts.self.avatar(
+      await toFile(Buffer.from('# my file contents'), 'README.md'),
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -19,20 +21,14 @@ describe('resource self', () => {
   });
 
   // skipped: tests are disabled for the time being
-  test.skip('avatar: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.accounts.self.avatar({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Storyden.NotFoundError,
-    );
-  });
-
-  // skipped: tests are disabled for the time being
   test.skip('avatar: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.accounts.self.avatar(await toFile(Buffer.from('# my file contents'), 'README.md'), {
-        path: '/_stainless_unknown_path',
-      }),
+      client.accounts.self.avatar(
+        await toFile(Buffer.from('# my file contents'), 'README.md'),
+        {},
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 });
