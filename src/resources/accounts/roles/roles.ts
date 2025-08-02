@@ -91,11 +91,6 @@ export interface RoleUpdateResponse extends Shared.CommonProperties {
   verified_status: 'none' | 'verified_email';
 
   /**
-   * A list of tags.
-   */
-  interests?: Array<Shared.TagReferenceProps>;
-
-  /**
    * A minimal reference to an account.
    */
   invited_by?: Shared.ProfileReference;
@@ -147,11 +142,6 @@ export interface RoleDeleteResponse extends Shared.CommonProperties {
   roles: Array<Shared.AccountRole>;
 
   verified_status: 'none' | 'verified_email';
-
-  /**
-   * A list of tags.
-   */
-  interests?: Array<Shared.TagReferenceProps>;
 
   /**
    * A minimal reference to an account.
