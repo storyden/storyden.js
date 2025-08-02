@@ -444,6 +444,8 @@ export interface NodeCreateParams {
    */
   content?: string;
 
+  description?: string;
+
   hide_child_tree?: boolean;
 
   /**
@@ -524,6 +526,8 @@ export interface NodeUpdateParams {
    * such as Slate.js editor documents.
    */
   content?: string;
+
+  description?: string;
 
   hide_child_tree?: boolean;
 
