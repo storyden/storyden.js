@@ -344,8 +344,6 @@ export interface ProfileReference {
    */
   name: string;
 
-  roles: Array<AccountRole>;
-
   /**
    * The time the resource was created.
    */
