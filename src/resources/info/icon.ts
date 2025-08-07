@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import { type BlobLike } from '../../uploads';
 import { type Response } from '../../_shims/index';
@@ -39,17 +38,13 @@ export class Icon extends APIResource {
    * );
    * ```
    */
-  upload(body?: IconUploadParams, options?: Core.RequestOptions): Core.APIPromise<void>;
-  upload(options?: Core.RequestOptions): Core.APIPromise<void>;
   upload(
-    body?: IconUploadParams | Core.RequestOptions,
+    body: string | ArrayBufferView | ArrayBuffer | BlobLike,
+    body?: IconUploadParams | null | undefined,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
-    if (isRequestOptions(body)) {
-      return this.upload(undefined, body);
-    }
     return this._client.post('/info/icon', {
-      body,
+      body: body,
       ...options,
       headers: { 'Content-Type': 'application/octet-stream', Accept: '*/*', ...options?.headers },
       __binaryRequest: true,
@@ -57,7 +52,7 @@ export class Icon extends APIResource {
   }
 }
 
-export type IconUploadParams = string | ArrayBufferView | ArrayBuffer | BlobLike;
+export interface IconUploadParams {}
 
 export declare namespace Icon {
   export { type IconUploadParams as IconUploadParams };

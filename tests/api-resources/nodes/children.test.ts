@@ -32,7 +32,7 @@ describe('resource children', () => {
     await expect(
       client.nodes.children.list(
         'cc5lnd2s1s4652adtu50',
-        { children_sort: 'children_sort', page: 'page' },
+        { children_sort: 'children_sort', page: 'page', q: 'q', tags: ['string'] },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Storyden.NotFoundError);

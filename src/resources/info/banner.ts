@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import { type BlobLike } from '../../uploads';
 import { type Response } from '../../_shims/index';
@@ -36,17 +35,13 @@ export class Banner extends APIResource {
    * );
    * ```
    */
-  upload(body?: BannerUploadParams, options?: Core.RequestOptions): Core.APIPromise<void>;
-  upload(options?: Core.RequestOptions): Core.APIPromise<void>;
   upload(
-    body?: BannerUploadParams | Core.RequestOptions,
+    body: string | ArrayBufferView | ArrayBuffer | BlobLike,
+    body?: BannerUploadParams | null | undefined,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
-    if (isRequestOptions(body)) {
-      return this.upload(undefined, body);
-    }
     return this._client.post('/info/banner', {
-      body,
+      body: body,
       ...options,
       headers: { 'Content-Type': 'application/octet-stream', Accept: '*/*', ...options?.headers },
       __binaryRequest: true,
@@ -54,7 +49,7 @@ export class Banner extends APIResource {
   }
 }
 
-export type BannerUploadParams = string | ArrayBufferView | ArrayBuffer | BlobLike;
+export interface BannerUploadParams {}
 
 export declare namespace Banner {
   export { type BannerUploadParams as BannerUploadParams };

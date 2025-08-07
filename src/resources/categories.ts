@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as Shared from './shared';
 
 export class Categories extends APIResource {
   /**
@@ -58,20 +59,10 @@ export class Categories extends APIResource {
   }
 }
 
-export interface CategoryCreateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
+export interface CategoryCreateResponse extends Shared.CommonProperties {
   admin: boolean;
 
   colour: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
 
   description: string;
 
@@ -90,40 +81,15 @@ export interface CategoryCreateResponse {
   sort: number;
 
   /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
    * Arbitrary metadata for the resource.
    */
   meta?: { [key: string]: unknown };
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
 }
 
-export interface CategoryUpdateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
+export interface CategoryUpdateResponse extends Shared.CommonProperties {
   admin: boolean;
 
   colour: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
 
   description: string;
 
@@ -142,24 +108,9 @@ export interface CategoryUpdateResponse {
   sort: number;
 
   /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
    * Arbitrary metadata for the resource.
    */
   meta?: { [key: string]: unknown };
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
 }
 
 export interface CategoryListResponse {
@@ -167,20 +118,10 @@ export interface CategoryListResponse {
 }
 
 export namespace CategoryListResponse {
-  export interface Category {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
+  export interface Category extends Shared.CommonProperties {
     admin: boolean;
 
     colour: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
 
     description: string;
 
@@ -199,24 +140,9 @@ export namespace CategoryListResponse {
     sort: number;
 
     /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
      * Arbitrary metadata for the resource.
      */
     meta?: { [key: string]: unknown };
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
   }
 }
 
@@ -225,20 +151,10 @@ export interface CategoryUpdateSortOrderResponse {
 }
 
 export namespace CategoryUpdateSortOrderResponse {
-  export interface Category {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
+  export interface Category extends Shared.CommonProperties {
     admin: boolean;
 
     colour: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
 
     description: string;
 
@@ -257,24 +173,9 @@ export namespace CategoryUpdateSortOrderResponse {
     sort: number;
 
     /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
      * Arbitrary metadata for the resource.
      */
     meta?: { [key: string]: unknown };
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
   }
 }
 
