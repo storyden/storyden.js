@@ -6,7 +6,7 @@ import { Response } from 'node-fetch';
 const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource bans', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('removeSuspension', async () => {
     const responsePromise = client.admin.bans.removeSuspension('southclaws');
     const rawResponse = await responsePromise.asResponse();
@@ -18,7 +18,7 @@ describe('resource bans', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('removeSuspension: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -26,7 +26,7 @@ describe('resource bans', () => {
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('suspendAccount', async () => {
     const responsePromise = client.admin.bans.suspendAccount('southclaws');
     const rawResponse = await responsePromise.asResponse();
@@ -38,7 +38,7 @@ describe('resource bans', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('suspendAccount: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

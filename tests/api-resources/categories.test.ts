@@ -6,7 +6,7 @@ import { Response } from 'node-fetch';
 const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource categories', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.categories.create({
       admin: true,
@@ -23,7 +23,7 @@ describe('resource categories', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.categories.create({
       admin: true,
@@ -35,7 +35,7 @@ describe('resource categories', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.categories.update('cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
@@ -47,7 +47,7 @@ describe('resource categories', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -55,7 +55,7 @@ describe('resource categories', () => {
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -74,7 +74,7 @@ describe('resource categories', () => {
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.categories.list();
     const rawResponse = await responsePromise.asResponse();
@@ -86,7 +86,7 @@ describe('resource categories', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.categories.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
@@ -94,7 +94,7 @@ describe('resource categories', () => {
     );
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('updateSortOrder', async () => {
     const responsePromise = client.categories.updateSortOrder();
     const rawResponse = await responsePromise.asResponse();
@@ -106,7 +106,7 @@ describe('resource categories', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('updateSortOrder: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.categories.updateSortOrder({ path: '/_stainless_unknown_path' })).rejects.toThrow(
@@ -114,7 +114,7 @@ describe('resource categories', () => {
     );
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('updateSortOrder: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
