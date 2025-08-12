@@ -6,7 +6,7 @@ import { Response } from 'node-fetch';
 const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource links', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.links.create({ url: 'url' });
     const rawResponse = await responsePromise.asResponse();
@@ -18,7 +18,7 @@ describe('resource links', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.links.create({
       url: 'url',
@@ -27,7 +27,7 @@ describe('resource links', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.links.retrieve('link_slug');
     const rawResponse = await responsePromise.asResponse();
@@ -39,7 +39,7 @@ describe('resource links', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.links.retrieve('link_slug', { path: '/_stainless_unknown_path' })).rejects.toThrow(
@@ -47,7 +47,7 @@ describe('resource links', () => {
     );
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.links.list();
     const rawResponse = await responsePromise.asResponse();
@@ -59,7 +59,7 @@ describe('resource links', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.links.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
@@ -67,7 +67,7 @@ describe('resource links', () => {
     );
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
