@@ -350,6 +350,7 @@ Storyden.Nodes = Nodes;
 Storyden.Links = Links;
 Storyden.Datagraph = Datagraph;
 Storyden.Events = Events;
+
 export declare namespace Storyden {
   export type RequestOptions = Core.RequestOptions;
 
