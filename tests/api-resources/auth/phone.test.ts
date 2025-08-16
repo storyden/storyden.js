@@ -6,7 +6,7 @@ import { Response } from 'node-fetch';
 const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource phone', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('start: only required params', async () => {
     const responsePromise = client.auth.phone.start({
       identifier: 'southclaws',
@@ -21,7 +21,7 @@ describe('resource phone', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('start: required and optional params', async () => {
     const response = await client.auth.phone.start({
       identifier: 'southclaws',
@@ -30,7 +30,7 @@ describe('resource phone', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('verify: only required params', async () => {
     const responsePromise = client.auth.phone.verify('southclaws', { code: 'code' });
     const rawResponse = await responsePromise.asResponse();
@@ -42,7 +42,7 @@ describe('resource phone', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('verify: required and optional params', async () => {
     const response = await client.auth.phone.verify('southclaws', { code: 'code' });
   });

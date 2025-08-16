@@ -6,7 +6,7 @@ import { Response } from 'node-fetch';
 const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource accessKeys', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.auth.accessKeys.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
@@ -18,7 +18,7 @@ describe('resource accessKeys', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.auth.accessKeys.create({
       name: 'name',
@@ -26,7 +26,7 @@ describe('resource accessKeys', () => {
     });
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.auth.accessKeys.list();
     const rawResponse = await responsePromise.asResponse();
@@ -38,7 +38,7 @@ describe('resource accessKeys', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.auth.accessKeys.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
@@ -46,7 +46,7 @@ describe('resource accessKeys', () => {
     );
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('revoke', async () => {
     const responsePromise = client.auth.accessKeys.revoke('cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
@@ -58,7 +58,7 @@ describe('resource accessKeys', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('revoke: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

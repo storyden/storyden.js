@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 
 export class Assets extends APIResource {
   /**
@@ -42,12 +43,12 @@ export class Assets extends APIResource {
 /**
  * The full properties of a node including all child nodes.
  */
-export interface AssetAddResponse {}
+export interface AssetAddResponse extends Shared.CommonProperties {}
 
 /**
  * The full properties of a node including all child nodes.
  */
-export interface AssetRemoveResponse {}
+export interface AssetRemoveResponse extends Shared.CommonProperties {}
 
 export declare namespace Assets {
   export { type AssetAddResponse as AssetAddResponse, type AssetRemoveResponse as AssetRemoveResponse };
