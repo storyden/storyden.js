@@ -1,6 +1,6 @@
 {
   "name": "storyden",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "The official TypeScript library for the Storyden API",
   "author": "Storyden <>",
   "types": "dist/index.d.ts",
@@ -13,6 +13,9 @@
     "**/*"
   ],
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "./scripts/test",
     "build": "./scripts/build",
@@ -58,10 +61,6 @@
     "./shims/web.js",
     "./shims/web.mjs"
   ],
-  "imports": {
-    "storyden": ".",
-    "storyden/*": "./src/*"
-  },
   "exports": {
     "./_shims/auto/*": {
       "deno": {

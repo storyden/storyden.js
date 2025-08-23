@@ -1,12 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../resource';
-import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
 import * as AuthMethodsAPI from './auth-methods';
 import { AuthMethodDeleteResponse, AuthMethodRetrieveAuthMethodsResponse, AuthMethods } from './auth-methods';
 import * as EmailsAPI from './emails';
-import { EmailCreateParams, EmailCreateResponse, Emails } from './emails';
+import { EmailCreateParams, Emails } from './emails';
 import { type BlobLike } from '../../../uploads';
 
 export class Self extends APIResource {
@@ -23,17 +22,13 @@ export class Self extends APIResource {
    * );
    * ```
    */
-  avatar(body?: SelfAvatarParams, options?: Core.RequestOptions): Core.APIPromise<void>;
-  avatar(options?: Core.RequestOptions): Core.APIPromise<void>;
   avatar(
-    body?: SelfAvatarParams | Core.RequestOptions,
+    body: string | ArrayBufferView | ArrayBuffer | BlobLike,
+    body?: SelfAvatarParams | null | undefined,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
-    if (isRequestOptions(body)) {
-      return this.avatar(undefined, body);
-    }
     return this._client.post('/accounts/self/avatar', {
-      body,
+      body: body,
       ...options,
       headers: { 'Content-Type': 'application/octet-stream', Accept: '*/*', ...options?.headers },
       __binaryRequest: true,
@@ -41,7 +36,7 @@ export class Self extends APIResource {
   }
 }
 
-export type SelfAvatarParams = string | ArrayBufferView | ArrayBuffer | BlobLike;
+export interface SelfAvatarParams {}
 
 Self.AuthMethods = AuthMethods;
 Self.Emails = Emails;
@@ -55,9 +50,5 @@ export declare namespace Self {
     type AuthMethodRetrieveAuthMethodsResponse as AuthMethodRetrieveAuthMethodsResponse,
   };
 
-  export {
-    Emails as Emails,
-    type EmailCreateResponse as EmailCreateResponse,
-    type EmailCreateParams as EmailCreateParams,
-  };
+  export { Emails as Emails, type EmailCreateParams as EmailCreateParams };
 }

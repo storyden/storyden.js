@@ -6,7 +6,7 @@ import { Response } from 'node-fetch';
 const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource nodes', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('removeChild', async () => {
     const responsePromise = client.nodes.nodes.removeChild('cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
@@ -18,7 +18,7 @@ describe('resource nodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('removeChild: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -28,7 +28,7 @@ describe('resource nodes', () => {
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('setParent', async () => {
     const responsePromise = client.nodes.nodes.setParent('cc5lnd2s1s4652adtu50', 'cc5lnd2s1s4652adtu50');
     const rawResponse = await responsePromise.asResponse();
@@ -40,7 +40,7 @@ describe('resource nodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('setParent: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

@@ -6,7 +6,7 @@ import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { AssetUploadParams, AssetUploadResponse, Assets } from './resources/assets';
+import { AssetUploadParams, Assets } from './resources/assets';
 import {
   Categories,
   CategoryCreateParams,
@@ -35,7 +35,6 @@ import {
 } from './resources/invitations';
 import {
   LinkCreateParams,
-  LinkCreateResponse,
   LinkListParams,
   LinkListResponse,
   LinkRetrieveResponse,
@@ -62,14 +61,10 @@ import { TagListParams, TagListResponse, TagRetrieveResponse, Tags } from './res
 import {
   ThreadCreateParams,
   ThreadCreateReplyParams,
-  ThreadCreateReplyResponse,
-  ThreadCreateResponse,
   ThreadListParams,
   ThreadListResponse,
   ThreadRetrieveParams,
-  ThreadRetrieveResponse,
   ThreadUpdateParams,
-  ThreadUpdateResponse,
   Threads,
 } from './resources/threads';
 import { Version, VersionRetrieveResponse } from './resources/version';
@@ -96,16 +91,20 @@ import {
   EventCreateResponse,
   EventListParams,
   EventListResponse,
+  EventLocationPhysical,
+  EventLocationVirtual,
+  EventParticipant,
   EventRetrieveResponse,
+  EventTimeRange,
   EventUpdateParams,
   EventUpdateResponse,
   Events,
+  Thread,
 } from './resources/events/events';
 import { Info, InfoRetrieveResponse } from './resources/info/info';
 import { LikeRetrieveByProfileParams, LikeRetrieveByProfileResponse, Likes } from './resources/likes/likes';
 import {
   NodeCreateParams,
-  NodeCreateResponse,
   NodeDeleteParams,
   NodeDeleteResponse,
   NodeListParams,
@@ -130,13 +129,8 @@ import {
   NodeUpdateVisibilityResponse,
   Nodes,
 } from './resources/nodes/nodes';
-import { PostUpdateParams, PostUpdateResponse, Posts } from './resources/posts/posts';
-import {
-  ProfileListParams,
-  ProfileListResponse,
-  ProfileRetrieveResponse,
-  Profiles,
-} from './resources/profiles/profiles';
+import { PostUpdateParams, Posts } from './resources/posts/posts';
+import { ProfileListParams, ProfileListResponse, Profiles } from './resources/profiles/profiles';
 
 export interface ClientOptions {
   /**
@@ -157,6 +151,8 @@ export interface ClientOptions {
    *
    * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
    * much longer than this timeout before the promise succeeds or fails.
+   *
+   * @unit milliseconds
    */
   timeout?: number | undefined;
 
@@ -354,6 +350,7 @@ Storyden.Nodes = Nodes;
 Storyden.Links = Links;
 Storyden.Datagraph = Datagraph;
 Storyden.Events = Events;
+
 export declare namespace Storyden {
   export type RequestOptions = Core.RequestOptions;
 
@@ -409,7 +406,6 @@ export declare namespace Storyden {
 
   export {
     Profiles as Profiles,
-    type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileListResponse as ProfileListResponse,
     type ProfileListParams as ProfileListParams,
   };
@@ -434,11 +430,7 @@ export declare namespace Storyden {
 
   export {
     Threads as Threads,
-    type ThreadCreateResponse as ThreadCreateResponse,
-    type ThreadRetrieveResponse as ThreadRetrieveResponse,
-    type ThreadUpdateResponse as ThreadUpdateResponse,
     type ThreadListResponse as ThreadListResponse,
-    type ThreadCreateReplyResponse as ThreadCreateReplyResponse,
     type ThreadCreateParams as ThreadCreateParams,
     type ThreadRetrieveParams as ThreadRetrieveParams,
     type ThreadUpdateParams as ThreadUpdateParams,
@@ -446,17 +438,9 @@ export declare namespace Storyden {
     type ThreadCreateReplyParams as ThreadCreateReplyParams,
   };
 
-  export {
-    Posts as Posts,
-    type PostUpdateResponse as PostUpdateResponse,
-    type PostUpdateParams as PostUpdateParams,
-  };
+  export { Posts as Posts, type PostUpdateParams as PostUpdateParams };
 
-  export {
-    Assets as Assets,
-    type AssetUploadResponse as AssetUploadResponse,
-    type AssetUploadParams as AssetUploadParams,
-  };
+  export { Assets as Assets, type AssetUploadParams as AssetUploadParams };
 
   export {
     Likes as Likes,
@@ -477,7 +461,6 @@ export declare namespace Storyden {
 
   export {
     Nodes as Nodes,
-    type NodeCreateResponse as NodeCreateResponse,
     type NodeRetrieveResponse as NodeRetrieveResponse,
     type NodeUpdateResponse as NodeUpdateResponse,
     type NodeListResponse as NodeListResponse,
@@ -505,7 +488,6 @@ export declare namespace Storyden {
 
   export {
     Links as Links,
-    type LinkCreateResponse as LinkCreateResponse,
     type LinkRetrieveResponse as LinkRetrieveResponse,
     type LinkListResponse as LinkListResponse,
     type LinkCreateParams as LinkCreateParams,
@@ -522,6 +504,11 @@ export declare namespace Storyden {
 
   export {
     Events as Events,
+    type EventLocationPhysical as EventLocationPhysical,
+    type EventLocationVirtual as EventLocationVirtual,
+    type EventParticipant as EventParticipant,
+    type EventTimeRange as EventTimeRange,
+    type Thread as Thread,
     type EventCreateResponse as EventCreateResponse,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventUpdateResponse as EventUpdateResponse,
@@ -530,6 +517,29 @@ export declare namespace Storyden {
     type EventUpdateParams as EventUpdateParams,
     type EventListParams as EventListParams,
   };
+
+  export type AccountEmailAddress = API.AccountEmailAddress;
+  export type AccountRole = API.AccountRole;
+  export type Asset = API.Asset;
+  export type AuthProvider = API.AuthProvider;
+  export type CategoryReference = API.CategoryReference;
+  export type CollectionStatus = API.CollectionStatus;
+  export type CommonProperties = API.CommonProperties;
+  export type DatagraphItemNode = API.DatagraphItemNode;
+  export type DatagraphItemPost = API.DatagraphItemPost;
+  export type DatagraphItemProfile = API.DatagraphItemProfile;
+  export type DatagraphItemReply = API.DatagraphItemReply;
+  export type LikeData = API.LikeData;
+  export type LinkReference = API.LinkReference;
+  export type PaginatedReplyList = API.PaginatedReplyList;
+  export type Post = API.Post;
+  export type ProfileExternalLink = API.ProfileExternalLink;
+  export type ProfileReference = API.ProfileReference;
+  export type PublicProfile = API.PublicProfile;
+  export type React = API.React;
+  export type Reply = API.Reply;
+  export type ReplyStatus = API.ReplyStatus;
+  export type TagReferenceProps = API.TagReferenceProps;
 }
 
 export { toFile, fileFromPath } from './uploads';

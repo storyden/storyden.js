@@ -6,7 +6,7 @@ import { Response } from 'node-fetch';
 const client = new Storyden({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource accounts', () => {
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.accounts.list();
     const rawResponse = await responsePromise.asResponse();
@@ -18,7 +18,7 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.accounts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
@@ -26,7 +26,7 @@ describe('resource accounts', () => {
     );
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('patchAll', async () => {
     const responsePromise = client.accounts.patchAll();
     const rawResponse = await responsePromise.asResponse();
@@ -38,7 +38,7 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('patchAll: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.accounts.patchAll({ path: '/_stainless_unknown_path' })).rejects.toThrow(
@@ -46,7 +46,7 @@ describe('resource accounts', () => {
     );
   });
 
-  // skipped: tests are disabled for the time being
+  // Prism tests are disabled
   test.skip('patchAll: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -64,8 +64,7 @@ describe('resource accounts', () => {
     ).rejects.toThrow(Storyden.NotFoundError);
   });
 
-  // skipped: tests are disabled for the time being
-  test.skip('retrieveAvatar: request options instead of params are passed correctly', async () => {
+  test('retrieveAvatar: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.accounts.retrieveAvatar('southclaws', { path: '/_stainless_unknown_path' }),

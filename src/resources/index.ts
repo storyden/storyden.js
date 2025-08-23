@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export * from './shared';
 export {
   Accounts,
   type AccountListResponse,
@@ -7,7 +8,7 @@ export {
   type AccountPatchAllParams,
 } from './accounts/accounts';
 export { Admin, type AdminUpdateSettingsResponse, type AdminUpdateSettingsParams } from './admin/admin';
-export { Assets, type AssetUploadResponse, type AssetUploadParams } from './assets';
+export { Assets, type AssetUploadParams } from './assets';
 export { Auth, type AuthListProvidersResponse } from './auth/auth';
 export {
   Categories,
@@ -39,6 +40,11 @@ export {
 export { Docs, type DocRetrieveResponse } from './docs';
 export {
   Events,
+  type EventLocationPhysical,
+  type EventLocationVirtual,
+  type EventParticipant,
+  type EventTimeRange,
+  type Thread,
   type EventCreateResponse,
   type EventRetrieveResponse,
   type EventUpdateResponse,
@@ -59,7 +65,6 @@ export {
 export { Likes, type LikeRetrieveByProfileResponse, type LikeRetrieveByProfileParams } from './likes/likes';
 export {
   Links,
-  type LinkCreateResponse,
   type LinkRetrieveResponse,
   type LinkListResponse,
   type LinkCreateParams,
@@ -67,7 +72,6 @@ export {
 } from './links';
 export {
   Nodes,
-  type NodeCreateResponse,
   type NodeRetrieveResponse,
   type NodeUpdateResponse,
   type NodeListResponse,
@@ -100,13 +104,8 @@ export {
   type NotificationUpdateReadStatusParams,
 } from './notifications';
 export { OpenAPIJson, type OpenAPIJsonRetrieveResponse } from './openapi-json';
-export { Posts, type PostUpdateResponse, type PostUpdateParams } from './posts/posts';
-export {
-  Profiles,
-  type ProfileRetrieveResponse,
-  type ProfileListResponse,
-  type ProfileListParams,
-} from './profiles/profiles';
+export { Posts, type PostUpdateParams } from './posts/posts';
+export { Profiles, type ProfileListResponse, type ProfileListParams } from './profiles/profiles';
 export {
   Roles,
   type RoleCreateResponse,
@@ -119,11 +118,7 @@ export {
 export { Tags, type TagRetrieveResponse, type TagListResponse, type TagListParams } from './tags';
 export {
   Threads,
-  type ThreadCreateResponse,
-  type ThreadRetrieveResponse,
-  type ThreadUpdateResponse,
   type ThreadListResponse,
-  type ThreadCreateReplyResponse,
   type ThreadCreateParams,
   type ThreadRetrieveParams,
   type ThreadUpdateParams,

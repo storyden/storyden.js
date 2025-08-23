@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as Shared from './shared';
 
 export class Roles extends APIResource {
   /**
@@ -57,18 +58,8 @@ export class Roles extends APIResource {
   }
 }
 
-export interface RoleCreateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
+export interface RoleCreateResponse extends Shared.CommonProperties {
   colour: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
 
   name: string;
 
@@ -97,35 +88,10 @@ export interface RoleCreateResponse {
     | 'MANAGE_ROLES'
     | 'ADMINISTRATOR'
   >;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
 }
 
-export interface RoleRetrieveResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
+export interface RoleRetrieveResponse extends Shared.CommonProperties {
   colour: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
 
   name: string;
 
@@ -154,35 +120,10 @@ export interface RoleRetrieveResponse {
     | 'MANAGE_ROLES'
     | 'ADMINISTRATOR'
   >;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
 }
 
-export interface RoleUpdateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
+export interface RoleUpdateResponse extends Shared.CommonProperties {
   colour: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
 
   name: string;
 
@@ -211,21 +152,6 @@ export interface RoleUpdateResponse {
     | 'MANAGE_ROLES'
     | 'ADMINISTRATOR'
   >;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
 }
 
 export interface RoleListResponse {
@@ -233,18 +159,8 @@ export interface RoleListResponse {
 }
 
 export namespace RoleListResponse {
-  export interface Role {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
+  export interface Role extends Shared.CommonProperties {
     colour: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
 
     name: string;
 
@@ -273,21 +189,6 @@ export namespace RoleListResponse {
       | 'MANAGE_ROLES'
       | 'ADMINISTRATOR'
     >;
-
-    /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
   }
 }
 

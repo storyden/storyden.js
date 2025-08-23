@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 
 export class Bans extends APIResource {
   /**
@@ -42,12 +43,7 @@ export class Bans extends APIResource {
   }
 }
 
-export interface BanRemoveSuspensionResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
+export interface BanRemoveSuspensionResponse extends Shared.CommonProperties {
   admin: boolean;
 
   /**
@@ -56,15 +52,10 @@ export interface BanRemoveSuspensionResponse {
   bio: string;
 
   /**
-   * The time the resource was created.
-   */
-  createdAt: string;
-
-  /**
    * If the instance is configured to not use any email features for auth or
    * transactional/content communications, this will always be empty.
    */
-  email_addresses: Array<BanRemoveSuspensionResponse.EmailAddress>;
+  email_addresses: Array<Shared.AccountEmailAddress>;
 
   /**
    * The unique @ handle of an account.
@@ -76,7 +67,7 @@ export interface BanRemoveSuspensionResponse {
    */
   joined: string;
 
-  links: Array<BanRemoveSuspensionResponse.Link>;
+  links: Array<Shared.ProfileExternalLink>;
 
   /**
    * Arbitrary metadata for the resource.
@@ -88,34 +79,14 @@ export interface BanRemoveSuspensionResponse {
    */
   name: string;
 
-  roles: Array<BanRemoveSuspensionResponse.Role>;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
+  roles: Array<Shared.AccountRole>;
 
   verified_status: 'none' | 'verified_email';
 
   /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
-   * A list of tags.
-   */
-  interests?: Array<BanRemoveSuspensionResponse.Interest>;
-
-  /**
    * A minimal reference to an account.
    */
-  invited_by?: BanRemoveSuspensionResponse.InvitedBy;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
+  invited_by?: Shared.ProfileReference;
 
   notifications?: number;
 
@@ -125,230 +96,7 @@ export interface BanRemoveSuspensionResponse {
   suspended?: string;
 }
 
-export namespace BanRemoveSuspensionResponse {
-  export interface EmailAddress {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * A valid email address.
-     */
-    email_address: string;
-
-    /**
-     * Is the email address verified to be owned by the account?
-     */
-    verified: boolean;
-  }
-
-  export interface Link {
-    text: string;
-
-    url: string;
-  }
-
-  export interface Role {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * One role may be designated as a badge for the account. If ture, it should be
-     * displayed prominently on the profile or in other contexts.
-     */
-    badge: boolean;
-
-    colour: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
-
-    /**
-     * There are two built-in roles: everyone and admin, this boolean flag is set if
-     * this role is one of the default built-in roles.
-     */
-    default: boolean;
-
-    name: string;
-
-    permissions: Array<
-      | 'CREATE_POST'
-      | 'READ_PUBLISHED_THREADS'
-      | 'CREATE_REACTION'
-      | 'MANAGE_POSTS'
-      | 'MANAGE_CATEGORIES'
-      | 'CREATE_INVITATION'
-      | 'READ_PUBLISHED_LIBRARY'
-      | 'MANAGE_LIBRARY'
-      | 'SUBMIT_LIBRARY_NODE'
-      | 'UPLOAD_ASSET'
-      | 'MANAGE_EVENTS'
-      | 'LIST_PROFILES'
-      | 'READ_PROFILE'
-      | 'CREATE_COLLECTION'
-      | 'LIST_COLLECTIONS'
-      | 'READ_COLLECTION'
-      | 'MANAGE_COLLECTIONS'
-      | 'COLLECTION_SUBMIT'
-      | 'USE_PERSONAL_ACCESS_KEYS'
-      | 'MANAGE_SETTINGS'
-      | 'MANAGE_SUSPENSIONS'
-      | 'MANAGE_ROLES'
-      | 'ADMINISTRATOR'
-    >;
-
-    /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
-  }
-
-  /**
-   * A minimal representation of a tag for use in most contexts where you don't need
-   * the full list of items associated with the tag.
-   */
-  export interface Interest {
-    /**
-     * The colour of a tag.
-     */
-    colour: string;
-
-    /**
-     * The number of items tagged with this tag.
-     */
-    item_count: number;
-
-    /**
-     * The name of a tag.
-     */
-    name: string;
-  }
-
-  /**
-   * A minimal reference to an account.
-   */
-  export interface InvitedBy {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * The unique @ handle of an account.
-     */
-    handle: string;
-
-    /**
-     * The time the resource was created.
-     */
-    joined: string;
-
-    /**
-     * The account owners display name.
-     */
-    name: string;
-
-    roles: Array<InvitedBy.Role>;
-
-    /**
-     * The time the resource was created.
-     */
-    suspended?: string;
-  }
-
-  export namespace InvitedBy {
-    export interface Role {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      /**
-       * One role may be designated as a badge for the account. If ture, it should be
-       * displayed prominently on the profile or in other contexts.
-       */
-      badge: boolean;
-
-      colour: string;
-
-      /**
-       * The time the resource was created.
-       */
-      createdAt: string;
-
-      /**
-       * There are two built-in roles: everyone and admin, this boolean flag is set if
-       * this role is one of the default built-in roles.
-       */
-      default: boolean;
-
-      name: string;
-
-      permissions: Array<
-        | 'CREATE_POST'
-        | 'READ_PUBLISHED_THREADS'
-        | 'CREATE_REACTION'
-        | 'MANAGE_POSTS'
-        | 'MANAGE_CATEGORIES'
-        | 'CREATE_INVITATION'
-        | 'READ_PUBLISHED_LIBRARY'
-        | 'MANAGE_LIBRARY'
-        | 'SUBMIT_LIBRARY_NODE'
-        | 'UPLOAD_ASSET'
-        | 'MANAGE_EVENTS'
-        | 'LIST_PROFILES'
-        | 'READ_PROFILE'
-        | 'CREATE_COLLECTION'
-        | 'LIST_COLLECTIONS'
-        | 'READ_COLLECTION'
-        | 'MANAGE_COLLECTIONS'
-        | 'COLLECTION_SUBMIT'
-        | 'USE_PERSONAL_ACCESS_KEYS'
-        | 'MANAGE_SETTINGS'
-        | 'MANAGE_SUSPENSIONS'
-        | 'MANAGE_ROLES'
-        | 'ADMINISTRATOR'
-      >;
-
-      /**
-       * The time the resource was updated.
-       */
-      updatedAt: string;
-
-      /**
-       * The time the resource was soft-deleted.
-       */
-      deletedAt?: string;
-
-      /**
-       * Arbitrary extra data stored with the resource.
-       */
-      misc?: unknown;
-    }
-  }
-}
-
-export interface BanSuspendAccountResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
+export interface BanSuspendAccountResponse extends Shared.CommonProperties {
   admin: boolean;
 
   /**
@@ -357,15 +105,10 @@ export interface BanSuspendAccountResponse {
   bio: string;
 
   /**
-   * The time the resource was created.
-   */
-  createdAt: string;
-
-  /**
    * If the instance is configured to not use any email features for auth or
    * transactional/content communications, this will always be empty.
    */
-  email_addresses: Array<BanSuspendAccountResponse.EmailAddress>;
+  email_addresses: Array<Shared.AccountEmailAddress>;
 
   /**
    * The unique @ handle of an account.
@@ -377,7 +120,7 @@ export interface BanSuspendAccountResponse {
    */
   joined: string;
 
-  links: Array<BanSuspendAccountResponse.Link>;
+  links: Array<Shared.ProfileExternalLink>;
 
   /**
    * Arbitrary metadata for the resource.
@@ -389,34 +132,14 @@ export interface BanSuspendAccountResponse {
    */
   name: string;
 
-  roles: Array<BanSuspendAccountResponse.Role>;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
+  roles: Array<Shared.AccountRole>;
 
   verified_status: 'none' | 'verified_email';
 
   /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  /**
-   * A list of tags.
-   */
-  interests?: Array<BanSuspendAccountResponse.Interest>;
-
-  /**
    * A minimal reference to an account.
    */
-  invited_by?: BanSuspendAccountResponse.InvitedBy;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
+  invited_by?: Shared.ProfileReference;
 
   notifications?: number;
 
@@ -424,224 +147,6 @@ export interface BanSuspendAccountResponse {
    * The time the resource was created.
    */
   suspended?: string;
-}
-
-export namespace BanSuspendAccountResponse {
-  export interface EmailAddress {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * A valid email address.
-     */
-    email_address: string;
-
-    /**
-     * Is the email address verified to be owned by the account?
-     */
-    verified: boolean;
-  }
-
-  export interface Link {
-    text: string;
-
-    url: string;
-  }
-
-  export interface Role {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * One role may be designated as a badge for the account. If ture, it should be
-     * displayed prominently on the profile or in other contexts.
-     */
-    badge: boolean;
-
-    colour: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
-
-    /**
-     * There are two built-in roles: everyone and admin, this boolean flag is set if
-     * this role is one of the default built-in roles.
-     */
-    default: boolean;
-
-    name: string;
-
-    permissions: Array<
-      | 'CREATE_POST'
-      | 'READ_PUBLISHED_THREADS'
-      | 'CREATE_REACTION'
-      | 'MANAGE_POSTS'
-      | 'MANAGE_CATEGORIES'
-      | 'CREATE_INVITATION'
-      | 'READ_PUBLISHED_LIBRARY'
-      | 'MANAGE_LIBRARY'
-      | 'SUBMIT_LIBRARY_NODE'
-      | 'UPLOAD_ASSET'
-      | 'MANAGE_EVENTS'
-      | 'LIST_PROFILES'
-      | 'READ_PROFILE'
-      | 'CREATE_COLLECTION'
-      | 'LIST_COLLECTIONS'
-      | 'READ_COLLECTION'
-      | 'MANAGE_COLLECTIONS'
-      | 'COLLECTION_SUBMIT'
-      | 'USE_PERSONAL_ACCESS_KEYS'
-      | 'MANAGE_SETTINGS'
-      | 'MANAGE_SUSPENSIONS'
-      | 'MANAGE_ROLES'
-      | 'ADMINISTRATOR'
-    >;
-
-    /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
-  }
-
-  /**
-   * A minimal representation of a tag for use in most contexts where you don't need
-   * the full list of items associated with the tag.
-   */
-  export interface Interest {
-    /**
-     * The colour of a tag.
-     */
-    colour: string;
-
-    /**
-     * The number of items tagged with this tag.
-     */
-    item_count: number;
-
-    /**
-     * The name of a tag.
-     */
-    name: string;
-  }
-
-  /**
-   * A minimal reference to an account.
-   */
-  export interface InvitedBy {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * The unique @ handle of an account.
-     */
-    handle: string;
-
-    /**
-     * The time the resource was created.
-     */
-    joined: string;
-
-    /**
-     * The account owners display name.
-     */
-    name: string;
-
-    roles: Array<InvitedBy.Role>;
-
-    /**
-     * The time the resource was created.
-     */
-    suspended?: string;
-  }
-
-  export namespace InvitedBy {
-    export interface Role {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      /**
-       * One role may be designated as a badge for the account. If ture, it should be
-       * displayed prominently on the profile or in other contexts.
-       */
-      badge: boolean;
-
-      colour: string;
-
-      /**
-       * The time the resource was created.
-       */
-      createdAt: string;
-
-      /**
-       * There are two built-in roles: everyone and admin, this boolean flag is set if
-       * this role is one of the default built-in roles.
-       */
-      default: boolean;
-
-      name: string;
-
-      permissions: Array<
-        | 'CREATE_POST'
-        | 'READ_PUBLISHED_THREADS'
-        | 'CREATE_REACTION'
-        | 'MANAGE_POSTS'
-        | 'MANAGE_CATEGORIES'
-        | 'CREATE_INVITATION'
-        | 'READ_PUBLISHED_LIBRARY'
-        | 'MANAGE_LIBRARY'
-        | 'SUBMIT_LIBRARY_NODE'
-        | 'UPLOAD_ASSET'
-        | 'MANAGE_EVENTS'
-        | 'LIST_PROFILES'
-        | 'READ_PROFILE'
-        | 'CREATE_COLLECTION'
-        | 'LIST_COLLECTIONS'
-        | 'READ_COLLECTION'
-        | 'MANAGE_COLLECTIONS'
-        | 'COLLECTION_SUBMIT'
-        | 'USE_PERSONAL_ACCESS_KEYS'
-        | 'MANAGE_SETTINGS'
-        | 'MANAGE_SUSPENSIONS'
-        | 'MANAGE_ROLES'
-        | 'ADMINISTRATOR'
-      >;
-
-      /**
-       * The time the resource was updated.
-       */
-      updatedAt: string;
-
-      /**
-       * The time the resource was soft-deleted.
-       */
-      deletedAt?: string;
-
-      /**
-       * Arbitrary extra data stored with the resource.
-       */
-      misc?: unknown;
-    }
-  }
 }
 
 export declare namespace Bans {

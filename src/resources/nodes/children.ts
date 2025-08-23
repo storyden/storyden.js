@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 
 export class Children extends APIResource {
   /**
@@ -87,7 +88,7 @@ export namespace ChildListResponse {
   /**
    * The full properties of a node including all child nodes.
    */
-  export interface Node {}
+  export interface Node extends Shared.CommonProperties {}
 }
 
 export interface ChildUpdatePropertySchemaResponse {
@@ -119,6 +120,16 @@ export interface ChildListParams {
    * Pagination query parameters.
    */
   page?: string;
+
+  /**
+   * Search query string.
+   */
+  q?: string;
+
+  /**
+   * Tags to filter by.
+   */
+  tags?: Array<string>;
 }
 
 export type ChildUpdatePropertySchemaParams = Array<ChildUpdatePropertySchemaParams.Body>;

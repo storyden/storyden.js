@@ -3,6 +3,8 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as Shared from './shared';
+import * as EventsAPI from './events/events';
 
 export class Links extends APIResource {
   /**
@@ -19,10 +21,12 @@ export class Links extends APIResource {
    *
    * @example
    * ```ts
-   * const link = await client.links.create({ url: 'url' });
+   * const linkReference = await client.links.create({
+   *   url: 'url',
+   * });
    * ```
    */
-  create(body: LinkCreateParams, options?: Core.RequestOptions): Core.APIPromise<LinkCreateResponse> {
+  create(body: LinkCreateParams, options?: Core.RequestOptions): Core.APIPromise<Shared.LinkReference> {
     return this._client.post('/links', { body, ...options });
   }
 
@@ -61,236 +65,62 @@ export class Links extends APIResource {
 }
 
 /**
- * A minimal object used to refer to a link without sending too much data.
+ * A web address with content information such as title, description, etc.
  */
-export interface LinkCreateResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
+export interface LinkRetrieveResponse extends Shared.CommonProperties {
+  assets: Array<Shared.Asset>;
 
   domain: string;
 
-  slug: string;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
-
-  /**
-   * A web address
-   */
-  url: string;
-
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
-  description?: string;
-
-  favicon_image?: LinkCreateResponse.FaviconImage;
-
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
-
-  primary_image?: LinkCreateResponse.PrimaryImage;
-
-  title?: string;
-}
-
-export namespace LinkCreateResponse {
-  export interface FaviconImage {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    filename: string;
-
-    height: number;
-
-    mime_type: string;
-
-    /**
-     * The API path of the asset, conforms to the schema's GET `/assets`.
-     */
-    path: string;
-
-    width: number;
-
-    parent?: unknown;
-  }
-
-  export interface PrimaryImage {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    filename: string;
-
-    height: number;
-
-    mime_type: string;
-
-    /**
-     * The API path of the asset, conforms to the schema's GET `/assets`.
-     */
-    path: string;
-
-    width: number;
-
-    parent?: unknown;
-  }
-}
-
-export interface LinkRetrieveResponse {
-  /**
-   * A unique identifier for this resource.
-   */
-  id: string;
-
-  assets: Array<LinkRetrieveResponse.Asset>;
-
-  /**
-   * The time the resource was created.
-   */
-  createdAt: string;
-
-  domain: string;
-
-  nodes: Array<LinkRetrieveResponse.Node>;
+  nodes: Array<Shared.CommonProperties>;
 
   posts: Array<LinkRetrieveResponse.Post>;
 
-  recomentations: unknown;
+  recomentations: Array<
+    | Shared.DatagraphItemPost
+    | LinkRetrieveResponse.DatagraphItemThread
+    | Shared.DatagraphItemReply
+    | Shared.DatagraphItemNode
+    | Shared.DatagraphItemProfile
+  >;
 
   slug: string;
-
-  /**
-   * The time the resource was updated.
-   */
-  updatedAt: string;
 
   /**
    * A web address
    */
   url: string;
 
-  /**
-   * The time the resource was soft-deleted.
-   */
-  deletedAt?: string;
-
   description?: string;
 
-  favicon_image?: LinkRetrieveResponse.FaviconImage;
+  favicon_image?: Shared.Asset;
 
-  /**
-   * Arbitrary extra data stored with the resource.
-   */
-  misc?: unknown;
-
-  primary_image?: LinkRetrieveResponse.PrimaryImage;
+  primary_image?: Shared.Asset;
 
   title?: string;
 }
 
 export namespace LinkRetrieveResponse {
-  export interface Asset {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    filename: string;
-
-    height: number;
-
-    mime_type: string;
-
-    /**
-     * The API path of the asset, conforms to the schema's GET `/assets`.
-     */
-    path: string;
-
-    width: number;
-
-    parent?: unknown;
-  }
-
-  /**
-   * A node is a text document with children and assets. It serves as an abstraction
-   * for grouping structured data objects. It can represent things such as brands,
-   * manufacturers, authors, directors, etc. Nodes can be referenced in content posts
-   * and they also have their own content.
-   */
-  export interface Node {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
-
-    /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
-  }
-
   /**
    * A minimal object used to refer to a post without providing a lot of unnecessary
    * data such as the full content or child items.
    */
-  export interface Post {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    assets: Array<Post.Asset>;
+  export interface Post extends Shared.CommonProperties {
+    assets: Array<Shared.Asset>;
 
     /**
      * A minimal reference to an account.
      */
-    author: Post.Author;
+    author: Shared.ProfileReference;
 
-    collections: Post.Collections;
+    collections: Shared.CollectionStatus;
 
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
-
-    likes: Post.Likes;
+    likes: Shared.LikeData;
 
     /**
      * A list of reactions this post has had from people.
      */
-    reacts: Array<Post.React>;
+    reacts: Array<Shared.React>;
 
     /**
      * A thread's ID and optional slug separated by a dash = it's unique mark. This
@@ -309,16 +139,6 @@ export namespace LinkRetrieveResponse {
     title: string;
 
     /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    /**
      * A short version of the post's body text for use in previews.
      */
     description?: string;
@@ -327,337 +147,19 @@ export namespace LinkRetrieveResponse {
      * Arbitrary metadata for the resource.
      */
     meta?: { [key: string]: unknown };
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
   }
 
-  export namespace Post {
-    export interface Asset {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
+  export interface DatagraphItemThread {
+    kind: 'post' | 'thread' | 'reply' | 'node' | 'collection' | 'profile' | 'event';
 
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      /**
-       * The API path of the asset, conforms to the schema's GET `/assets`.
-       */
-      path: string;
-
-      width: number;
-
-      parent?: unknown;
-    }
-
-    /**
-     * A minimal reference to an account.
-     */
-    export interface Author {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      /**
-       * The unique @ handle of an account.
-       */
-      handle: string;
-
-      /**
-       * The time the resource was created.
-       */
-      joined: string;
-
-      /**
-       * The account owners display name.
-       */
-      name: string;
-
-      roles: Array<Author.Role>;
-
-      /**
-       * The time the resource was created.
-       */
-      suspended?: string;
-    }
-
-    export namespace Author {
-      export interface Role {
-        /**
-         * A unique identifier for this resource.
-         */
-        id: string;
-
-        /**
-         * One role may be designated as a badge for the account. If ture, it should be
-         * displayed prominently on the profile or in other contexts.
-         */
-        badge: boolean;
-
-        colour: string;
-
-        /**
-         * The time the resource was created.
-         */
-        createdAt: string;
-
-        /**
-         * There are two built-in roles: everyone and admin, this boolean flag is set if
-         * this role is one of the default built-in roles.
-         */
-        default: boolean;
-
-        name: string;
-
-        permissions: Array<
-          | 'CREATE_POST'
-          | 'READ_PUBLISHED_THREADS'
-          | 'CREATE_REACTION'
-          | 'MANAGE_POSTS'
-          | 'MANAGE_CATEGORIES'
-          | 'CREATE_INVITATION'
-          | 'READ_PUBLISHED_LIBRARY'
-          | 'MANAGE_LIBRARY'
-          | 'SUBMIT_LIBRARY_NODE'
-          | 'UPLOAD_ASSET'
-          | 'MANAGE_EVENTS'
-          | 'LIST_PROFILES'
-          | 'READ_PROFILE'
-          | 'CREATE_COLLECTION'
-          | 'LIST_COLLECTIONS'
-          | 'READ_COLLECTION'
-          | 'MANAGE_COLLECTIONS'
-          | 'COLLECTION_SUBMIT'
-          | 'USE_PERSONAL_ACCESS_KEYS'
-          | 'MANAGE_SETTINGS'
-          | 'MANAGE_SUSPENSIONS'
-          | 'MANAGE_ROLES'
-          | 'ADMINISTRATOR'
-        >;
-
-        /**
-         * The time the resource was updated.
-         */
-        updatedAt: string;
-
-        /**
-         * The time the resource was soft-deleted.
-         */
-        deletedAt?: string;
-
-        /**
-         * Arbitrary extra data stored with the resource.
-         */
-        misc?: unknown;
-      }
-    }
-
-    export interface Collections {
-      /**
-       * A boolean indicating if the account in context has collected this item.
-       */
-      has_collected: boolean;
-
-      /**
-       * How many collections has this item been added to?
-       */
-      in_collections: number;
-    }
-
-    export interface Likes {
-      /**
-       * A boolean indicating if the account in context has liked this item.
-       */
-      liked: boolean;
-
-      /**
-       * A simple count of likes for contexts where pulling the full list would be
-       * overkill. For use on minimal item reference schemas.
-       */
-      likes: number;
-    }
-
-    export interface React {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      /**
-       * A minimal reference to an account.
-       */
-      author: React.Author;
-
-      /**
-       * A single emoji character representing a reaction. In future, this will be
-       * augmented with a more fully fledged custom emoji system.
-       */
-      emoji: string;
-    }
-
-    export namespace React {
-      /**
-       * A minimal reference to an account.
-       */
-      export interface Author {
-        /**
-         * A unique identifier for this resource.
-         */
-        id: string;
-
-        /**
-         * The unique @ handle of an account.
-         */
-        handle: string;
-
-        /**
-         * The time the resource was created.
-         */
-        joined: string;
-
-        /**
-         * The account owners display name.
-         */
-        name: string;
-
-        roles: Array<Author.Role>;
-
-        /**
-         * The time the resource was created.
-         */
-        suspended?: string;
-      }
-
-      export namespace Author {
-        export interface Role {
-          /**
-           * A unique identifier for this resource.
-           */
-          id: string;
-
-          /**
-           * One role may be designated as a badge for the account. If ture, it should be
-           * displayed prominently on the profile or in other contexts.
-           */
-          badge: boolean;
-
-          colour: string;
-
-          /**
-           * The time the resource was created.
-           */
-          createdAt: string;
-
-          /**
-           * There are two built-in roles: everyone and admin, this boolean flag is set if
-           * this role is one of the default built-in roles.
-           */
-          default: boolean;
-
-          name: string;
-
-          permissions: Array<
-            | 'CREATE_POST'
-            | 'READ_PUBLISHED_THREADS'
-            | 'CREATE_REACTION'
-            | 'MANAGE_POSTS'
-            | 'MANAGE_CATEGORIES'
-            | 'CREATE_INVITATION'
-            | 'READ_PUBLISHED_LIBRARY'
-            | 'MANAGE_LIBRARY'
-            | 'SUBMIT_LIBRARY_NODE'
-            | 'UPLOAD_ASSET'
-            | 'MANAGE_EVENTS'
-            | 'LIST_PROFILES'
-            | 'READ_PROFILE'
-            | 'CREATE_COLLECTION'
-            | 'LIST_COLLECTIONS'
-            | 'READ_COLLECTION'
-            | 'MANAGE_COLLECTIONS'
-            | 'COLLECTION_SUBMIT'
-            | 'USE_PERSONAL_ACCESS_KEYS'
-            | 'MANAGE_SETTINGS'
-            | 'MANAGE_SUSPENSIONS'
-            | 'MANAGE_ROLES'
-            | 'ADMINISTRATOR'
-          >;
-
-          /**
-           * The time the resource was updated.
-           */
-          updatedAt: string;
-
-          /**
-           * The time the resource was soft-deleted.
-           */
-          deletedAt?: string;
-
-          /**
-           * Arbitrary extra data stored with the resource.
-           */
-          misc?: unknown;
-        }
-      }
-    }
-  }
-
-  export interface FaviconImage {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    filename: string;
-
-    height: number;
-
-    mime_type: string;
-
-    /**
-     * The API path of the asset, conforms to the schema's GET `/assets`.
-     */
-    path: string;
-
-    width: number;
-
-    parent?: unknown;
-  }
-
-  export interface PrimaryImage {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    filename: string;
-
-    height: number;
-
-    mime_type: string;
-
-    /**
-     * The API path of the asset, conforms to the schema's GET `/assets`.
-     */
-    path: string;
-
-    width: number;
-
-    parent?: unknown;
+    ref: EventsAPI.Thread;
   }
 }
 
 export interface LinkListResponse {
   current_page: number;
 
-  links: Array<LinkListResponse.Link>;
+  links: Array<Shared.LinkReference>;
 
   page_size: number;
 
@@ -666,101 +168,6 @@ export interface LinkListResponse {
   total_pages: number;
 
   next_page?: number;
-}
-
-export namespace LinkListResponse {
-  /**
-   * A minimal object used to refer to a link without sending too much data.
-   */
-  export interface Link {
-    /**
-     * A unique identifier for this resource.
-     */
-    id: string;
-
-    /**
-     * The time the resource was created.
-     */
-    createdAt: string;
-
-    domain: string;
-
-    slug: string;
-
-    /**
-     * The time the resource was updated.
-     */
-    updatedAt: string;
-
-    /**
-     * A web address
-     */
-    url: string;
-
-    /**
-     * The time the resource was soft-deleted.
-     */
-    deletedAt?: string;
-
-    description?: string;
-
-    favicon_image?: Link.FaviconImage;
-
-    /**
-     * Arbitrary extra data stored with the resource.
-     */
-    misc?: unknown;
-
-    primary_image?: Link.PrimaryImage;
-
-    title?: string;
-  }
-
-  export namespace Link {
-    export interface FaviconImage {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      /**
-       * The API path of the asset, conforms to the schema's GET `/assets`.
-       */
-      path: string;
-
-      width: number;
-
-      parent?: unknown;
-    }
-
-    export interface PrimaryImage {
-      /**
-       * A unique identifier for this resource.
-       */
-      id: string;
-
-      filename: string;
-
-      height: number;
-
-      mime_type: string;
-
-      /**
-       * The API path of the asset, conforms to the schema's GET `/assets`.
-       */
-      path: string;
-
-      width: number;
-
-      parent?: unknown;
-    }
-  }
 }
 
 export interface LinkCreateParams {
@@ -788,7 +195,6 @@ export interface LinkListParams {
 
 export declare namespace Links {
   export {
-    type LinkCreateResponse as LinkCreateResponse,
     type LinkRetrieveResponse as LinkRetrieveResponse,
     type LinkListResponse as LinkListResponse,
     type LinkCreateParams as LinkCreateParams,
