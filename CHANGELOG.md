@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-08-23)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/storyden/storyden.js/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** api update ([537641b](https://github.com/storyden/storyden.js/commit/537641bc9600d2181b0882e07bf72e03d1597c19))
+* **api:** api update ([fa7d9dd](https://github.com/storyden/storyden.js/commit/fa7d9dd02e25cd12ea9c928f532386e79a22b07f))
+* **api:** api update ([8ddd1b4](https://github.com/storyden/storyden.js/commit/8ddd1b466a051b294921c1fa3c42c597477ef1d3))
+* **api:** update via SDK Studio ([09f4f84](https://github.com/storyden/storyden.js/commit/09f4f8443ec5a510a207850e3e2a1b16cef7075a))
+* **client:** support file upload requests ([1568e80](https://github.com/storyden/storyden.js/commit/1568e80cfc831ac499d17b989bd83acedb6762fb))
+
+
+### Bug Fixes
+
+* **client:** don't send `Content-Type` for bodyless methods ([28ad36f](https://github.com/storyden/storyden.js/commit/28ad36f617dd64f149a7e3304f0f0e2220ded864))
+
+
+### Chores
+
+* **deps:** update dependency node-fetch to v2.6.13 ([b0bf830](https://github.com/storyden/storyden.js/commit/b0bf8306dc56c46d69f2d2ee2e88a28514ef8f9d))
+* **internal:** codegen related update ([451551b](https://github.com/storyden/storyden.js/commit/451551b8bffaf661a0ec0313416b54d52386992b))
+* **internal:** formatting change ([0a759a9](https://github.com/storyden/storyden.js/commit/0a759a9ff1f82251909e0e8d7e9dd07f41d4f50f))
+* **internal:** move publish config ([3db297e](https://github.com/storyden/storyden.js/commit/3db297ef24222e64da6f1b3afda3f4cf47570c01))
+* **internal:** remove redundant imports config ([b7d2f7d](https://github.com/storyden/storyden.js/commit/b7d2f7d304d32829c9fa9b4a4d468ef418fa0be7))
+* **internal:** update comment in script ([152269a](https://github.com/storyden/storyden.js/commit/152269a7b12c9460ced5db914298103e169085c8))
+* make some internal functions async ([cfb1e27](https://github.com/storyden/storyden.js/commit/cfb1e2746a3dedc61983906c66bcdd362c29cd2f))
+* mention unit type in timeout docs ([040447a](https://github.com/storyden/storyden.js/commit/040447a07796e221454184e3f27a208f005d095b))
+* update @stainless-api/prism-cli to v5.15.0 ([ebdef88](https://github.com/storyden/storyden.js/commit/ebdef88456777ede6775ee5ed81aedb58944ebd6))
+* update CI script ([7d8cda9](https://github.com/storyden/storyden.js/commit/7d8cda91bed3bb3d7ebecf228289fb688e0097b8))
+
 ## 0.1.0-alpha.2 (2025-07-02)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/storyden/storyden.js/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
